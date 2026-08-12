@@ -307,7 +307,6 @@
                  data-video="CKdqD851gQ0"
                  data-credits="Directed By: Mason Cline|Produced By: Declan McKenna|Assistant Director: Maya Charlandy|Director of Photography: Dario Butera|Cinematographer: Jackson McMartin|Edited By: Mason Cline & Jackson McMartin|Production Designer: Jordan Wong|Art Director: Joel Capan|Gaffer: James Csatari|Graphics: Jackson McMartin|Location Support: Naim Realca">
                 <div class="thumbnail-box">
-                    <!-- Loaded dynamically via JavaScript -->
                     <span>[ 360 - Insight ]</span>
                 </div>
                 <div class="project-meta">
@@ -316,14 +315,15 @@
                 </div>
             </div>
 
-            <!-- PROJECT 2: KAI BANKS — MAZE -->
+            <!-- PROJECT 2: KAI BANKS — MAZE (CUSTOM COVER IMAGE APPLIED) -->
             <div class="project-card" data-category="music-video" 
                  data-title="Kai Banks — Maze"
                  data-category-name="Music Video"
+                 data-poster="https://i.imgur.com/9dCRTEl.jpg"
                  data-video="PASTE_MAZE_YOUTUBE_LINK_HERE"
                  data-credits="Directed By: Mason Cline|Cinematography: Dario Butera|Producer: Declan McKenna|1st AD: Maya Charlandy|Production Design: Hayley Naish|1st AC: Barbara Sanchez, Travis Wallace|Gaffer: Priyand Karunainathan|Swing: Adam Venckus|BTS / Location: Tafara Rwata|Casting / Stylist: @MoodyRevi">
                 <div class="thumbnail-box">
-                    <span>[ Kai Banks — Maze ]</span>
+                    <img src="https://i.imgur.com/9dCRTEl.jpg" alt="Kai Banks — Maze">
                 </div>
                 <div class="project-meta">
                     <div class="project-title">Kai Banks — Maze</div>
@@ -437,7 +437,7 @@
         </div>
     </footer>
 
-    <!-- JAVASCRIPT FOR INTERACTIVITY & LINK FIXING -->
+    <!-- JAVASCRIPT FOR INTERACTIVITY & THUMBNAILS -->
     <script>
         document.getElementById('year').textContent = new Date().getFullYear();
 
@@ -462,13 +462,16 @@
             return id ? `https://www.youtube.com/embed/${id}?autoplay=1` : '';
         }
 
-        // Auto-generate YouTube Thumbnail Images on homepage load
+        // Auto-generate Thumbnail Images or use custom data-poster
         document.querySelectorAll('.project-card').forEach(card => {
             const rawVideoUrl = card.getAttribute('data-video');
+            const customPoster = card.getAttribute('data-poster');
             const videoId = getYouTubeId(rawVideoUrl);
             const thumbBox = card.querySelector('.thumbnail-box');
             
-            if (videoId) {
+            if (customPoster) {
+                thumbBox.innerHTML = `<img src="${customPoster}" alt="${card.getAttribute('data-title')}">`;
+            } else if (videoId) {
                 thumbBox.innerHTML = `<img src="https://img.youtube.com/vi/${videoId}/hqdefault.jpg" alt="${card.getAttribute('data-title')}">`;
             }
 
