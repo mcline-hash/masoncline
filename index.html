@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mason Cline — Portfolio</title>
+    <style>
+        /* BASE STYLES */
+        :root {
+            --bg-color: #0d0d0d;
+            --text-color: #f1f1f1;
+            --muted-color: #888888;
+            --border-color: #222222;
+            --accent-color: #ffffff;
+            --font-main: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: var(--font-main);
+            line-height: 1.5;
+            padding: 0 2rem;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+            transition: opacity 0.2s ease;
+        }
+
+        a:hover {
+            opacity: 0.6;
+        }
+
+        /* HEADER & DIRECTORY NAV */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2.5rem 0;
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            background-color: rgba(13, 13, 13, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 1.25rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        /* DIRECTORY LINK IN TOP RIGHT CORNER */
+        .directory-nav {
+            display: flex;
+            gap: 1.5rem;
+            list-style: none;
+            flex-wrap: wrap;
+        }
+
+        .directory-nav button {
+            background: none;
+            border: none;
+            color: var(--muted-color);
+            font-family: inherit;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+            transition: color 0.2s ease;
+            padding: 0.25rem 0;
+        }
+
+        .directory-nav button:hover,
+        .directory-nav button.active {
+            color: var(--accent-color);
+            border-bottom: 1px solid var(--accent-color);
+        }
+
+        /* PORTFOLIO GRID */
+        main {
+            padding: 3rem 0 6rem;
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 3rem 2rem;
+        }
+
+        .project-card {
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        /* MEDIA THUMBNAIL PLACEHOLDER */
+        .thumbnail-box {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background-color: #1a1a1a;
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--muted-color);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            overflow: hidden;
+            position: relative;
+            transition: border-color 0.3s ease;
+        }
+
+        .project-card:hover .thumbnail-box {
+            border-color: var(--muted-color);
+        }
+
+        .thumbnail-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* CREDITS UNDERNEATH THUMBNAIL */
+        .project-meta {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .project-title {
+            font-size: 1rem;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+        }
+
+        .project-credits-preview {
+            font-size: 0.825rem;
+            color: var(--muted-color);
+        }
+
+        /* MODAL FOR VIDEO / CREDITS VIEW */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            padding: 2rem;
+            overflow-y: auto;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background-color: #121212;
+            border: 1px solid var(--border-color);
+            max-width: 900px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            padding: 2rem;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+            background: none;
+            border: none;
+            color: var(--text-color);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .video-container {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background-color: #000;
+            margin-bottom: 2rem;
+            border: 1px solid var(--border-color);
+        }
+
+        .video-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .modal-credits {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1.5rem;
+            border-top: 1px solid var(--border-color);
+            padding-top: 1.5rem;
+        }
+
+        .credit-item h4 {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            color: var(--muted-color);
+            margin-bottom: 0.25rem;
+            letter-spacing: 0.05em;
+        }
+
+        .credit-item p {
+            font-size: 0.9rem;
+        }
+
+        /* INFO & CONTACT SECTION */
+        #info-section {
+            display: none;
+            padding: 4rem 0;
+            max-width: 600px;
+        }
+
+        .info-block {
+            margin-bottom: 2rem;
+        }
+
+        .info-block h3 {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--muted-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .info-block p, .info-block a {
+            font-size: 1.1rem;
+        }
+
+        /* FOOTER */
+        footer {
+            border-top: 1px solid var(--border-color);
+            padding: 2rem 0;
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: var(--muted-color);
+        }
+
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1.5rem;
+            }
+
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER / DIRECTORY NAVIGATION -->
+    <header>
+        <div class="logo">Mason Cline</div>
+        <nav>
+            <ul class="directory-nav">
+                <li><button class="nav-btn active" onclick="filterProjects('all', this)">All</button></li>
+                <li><button class="nav-btn" onclick="filterProjects('music-video', this)">Music Videos</button></li>
+                <li><button class="nav-btn" onclick="filterProjects('campaigns', this)">Campaigns</button></li>
+                <li><button class="nav-btn" onclick="filterProjects('short-film', this)">Short Films</button></li>
+                <li><button class="nav-btn" onclick="filterProjects('photography', this)">Photography</button></li>
+                <li><button class="nav-btn" onclick="showInfo(this)">Info / Contact</button></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- MAIN PORTFOLIO GRID -->
+    <main id="work-section">
+        <div class="portfolio-grid">
+
+            <!-- PROJECT 1: "360" MUSIC VIDEO (LINKED & CREDITED) -->
+            <div class="project-card" data-category="music-video" 
+                 onclick="openModal('Izzy — 360', 'Izzy & Pylon Collective™ — 360', 'Music Video', 'https://www.youtube.com/embed/CKdqD851gQ0', 'Directed By: Mason Cline<br>Produced By: Declan McKenna<br>Assistant Director: Maya Charlandy<br>Director of Photography: Dario Butera<br>Cinematographer: Jackson McMartin<br>Edited By: Mason Cline & Jackson McMartin<br>Production Designer: Jordan Wong<br>Art Director: Joel Capan<br>Gaffer: James Csatari<br>Graphics: Jackson McMartin<br>Location Support: Naim Realca')">
+                <div class="thumbnail-box">
+                    <span>[ "360" — Izzy Thumbnail Placeholder ]</span>
+                </div>
+                <div class="project-meta">
+                    <div class="project-title">Izzy & Pylon Collective™ — 360</div>
+                    <div class="project-credits-preview">Dir. Mason Cline | DP. Dario Butera</div>
+                </div>
+            </div>
+
+            <!-- PROJECT 2: CAMPAIGN PLACEHOLDER -->
+            <div class="project-card" data-category="campaigns" 
+                 onclick="openModal('Campaign One', 'Brand Name — Commercial Campaign', 'Campaign', '', 'Client: Brand Name<br>Director: Name Here<br>DP: Mason Cline<br>Agency: Name Here')">
+                <div class="thumbnail-box">
+                    <span>[ Campaign Thumbnail Placeholder ]</span>
+                </div>
+                <div class="project-meta">
+                    <div class="project-title">Brand Name — Commercial Campaign</div>
+                    <div class="project-credits-preview">Client: Brand Name | DP. Mason Cline</div>
+                </div>
+            </div>
+
+            <!-- PROJECT 3: SHORT FILM PLACEHOLDER -->
+            <div class="project-card" data-category="short-film" 
+                 onclick="openModal('Short Film Title', 'Short Film Title (2024)', 'Short Film', '', 'Writer/Director: Name Here<br>Cinematographer: Mason Cline<br>Sound: Name Here')">
+                <div class="thumbnail-box">
+                    <span>[ Short Film Thumbnail Placeholder ]</span>
+                </div>
+                <div class="project-meta">
+                    <div class="project-title">Short Film Title</div>
+                    <div class="project-credits-preview">Dir. Alex Taylor | DP. Mason Cline</div>
+                </div>
+            </div>
+
+            <!-- PROJECT 4: PHOTOGRAPHY PLACEHOLDER -->
+            <div class="project-card" data-category="photography" 
+                 onclick="openModal('Photo Series Title', 'Editorial Series 01', 'Photography', '', 'Photographer: Mason Cline<br>Stylist: Name Here<br>Model: Name Here')">
+                <div class="thumbnail-box">
+                    <span>[ Photography Thumbnail Placeholder ]</span>
+                </div>
+                <div class="project-meta">
+                    <div class="project-title">Editorial Stills Series</div>
+                    <div class="project-credits-preview">Photo: Mason Cline</div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- INFO / CONTACT SECTION -->
+    <section id="info-section">
+        <div class="info-block">
+            <h3>About</h3>
+            <p>Mason Cline is a director, cinematographer, and photographer specializing in music videos, campaigns, short films, and visual arts.</p>
+        </div>
+        <div class="info-block">
+            <h3>Email</h3>
+            <p><a href="mailto:mcline@bell.net">mcline@bell.net</a></p>
+        </div>
+        <div class="info-block">
+            <h3>Instagram</h3>
+            <p><a href="https://instagram.com/mason.clinee" target="_blank">@mason.clinee</a></p>
+        </div>
+    </section>
+
+    <!-- MODAL FOR VIDEO / CREDITS VIEW -->
+    <div class="modal-overlay" id="projectModal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal()">&times;</button>
+            <h2 id="modalTitle" style="margin-bottom: 0.5rem;"></h2>
+            <p id="modalCategory" style="color: var(--muted-color); font-size: 0.85rem; text-transform: uppercase; margin-bottom: 1.5rem;"></p>
+            
+            <div class="video-container" id="modalPlayer">
+                <iframe id="videoIframe" src="" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
+            </div>
+
+            <h3 style="font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 1rem;">Credits</h3>
+            <div class="modal-credits" id="modalCredits">
+                <!-- Credits populated dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <div>&copy; <span id="year"></span> Mason Cline. All Rights Reserved.</div>
+        <div>
+            <a href="mailto:mcline@bell.net">mcline@bell.net</a> | 
+            <a href="https://instagram.com/mason.clinee" target="_blank">Instagram</a>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT FOR INTERACTIVITY -->
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Filter projects based on directory navigation
+        function filterProjects(category, button) {
+            document.getElementById('work-section').style.display = 'block';
+            document.getElementById('info-section').style.display = 'none';
+
+            const buttons = document.querySelectorAll('.nav-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+
+            const cards = document.querySelectorAll('.project-card');
+            cards.forEach(card => {
+                if (category === 'all' || card.getAttribute('data-category') === category) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Show Info / Contact view
+        function showInfo(button) {
+            document.getElementById('work-section').style.display = 'none';
+            document.getElementById('info-section').style.display = 'block';
+
+            const buttons = document.querySelectorAll('.nav-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+        }
+
+        // Open modal detail view with YouTube video player and full credits
+        function openModal(title, subtitle, category, embedUrl, creditsHTML) {
+            document.getElementById('modalTitle').textContent = subtitle;
+            document.getElementById('modalCategory').textContent = category;
+            
+            const iframe = document.getElementById('videoIframe');
+            if (embedUrl) {
+                iframe.style.display = 'block';
+                iframe.src = embedUrl;
+            } else {
+                iframe.style.display = 'none';
+                iframe.src = '';
+            }
+
+            const creditsContainer = document.getElementById('modalCredits');
+            creditsContainer.innerHTML = '';
+
+            // Split credits by line breaks
+            const lines = creditsHTML.split('<br>');
+            lines.forEach(line => {
+                const parts = line.split(':');
+                if (parts.length === 2) {
+                    const item = document.createElement('div');
+                    item.className = 'credit-item';
+                    item.innerHTML = `<h4>${parts[0].trim()}</h4><p>${parts[1].trim()}</p>`;
+                    creditsContainer.appendChild(item);
+                }
+            });
+
+            document.getElementById('projectModal').classList.add('active');
+        }
+
+        // Close modal view and stop video audio
+        function closeModal() {
+            document.getElementById('projectModal').classList.remove('active');
+            document.getElementById('videoIframe').src = '';
+        }
+
+        // Close modal when clicking outside content box
+        window.onclick = function(event) {
+            const modal = document.getElementById('projectModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+    </script>
+</body>
+</html>
