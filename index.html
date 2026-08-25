@@ -10,9 +10,10 @@
             --bg-color: #050505;
             --text-color: #f8f8f8;
             --muted-color: #888888;
-            --border-color: #1a1a1a;
+            --border-color: #333333;
             --accent-color: #ffffff;
             --font-main: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            --font-mono: "Courier New", Courier, monospace;
             --container-width: 1000px;
         }
 
@@ -45,34 +46,22 @@
         header {
             display: flex;
             justify-content: space-between;
-            align-items: flex-start;
-            padding: 2.5rem 3rem;
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: linear-gradient(to bottom, rgba(5,5,5,0.95) 0%, rgba(5,5,5,0.7) 70%, rgba(5,5,5,0) 100%);
-            backdrop-filter: blur(5px);
-            z-index: 100;
-            pointer-events: none; /* Let clicks pass through the gradient */
+            align-items: center;
+            padding: 3rem 3rem 2rem 3rem;
+            max-width: var(--container-width);
+            margin: 0 auto;
         }
 
         .logo {
-            font-size: 1rem;
+            font-size: 1.2rem;
             font-weight: 500;
             letter-spacing: 0.05em;
             text-transform: uppercase;
-            pointer-events: auto;
-        }
-
-        nav {
-            pointer-events: auto;
         }
 
         .directory-nav {
             display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-            gap: 0.5rem;
+            gap: 2rem;
             list-style: none;
         }
 
@@ -81,13 +70,12 @@
             border: none;
             color: var(--muted-color);
             font-family: inherit;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             text-transform: uppercase;
             letter-spacing: 0.15em;
             cursor: pointer;
             transition: color 0.3s ease;
             padding: 0;
-            text-align: right;
         }
 
         .directory-nav button:hover,
@@ -95,9 +83,39 @@
             color: var(--accent-color);
         }
 
+        .header-divider {
+            border: none;
+            border-top: 1px solid var(--border-color);
+            max-width: var(--container-width);
+            margin: 0 auto;
+        }
+
+        /* HERO SECTION (Matching Screenshot) */
+        .hero-section {
+            text-align: center;
+            padding: 6rem 3rem 4rem 3rem;
+            max-width: var(--container-width);
+            margin: 0 auto;
+        }
+
+        .hero-section h1 {
+            font-family: var(--font-mono);
+            font-size: 1.4rem;
+            font-weight: 400;
+            letter-spacing: 0.05em;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-section p {
+            font-family: var(--font-mono);
+            font-size: 1rem;
+            color: var(--text-color);
+            font-weight: 300;
+        }
+
         /* MAIN CONTENT LAYOUT */
         main {
-            padding: 10rem 3rem 6rem;
+            padding: 2rem 3rem 6rem;
             max-width: var(--container-width);
             margin: 0 auto;
         }
@@ -270,7 +288,7 @@
             display: none;
             max-width: var(--container-width);
             margin: 0 auto;
-            padding: 10rem 3rem 6rem;
+            padding: 2rem 3rem 6rem;
             animation: fadeIn 0.5s ease forwards;
         }
 
@@ -323,13 +341,23 @@
 
         @media (max-width: 768px) {
             header {
-                padding: 1.5rem;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1.5rem;
+                padding: 2rem 1.5rem;
             }
-            .logo {
-                font-size: 0.9rem;
+            .header-divider {
+                margin: 0 1.5rem;
+            }
+            .hero-section {
+                padding: 4rem 1.5rem 2rem;
+            }
+            .directory-nav {
+                flex-wrap: wrap;
+                gap: 1rem;
             }
             main, #info-section {
-                padding: 8rem 1.5rem 3rem;
+                padding: 2rem 1.5rem 3rem;
             }
             footer {
                 padding: 1rem 1.5rem 3rem;
@@ -361,14 +389,22 @@
         <div class="logo">Mason Cline</div>
         <nav>
             <ul class="directory-nav">
-                <li><button class="nav-btn active" onclick="filterProjects('all', this)">Work</button></li>
-                <li><button class="nav-btn" onclick="filterProjects('music-video', this)">Music Videos</button></li>
-                <li><button class="nav-btn" onclick="filterProjects('short-film', this)">Short Films</button></li>
+                <li><button class="nav-btn active" onclick="filterProjects('all', this)">Home</button></li>
+                <li><button class="nav-btn" onclick="filterProjects('music-video', this)">Music Video</button></li>
+                <li><button class="nav-btn" onclick="filterProjects('short-film', this)">Short Film</button></li>
                 <li><button class="nav-btn" onclick="filterProjects('photography', this)">Photography</button></li>
-                <li><button class="nav-btn" onclick="showInfo(this)">Info</button></li>
+                <li><button class="nav-btn" onclick="showInfo(this)">About</button></li>
             </ul>
         </nav>
     </header>
+
+    <hr class="header-divider">
+
+    <!-- HERO SECTION (Matching Screenshot) -->
+    <section class="hero-section">
+        <h1>MASON CLINE</h1>
+        <p>Director, Editor, Cinematographer & Photographer</p>
+    </section>
 
     <!-- MAIN PORTFOLIO GRID -->
     <main id="work-section">
@@ -595,6 +631,14 @@
             document.getElementById('work-section').style.display = 'block';
             document.getElementById('info-section').style.display = 'none';
 
+            // Show/hide hero section based on tab
+            const heroSection = document.querySelector('.hero-section');
+            if(category === 'all') {
+                heroSection.style.display = 'block';
+            } else {
+                heroSection.style.display = 'none';
+            }
+
             const buttons = document.querySelectorAll('.nav-btn');
             buttons.forEach(btn => btn.classList.remove('active'));
             button.classList.add('active');
@@ -617,6 +661,7 @@
         // Show Info / Contact view
         function showInfo(button) {
             document.getElementById('work-section').style.display = 'none';
+            document.querySelector('.hero-section').style.display = 'none';
             document.getElementById('info-section').style.display = 'block';
 
             const buttons = document.querySelectorAll('.nav-btn');
