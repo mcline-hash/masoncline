@@ -76,10 +76,20 @@
         }
 
         .logo {
-            font-size: 1rem;
-            font-weight: 600;
-            letter-spacing: 0.05em;
-            text-transform: uppercase;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            transition: opacity 0.3s ease;
+        }
+        
+        .logo:hover {
+            opacity: 0.7;
+        }
+
+        .logo img {
+            height: 45px; /* Adjust this value if you want the logo bigger/smaller */
+            width: auto;
+            display: block;
         }
 
         .directory-nav {
@@ -433,7 +443,9 @@
     <div class="header-wrapper">
         <!-- HEADER / DIRECTORY NAVIGATION -->
         <header>
-            <div class="logo">Mason Cline</div>
+            <div class="logo" onclick="document.querySelector('.nav-btn[onclick*=\'all\']').click()">
+                <img src="https://i.imgur.com/qDcDABi.png" alt="Mason Cline">
+            </div>
             <nav>
                 <ul class="directory-nav">
                     <li><button class="nav-btn active" onclick="filterProjects('all', this)">Home</button></li>
@@ -463,10 +475,11 @@
             <div class="project-card" data-category="music-video" 
                  data-title="INSYT. - 360°"
                  data-category-name="Music Video"
+                 data-poster="https://i.imgur.com/W7nRxz6.jpg"
                  data-video="CKdqD851gQ0"
                  data-credits="Directed By: Mason Cline|Produced By: Declan McKenna|Assistant Director: Maya Charlandy|Director of Photography: Dario Butera|Cinematographer: Jackson McMartin|Edited By: Mason Cline & Jackson McMartin|Production Designer: Jordan Wong|Art Director: Joel Capan|Gaffer: James Csatari|Graphics: Jackson McMartin|Location Support: Naim Realca">
                 <div class="thumbnail-box">
-                    <span>[ INSYT. - 360° ]</span>
+                    <img src="https://i.imgur.com/W7nRxz6.jpg" alt="INSYT. - 360°">
                 </div>
                 <div class="project-meta">
                     <div class="project-title">INSYT. - 360°</div>
@@ -573,6 +586,7 @@
             <div class="project-card" data-category="commercial" 
                  data-title="“Gangsta is Gorgeous” GBL Khaki Set campaign"
                  data-category-name="Commercial"
+                 data-poster="PASTE_GANGSTA_IMGUR_LINK_HERE.jpg"
                  data-video="https://www.instagram.com/p/DP7EbUoEogg/"
                  data-credits="Director: Mason Cline|Cinematographer: Mason Cline|Editor: Mason Cline">
                 <div class="thumbnail-box">
@@ -588,6 +602,7 @@
             <div class="project-card" data-category="commercial" 
                  data-title="“DRAFT DAY” CÔTÉ Ibis New Era Fitted Campaign"
                  data-category-name="Commercial"
+                 data-poster="PASTE_DRAFT_DAY_IMGUR_LINK_HERE.jpg"
                  data-video="https://www.instagram.com/p/DQXlhpPidWF/"
                  data-credits="Director: Mason Cline|Editor: Mason Cline">
                 <div class="thumbnail-box">
@@ -701,7 +716,7 @@
             
             // If the thumbnail wasn't already hardcoded with text (spans) in the HTML
             if (!thumbBox.querySelector('img') && !thumbBox.querySelector('span')) {
-                if (customPoster && !customPoster.includes("PASTE_DIRECT_IMAGE_LINK_HERE")) {
+                if (customPoster && !customPoster.includes("PASTE_")) {
                     thumbBox.innerHTML = `<img src="${customPoster}" alt="${card.getAttribute('data-title')}">`;
                 } else if (videoId) {
                     thumbBox.innerHTML = `<img src="https://img.youtube.com/vi/${videoId}/maxresdefault.jpg" onerror="this.src='https://img.youtube.com/vi/${videoId}/hqdefault.jpg'" alt="${card.getAttribute('data-title')}">`;
