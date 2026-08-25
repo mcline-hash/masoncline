@@ -5,21 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mason Cline — Portfolio</title>
     
-    <!-- Import Comfortaa Font -->
+    <!-- Import Michroma & Loved by the King Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Loved+by+the+King&family=Michroma&display=swap" rel="stylesheet">
 
     <style>
         /* BASE STYLES & TYPOGRAPHY */
         :root {
-            --bg-color: #F5EBD9;
+            --bg-color: #E8E5DF;
             --text-color: #111111;
             --muted-color: #666666;
-            --border-color: #d1c8b8;
+            --border-color: #d1cfc9;
             --accent-color: #000000;
-            --font-main: "Comfortaa", sans-serif;
-            --font-mono: "Comfortaa", sans-serif;
+            --font-main: "Michroma", sans-serif;
+            --font-hero: "Loved by the King", cursive;
             --container-width: 1000px;
         }
 
@@ -65,7 +65,7 @@
             position: fixed;
             top: 0;
             width: 100%;
-            background: linear-gradient(to bottom, rgba(245, 235, 217, 0.95) 0%, rgba(245, 235, 217, 0.7) 70%, rgba(245, 235, 217, 0) 100%);
+            background: linear-gradient(to bottom, rgba(232, 229, 223, 0.95) 0%, rgba(232, 229, 223, 0.7) 70%, rgba(232, 229, 223, 0) 100%);
             backdrop-filter: blur(5px);
             z-index: 100;
             pointer-events: none;
@@ -76,7 +76,7 @@
         }
 
         .logo {
-            font-size: 1.2rem;
+            font-size: 1rem;
             font-weight: 600;
             letter-spacing: 0.05em;
             text-transform: uppercase;
@@ -93,7 +93,7 @@
             border: none;
             color: var(--muted-color);
             font-family: inherit;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             text-transform: uppercase;
             letter-spacing: 0.15em;
             font-weight: 600;
@@ -116,7 +116,7 @@
             z-index: 101;
         }
 
-        /* HERO SECTION (Matching Screenshot) */
+        /* HERO SECTION */
         .hero-section {
             text-align: center;
             padding: 8rem 3rem 4rem 3rem;
@@ -125,18 +125,20 @@
         }
 
         .hero-section h1 {
-            font-family: var(--font-mono);
-            font-size: 1.4rem;
-            font-weight: 700;
-            letter-spacing: 0.05em;
-            margin-bottom: 1.5rem;
+            font-family: var(--font-hero);
+            font-size: 4rem; /* Increased size for the cursive font to remain legible */
+            font-weight: 400;
+            letter-spacing: 0.02em;
+            margin-bottom: 0.5rem;
         }
 
         .hero-section p {
-            font-family: var(--font-mono);
-            font-size: 1rem;
+            font-family: var(--font-main);
+            font-size: 0.8rem;
             color: var(--text-color);
             font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
         }
 
         /* MAIN CONTENT LAYOUT */
@@ -168,7 +170,7 @@
         .thumbnail-box {
             width: 100%;
             aspect-ratio: 16 / 9;
-            background-color: #e3d8c5;
+            background-color: #d4d0c9;
             overflow: hidden;
             position: relative;
         }
@@ -195,14 +197,14 @@
         }
 
         .project-title {
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-weight: 600;
             letter-spacing: 0.05em;
             text-transform: uppercase;
         }
 
         .project-credits-preview {
-            font-size: 0.8rem;
+            font-size: 0.7rem;
             color: var(--muted-color);
             letter-spacing: 0.1em;
             font-weight: 500;
@@ -216,7 +218,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(245, 235, 217, 0.98);
+            background: rgba(232, 229, 223, 0.98);
             display: none;
             justify-content: center;
             align-items: flex-start;
@@ -249,7 +251,8 @@
             background: none;
             border: none;
             color: var(--muted-color);
-            font-size: 1rem;
+            font-family: var(--font-main);
+            font-size: 0.8rem;
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.1em;
@@ -284,7 +287,7 @@
         }
 
         .modal-info-bar h2 {
-            font-size: 1.25rem;
+            font-size: 1.1rem;
             font-weight: 700;
             letter-spacing: 0.05em;
             text-transform: uppercase;
@@ -298,7 +301,7 @@
         }
 
         .credit-item h4 {
-            font-size: 0.75rem;
+            font-size: 0.65rem;
             text-transform: uppercase;
             color: var(--muted-color);
             margin-bottom: 0.4rem;
@@ -307,7 +310,7 @@
         }
 
         .credit-item p {
-            font-size: 0.95rem;
+            font-size: 0.85rem;
             font-weight: 400;
         }
 
@@ -332,7 +335,7 @@
         }
 
         .info-block h3 {
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             text-transform: uppercase;
             letter-spacing: 0.15em;
             color: var(--muted-color);
@@ -343,7 +346,7 @@
         }
 
         .info-block p, .info-block a {
-            font-size: 1.1rem;
+            font-size: 0.9rem;
             font-weight: 400;
             margin-bottom: 0.5rem;
             display: block;
@@ -351,7 +354,7 @@
 
         .link-desc {
             color: var(--muted-color);
-            font-size: 0.85rem;
+            font-size: 0.75rem;
             margin-left: 0.5rem;
         }
 
@@ -362,7 +365,7 @@
             padding: 2rem 3rem 4rem;
             display: flex;
             justify-content: space-between;
-            font-size: 0.8rem;
+            font-size: 0.7rem;
             font-weight: 500;
             color: var(--muted-color);
             text-transform: uppercase;
@@ -432,9 +435,9 @@
 
     <hr class="header-divider" style="margin-top: 7rem;">
 
-    <!-- HERO SECTION (Matching Screenshot) -->
+    <!-- HERO SECTION -->
     <section class="hero-section">
-        <h1>MASON CLINE</h1>
+        <h1>Mason Cline</h1>
         <p>Director, Editor, Cinematographer & Photographer</p>
     </section>
 
@@ -508,7 +511,7 @@
 
             <!-- PROJECT: 360 - INSIGHT -->
             <div class="project-card" data-category="music-video" 
-                 data-title="360 - Insight [Official Music Video]"
+                 data-title="INSYT. - 360°"
                  data-category-name="Music Video"
                  data-video="CKdqD851gQ0"
                  data-credits="Directed By: Mason Cline|Produced By: Declan McKenna|Assistant Director: Maya Charlandy|Director of Photography: Dario Butera|Cinematographer: Jackson McMartin|Edited By: Mason Cline & Jackson McMartin|Production Designer: Jordan Wong|Art Director: Joel Capan|Gaffer: James Csatari|Graphics: Jackson McMartin|Location Support: Naim Realca">
@@ -516,7 +519,7 @@
                     <!-- Automatically pulls YouTube Thumbnail because there is no data-poster attribute -->
                 </div>
                 <div class="project-meta">
-                    <div class="project-title">360 - Insight</div>
+                    <div class="project-title">INSYT. - 360°</div>
                     <div class="project-credits-preview">Dir. Mason Cline | DP. Dario Butera</div>
                 </div>
             </div>
@@ -537,18 +540,18 @@
             </div>
 
             <!-- PROJECT: TOLL -->
-            <div class="project-card" data-category="short-film" 
-                 data-title="Toll"
-                 data-category-name="Short Film"
+            <div class="project-card" data-category="music-video" 
+                 data-title="INSYT. - TOLL"
+                 data-category-name="Music Video"
                  data-poster="https://i.imgur.com/H61nT5i.jpg"
                  data-video=""
-                 data-credits="Director: Mason Cline">
+                 data-credits="Directed By: Mason Cline">
                 <div class="thumbnail-box">
-                    <img src="https://i.imgur.com/H61nT5i.jpg" alt="Toll">
+                    <img src="https://i.imgur.com/H61nT5i.jpg" alt="INSYT. - TOLL">
                 </div>
                 <div class="project-meta">
-                    <div class="project-title">Toll</div>
-                    <div class="project-credits-preview">Short Film</div>
+                    <div class="project-title">INSYT. - TOLL</div>
+                    <div class="project-credits-preview">Dir. Mason Cline</div>
                 </div>
             </div>
 
@@ -592,7 +595,7 @@
             <div>
                 <div class="modal-info-bar">
                     <h2 id="modalTitle"></h2>
-                    <span id="modalCategory" style="color: var(--muted-color); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600;"></span>
+                    <span id="modalCategory" style="color: var(--muted-color); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600;"></span>
                 </div>
                 
                 <div class="modal-credits" id="modalCredits">
