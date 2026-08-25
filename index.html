@@ -86,6 +86,8 @@
             display: flex;
             gap: 2rem;
             list-style: none;
+            flex-wrap: wrap;
+            justify-content: flex-end;
         }
 
         .directory-nav button {
@@ -126,7 +128,7 @@
 
         .hero-section h1 {
             font-family: var(--font-hero);
-            font-size: 4rem; /* Increased size for the cursive font to remain legible */
+            font-size: 4rem; 
             font-weight: 400;
             letter-spacing: 0.02em;
             margin-bottom: 0.5rem;
@@ -173,6 +175,13 @@
             background-color: #d4d0c9;
             overflow: hidden;
             position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--muted-color);
+            font-size: 0.8rem;
         }
 
         .thumbnail-box img {
@@ -270,6 +279,11 @@
             aspect-ratio: 16 / 9;
             background-color: #000;
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        /* Special handling for Instagram Embeds */
+        .video-container iframe.ig-embed {
+            background: white; /* IG needs white background for its UI */
         }
 
         .video-container iframe {
@@ -386,8 +400,7 @@
                 padding: 6rem 1.5rem 2rem;
             }
             .directory-nav {
-                flex-wrap: wrap;
-                gap: 1rem;
+                justify-content: flex-start;
             }
             main, #info-section {
                 padding: 2rem 1.5rem 3rem;
@@ -424,6 +437,7 @@
             <nav>
                 <ul class="directory-nav">
                     <li><button class="nav-btn active" onclick="filterProjects('all', this)">Home</button></li>
+                    <li><button class="nav-btn" onclick="filterProjects('commercial', this)">Commercial</button></li>
                     <li><button class="nav-btn" onclick="filterProjects('music-video', this)">Music Video</button></li>
                     <li><button class="nav-btn" onclick="filterProjects('short-film', this)">Short Film</button></li>
                     <li><button class="nav-btn" onclick="filterProjects('photography', this)">Photography</button></li>
@@ -445,78 +459,14 @@
     <main id="work-section">
         <div class="portfolio-grid">
 
-            <!-- PROJECT: 4NICATE -->
-            <div class="project-card" data-category="music-video" 
-                 data-title="Prettybxkay — 4nicate"
-                 data-category-name="Music Video"
-                 data-poster="https://i.imgur.com/Eh1h6kf.jpg"
-                 data-video="https://www.youtube.com/watch?v=ZTq6Xg301Eg"
-                 data-credits="Directed By: Mason Cline|Executive Producers: Misan Edema, Daniel Abiodun|Producer: Misan Edema|Assistant Director: Maya Charlandy|Production Designer: Raim Realce|Director of Photography: Dario Butera|Gaffer: Daniel Fusco|Graphics: Jessica Binns|Sound Mixer: Izzy Flores|Transportation: Jevaughn Stewart-Hinds">
-                <div class="thumbnail-box">
-                    <img src="https://i.imgur.com/Eh1h6kf.jpg" alt="Prettybxkay — 4nicate">
-                </div>
-                <div class="project-meta">
-                    <div class="project-title">Prettybxkay — 4nicate</div>
-                    <div class="project-credits-preview">Dir. Mason Cline | DP. Dario Butera</div>
-                </div>
-            </div>
-
-            <!-- PROJECT: KAI BANKS — MAZE -->
-            <div class="project-card" data-category="music-video" 
-                 data-title="Kai Banks — Maze"
-                 data-category-name="Music Video"
-                 data-poster="https://i.imgur.com/vB0edzz.jpg"
-                 data-video="https://youtu.be/PFcnSxjB-KM?si=w2HrzcUGggr4wxon"
-                 data-credits="Directed By: Mason Cline|Cinematography: Dario Butera|Producer: Declan McKenna|1st AD: Maya Charlandy|Production Design: Hayley Naish|1st AC: Barbara Sanchez, Travis Wallace|Gaffer: Priyand Karunainathan|Swing: Adam Venckus|BTS / Location: Tafara Rwata|Casting / Stylist: @MoodyRevi">
-                <div class="thumbnail-box">
-                    <img src="https://i.imgur.com/vB0edzz.jpg" alt="Kai Banks — Maze">
-                </div>
-                <div class="project-meta">
-                    <div class="project-title">Kai Banks — Maze</div>
-                    <div class="project-credits-preview">Dir. Mason Cline | DP. Dario Butera</div>
-                </div>
-            </div>
-
-            <!-- PROJECT: INSYT. — PUPPET STRINGS -->
-            <div class="project-card" data-category="music-video" 
-                 data-title="insyt. — Puppet Strings"
-                 data-category-name="Music Video"
-                 data-poster="https://i.imgur.com/8tk6QnM.jpg"
-                 data-video="https://youtu.be/6GvYSWZT93s"
-                 data-credits="Directed By: Mason Cline|Produced By: Declan McKenna|Cinematography: Dario Butera|Gaffer: Daniel Fusco|BTS / Gradist: Christian Kinn|Titling / Swing: Jackson McMcMurdo|Edited By: Mason Cline|2nd Swing: James Tweedy">
-                <div class="thumbnail-box">
-                    <img src="https://i.imgur.com/8tk6QnM.jpg" alt="insyt. — Puppet Strings">
-                </div>
-                <div class="project-meta">
-                    <div class="project-title">insyt. — Puppet Strings</div>
-                    <div class="project-credits-preview">Dir. Mason Cline | DP. Dario Butera</div>
-                </div>
-            </div>
-
-            <!-- PROJECT: HEAL -->
-            <div class="project-card" data-category="music-video" 
-                 data-title="insyt. — HEAL (feat. Jay Versace & Mileena)"
-                 data-category-name="Music Video"
-                 data-poster="https://i.imgur.com/5Z5JnBH.jpg"
-                 data-video="https://youtu.be/2i1VwJyLIs0"
-                 data-credits="Performed By: insyt., Mileena, Jay Versace|Director: Mason Cline|Cinematography: Mason Cline">
-                <div class="thumbnail-box">
-                    <img src="https://i.imgur.com/5Z5JnBH.jpg" alt="insyt. — HEAL">
-                </div>
-                <div class="project-meta">
-                    <div class="project-title">insyt. — HEAL (feat. Jay Versace & Mileena)</div>
-                    <div class="project-credits-preview">Dir. Mason Cline</div>
-                </div>
-            </div>
-
-            <!-- PROJECT: 360 - INSIGHT -->
+            <!-- 1. INSYT. - 360° -->
             <div class="project-card" data-category="music-video" 
                  data-title="INSYT. - 360°"
                  data-category-name="Music Video"
                  data-video="CKdqD851gQ0"
                  data-credits="Directed By: Mason Cline|Produced By: Declan McKenna|Assistant Director: Maya Charlandy|Director of Photography: Dario Butera|Cinematographer: Jackson McMartin|Edited By: Mason Cline & Jackson McMartin|Production Designer: Jordan Wong|Art Director: Joel Capan|Gaffer: James Csatari|Graphics: Jackson McMartin|Location Support: Naim Realca">
                 <div class="thumbnail-box">
-                    <!-- Automatically pulls YouTube Thumbnail because there is no data-poster attribute -->
+                    <span>[ INSYT. - 360° ]</span>
                 </div>
                 <div class="project-meta">
                     <div class="project-title">INSYT. - 360°</div>
@@ -524,22 +474,7 @@
                 </div>
             </div>
 
-            <!-- PROJECT: ATTITUDE & MOTION — ZOE -->
-            <div class="project-card" data-category="music-video" 
-                 data-title="Zoe — Attitude & Motion"
-                 data-category-name="Music Video"
-                 data-video="https://youtu.be/EfRm28PLvKA"
-                 data-credits="Direction & Cinematography: Mason Cline & Maya Chariandy|Starring: Zoe Lewis, Candice Bonair, Janell Vacianna|Producers: Declan McKenna & Jevaughn Stewart-Hinds|1st AD: Jordan Wong|2nd AD: Justin Tan|Colour + Edit: Mason Cline|Gaffer: Daniel Fusco|1st AC: Dario Butera|2nd AC: Adam Venckus|Dolly Grip: Misan Edema|BTS: Christian Kin|Production Design: Aimal Jaward|Art Direction: Aneesa Shariff|Styling + HMUA: Tandie Tyrell|Projection Mapping: Jessica Binns">
-                <div class="thumbnail-box">
-                    <!-- Automatically pulls YouTube Thumbnail because there is no data-poster attribute -->
-                </div>
-                <div class="project-meta">
-                    <div class="project-title">Zoe — Attitude & Motion</div>
-                    <div class="project-credits-preview">Dir. Mason Cline & Maya Chariandy</div>
-                </div>
-            </div>
-
-            <!-- PROJECT: TOLL -->
+            <!-- 2. INSYT. - TOLL -->
             <div class="project-card" data-category="music-video" 
                  data-title="INSYT. - TOLL"
                  data-category-name="Music Video"
@@ -551,6 +486,115 @@
                 </div>
                 <div class="project-meta">
                     <div class="project-title">INSYT. - TOLL</div>
+                    <div class="project-credits-preview">Dir. Mason Cline</div>
+                </div>
+            </div>
+
+            <!-- 3. INSYT. — HEAL -->
+            <div class="project-card" data-category="music-video" 
+                 data-title="INSYT. — HEAL (feat. Jay Versace & Mileena)"
+                 data-category-name="Music Video"
+                 data-poster="https://i.imgur.com/5Z5JnBH.jpg"
+                 data-video="https://youtu.be/2i1VwJyLIs0"
+                 data-credits="Performed By: insyt., Mileena, Jay Versace|Director: Mason Cline|Cinematography: Mason Cline">
+                <div class="thumbnail-box">
+                    <img src="https://i.imgur.com/5Z5JnBH.jpg" alt="INSYT. — HEAL">
+                </div>
+                <div class="project-meta">
+                    <div class="project-title">INSYT. — HEAL (feat. Jay Versace & Mileena)</div>
+                    <div class="project-credits-preview">Dir. Mason Cline</div>
+                </div>
+            </div>
+
+            <!-- 4. KAI BANKS — MAZE -->
+            <div class="project-card" data-category="music-video" 
+                 data-title="KAI BANKS — MAZE"
+                 data-category-name="Music Video"
+                 data-poster="https://i.imgur.com/vB0edzz.jpg"
+                 data-video="https://youtu.be/PFcnSxjB-KM?si=w2HrzcUGggr4wxon"
+                 data-credits="Directed By: Mason Cline|Cinematography: Dario Butera|Producer: Declan McKenna|1st AD: Maya Charlandy|Production Design: Hayley Naish|1st AC: Barbara Sanchez, Travis Wallace|Gaffer: Priyand Karunainathan|Swing: Adam Venckus|BTS / Location: Tafara Rwata|Casting / Stylist: @MoodyRevi">
+                <div class="thumbnail-box">
+                    <img src="https://i.imgur.com/vB0edzz.jpg" alt="Kai Banks — Maze">
+                </div>
+                <div class="project-meta">
+                    <div class="project-title">KAI BANKS — MAZE</div>
+                    <div class="project-credits-preview">Dir. Mason Cline | DP. Dario Butera</div>
+                </div>
+            </div>
+
+            <!-- 5. ZOE — ATTITUDE & MOTION -->
+            <div class="project-card" data-category="music-video" 
+                 data-title="ZOE — ATTITUDE & MOTION"
+                 data-category-name="Music Video"
+                 data-video="https://youtu.be/EfRm28PLvKA"
+                 data-credits="Direction & Cinematography: Mason Cline & Maya Chariandy|Starring: Zoe Lewis, Candice Bonair, Janell Vacianna|Producers: Declan McKenna & Jevaughn Stewart-Hinds|1st AD: Jordan Wong|2nd AD: Justin Tan|Colour + Edit: Mason Cline|Gaffer: Daniel Fusco|1st AC: Dario Butera|2nd AC: Adam Venckus|Dolly Grip: Misan Edema|BTS: Christian Kin|Production Design: Aimal Jaward|Art Direction: Aneesa Shariff|Styling + HMUA: Tandie Tyrell|Projection Mapping: Jessica Binns">
+                <div class="thumbnail-box">
+                    <span>[ Zoe — Attitude & Motion ]</span>
+                </div>
+                <div class="project-meta">
+                    <div class="project-title">ZOE — ATTITUDE & MOTION</div>
+                    <div class="project-credits-preview">Dir. Mason Cline & Maya Chariandy</div>
+                </div>
+            </div>
+
+            <!-- 6. INSYT. — PUPPET STRINGS -->
+            <div class="project-card" data-category="music-video" 
+                 data-title="INSYT. — PUPPET STRINGS"
+                 data-category-name="Music Video"
+                 data-poster="https://i.imgur.com/8tk6QnM.jpg"
+                 data-video="https://youtu.be/6GvYSWZT93s"
+                 data-credits="Directed By: Mason Cline|Produced By: Declan McKenna|Cinematography: Dario Butera|Gaffer: Daniel Fusco|BTS / Gradist: Christian Kinn|Titling / Swing: Jackson McMcMurdo|Edited By: Mason Cline|2nd Swing: James Tweedy">
+                <div class="thumbnail-box">
+                    <img src="https://i.imgur.com/8tk6QnM.jpg" alt="insyt. — Puppet Strings">
+                </div>
+                <div class="project-meta">
+                    <div class="project-title">INSYT. — PUPPET STRINGS</div>
+                    <div class="project-credits-preview">Dir. Mason Cline | DP. Dario Butera</div>
+                </div>
+            </div>
+
+            <!-- 7. PRETTYBXKAY — 4NICATE -->
+            <div class="project-card" data-category="music-video" 
+                 data-title="PRETTYBXKAY — 4NICATE"
+                 data-category-name="Music Video"
+                 data-poster="https://i.imgur.com/Eh1h6kf.jpg"
+                 data-video="https://www.youtube.com/watch?v=ZTq6Xg301Eg"
+                 data-credits="Directed By: Mason Cline|Executive Producers: Misan Edema, Daniel Abiodun|Producer: Misan Edema|Assistant Director: Maya Charlandy|Production Designer: Raim Realce|Director of Photography: Dario Butera|Gaffer: Daniel Fusco|Graphics: Jessica Binns|Sound Mixer: Izzy Flores|Transportation: Jevaughn Stewart-Hinds">
+                <div class="thumbnail-box">
+                    <img src="https://i.imgur.com/Eh1h6kf.jpg" alt="Prettybxkay — 4nicate">
+                </div>
+                <div class="project-meta">
+                    <div class="project-title">PRETTYBXKAY — 4NICATE</div>
+                    <div class="project-credits-preview">Dir. Mason Cline | DP. Dario Butera</div>
+                </div>
+            </div>
+
+            <!-- 8. GANGSTA IS GORGEOUS (COMMERCIAL) -->
+            <div class="project-card" data-category="commercial" 
+                 data-title="“Gangsta is Gorgeous” GBL Khaki Set campaign"
+                 data-category-name="Commercial"
+                 data-video="https://www.instagram.com/p/DP7EbUoEogg/"
+                 data-credits="Director: Mason Cline|Cinematographer: Mason Cline|Editor: Mason Cline">
+                <div class="thumbnail-box">
+                    <span>[ Gangsta is Gorgeous ]</span>
+                </div>
+                <div class="project-meta">
+                    <div class="project-title">“Gangsta is Gorgeous” GBL Khaki Set</div>
+                    <div class="project-credits-preview">Dir. Mason Cline</div>
+                </div>
+            </div>
+
+            <!-- 9. DRAFT DAY (COMMERCIAL) -->
+            <div class="project-card" data-category="commercial" 
+                 data-title="“DRAFT DAY” CÔTÉ Ibis New Era Fitted Campaign"
+                 data-category-name="Commercial"
+                 data-video="https://www.instagram.com/p/DQXlhpPidWF/"
+                 data-credits="Director: Mason Cline|Editor: Mason Cline">
+                <div class="thumbnail-box">
+                    <span>[ DRAFT DAY ]</span>
+                </div>
+                <div class="project-meta">
+                    <div class="project-title">“DRAFT DAY” CÔTÉ Ibis New Era</div>
                     <div class="project-credits-preview">Dir. Mason Cline</div>
                 </div>
             </div>
@@ -630,8 +674,20 @@
             return null;
         }
 
-        // Convert ANY YouTube Link / ID into the required embed format
-        function parseYouTubeUrl(url) {
+        // Convert ANY YouTube or Instagram Link into an embed format
+        function parseVideoUrl(url) {
+            if (!url) return '';
+            
+            // Handle Instagram Links
+            if (url.includes('instagram.com')) {
+                let cleanUrl = url.split('?')[0]; // Remove any tracking params
+                if (!cleanUrl.endsWith('/')) {
+                    cleanUrl += '/';
+                }
+                return cleanUrl + 'embed/';
+            }
+            
+            // Handle YouTube Links
             const id = getYouTubeId(url);
             return id ? `https://www.youtube.com/embed/${id}?autoplay=1` : '';
         }
@@ -643,8 +699,8 @@
             const videoId = getYouTubeId(rawVideoUrl);
             const thumbBox = card.querySelector('.thumbnail-box');
             
-            // If the thumbnail wasn't already hardcoded in the HTML structure
-            if (!thumbBox.querySelector('img')) {
+            // If the thumbnail wasn't already hardcoded with text (spans) in the HTML
+            if (!thumbBox.querySelector('img') && !thumbBox.querySelector('span')) {
                 if (customPoster && !customPoster.includes("PASTE_DIRECT_IMAGE_LINK_HERE")) {
                     thumbBox.innerHTML = `<img src="${customPoster}" alt="${card.getAttribute('data-title')}">`;
                 } else if (videoId) {
@@ -710,8 +766,15 @@
             document.getElementById('modalTitle').textContent = title;
             document.getElementById('modalCategory').textContent = category;
             
-            const embedUrl = parseYouTubeUrl(rawVideoUrl);
+            const embedUrl = parseVideoUrl(rawVideoUrl);
             const iframe = document.getElementById('videoIframe');
+            
+            // Adjust iframe class depending on source (Instagram needs a white background to look normal)
+            if (rawVideoUrl && rawVideoUrl.includes('instagram.com')) {
+                iframe.classList.add('ig-embed');
+            } else {
+                iframe.classList.remove('ig-embed');
+            }
             
             if (embedUrl) {
                 iframe.parentElement.style.display = 'block';
