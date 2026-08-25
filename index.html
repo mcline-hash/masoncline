@@ -5,14 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mason Cline — Portfolio</title>
     <style>
-        /* BASE STYLES */
+        /* BASE STYLES & TYPOGRAPHY */
         :root {
-            --bg-color: #0d0d0d;
-            --text-color: #f1f1f1;
-            --muted-color: #e0e0e0; /* Brightened slightly for contrast against the flag */
-            --border-color: #222222;
+            --bg-color: #050505;
+            --text-color: #f8f8f8;
+            --muted-color: #888888;
+            --border-color: #1a1a1a;
             --accent-color: #ffffff;
-            --font-main: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            --font-main: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            --container-width: 1000px;
         }
 
         * {
@@ -22,62 +23,57 @@
         }
 
         body {
-            /* Pride Flag Gradient */
-            background: linear-gradient(
-                to bottom,
-                #FF0018 0%, #FF0018 16.66%,
-                #FFA52C 16.66%, #FFA52C 33.33%,
-                #FFFF41 33.33%, #FFFF41 50%,
-                #008018 50%, #008018 66.66%,
-                #0000F9 66.66%, #0000F9 83.33%,
-                #86007D 83.33%, #86007D 100%
-            );
-            background-attachment: fixed;
-            
+            background-color: var(--bg-color);
             color: var(--text-color);
             font-family: var(--font-main);
-            line-height: 1.5;
-            padding: 0 2rem;
+            line-height: 1.6;
             -webkit-font-smoothing: antialiased;
+            overflow-y: scroll;
         }
 
         a {
             color: inherit;
             text-decoration: none;
-            transition: opacity 0.2s ease;
+            transition: opacity 0.3s ease;
         }
 
         a:hover {
             opacity: 0.6;
         }
 
-        /* HEADER & DIRECTORY NAV */
+        /* HEADER & NAVIGATION */
         header {
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            padding: 2.5rem 0;
-            border-bottom: 1px solid var(--border-color);
-            position: sticky;
+            align-items: flex-start;
+            padding: 2.5rem 3rem;
+            position: fixed;
             top: 0;
-            background-color: rgba(13, 13, 13, 0.95);
-            backdrop-filter: blur(10px);
+            width: 100%;
+            background: linear-gradient(to bottom, rgba(5,5,5,0.95) 0%, rgba(5,5,5,0.7) 70%, rgba(5,5,5,0) 100%);
+            backdrop-filter: blur(5px);
             z-index: 100;
+            pointer-events: none; /* Let clicks pass through the gradient */
         }
 
         .logo {
-            font-size: 1.25rem;
-            font-weight: 700;
-            letter-spacing: 0.1em;
+            font-size: 1rem;
+            font-weight: 500;
+            letter-spacing: 0.05em;
             text-transform: uppercase;
+            pointer-events: auto;
         }
 
-        /* DIRECTORY LINK IN TOP RIGHT CORNER */
+        nav {
+            pointer-events: auto;
+        }
+
         .directory-nav {
             display: flex;
-            gap: 1.5rem;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 0.5rem;
             list-style: none;
-            flex-wrap: wrap;
         }
 
         .directory-nav button {
@@ -85,140 +81,146 @@
             border: none;
             color: var(--muted-color);
             font-family: inherit;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             text-transform: uppercase;
-            letter-spacing: 0.1em;
+            letter-spacing: 0.15em;
             cursor: pointer;
-            transition: color 0.2s ease;
-            padding: 0.25rem 0;
+            transition: color 0.3s ease;
+            padding: 0;
+            text-align: right;
         }
 
         .directory-nav button:hover,
         .directory-nav button.active {
             color: var(--accent-color);
-            border-bottom: 1px solid var(--accent-color);
         }
 
-        /* PORTFOLIO GRID */
+        /* MAIN CONTENT LAYOUT */
         main {
-            padding: 3rem 0 6rem;
+            padding: 10rem 3rem 6rem;
+            max-width: var(--container-width);
+            margin: 0 auto;
         }
 
         .portfolio-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 3rem 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 6rem; /* Large spacing between lined-up projects */
         }
 
+        /* PROJECT CARDS */
         .project-card {
             cursor: pointer;
             display: flex;
             flex-direction: column;
-            gap: 0.75rem;
-            background: rgba(0, 0, 0, 0.6); /* Added semi-transparent dark background for readability */
-            padding: 1rem;
-            border-radius: 8px;
+            gap: 1.5rem;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        /* THUMBNAIL CONTAINER */
+        .project-card:hover {
+            transform: translateY(-5px);
+        }
+
         .thumbnail-box {
             width: 100%;
             aspect-ratio: 16 / 9;
-            background-color: #1a1a1a;
-            border: 1px solid var(--border-color);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--muted-color);
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
+            background-color: #111;
             overflow: hidden;
             position: relative;
-            transition: border-color 0.3s ease;
-        }
-
-        .project-card:hover .thumbnail-box {
-            border-color: var(--muted-color);
         }
 
         .thumbnail-box img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.3s ease;
+            transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1), filter 0.5s ease;
+            filter: brightness(0.85);
         }
 
         .project-card:hover .thumbnail-box img {
-            transform: scale(1.03);
+            transform: scale(1.02);
+            filter: brightness(1);
         }
 
-        /* CREDITS UNDERNEATH THUMBNAIL */
         .project-meta {
             display: flex;
-            flex-direction: column;
-            gap: 0.25rem;
+            justify-content: space-between;
+            align-items: baseline;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 1rem;
         }
 
         .project-title {
-            font-size: 1rem;
-            font-weight: 600;
-            letter-spacing: 0.02em;
+            font-size: 1.1rem;
+            font-weight: 400;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
         }
 
         .project-credits-preview {
-            font-size: 0.825rem;
+            font-size: 0.8rem;
             color: var(--muted-color);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
         }
 
-        /* MODAL FOR IN-WEBSITE VIDEO PLAYBACK & CREDITS */
+        /* MODAL (VIDEO & DETAILED CREDITS) */
         .modal-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.92);
+            background: rgba(5, 5, 5, 0.98);
             display: none;
             justify-content: center;
-            align-items: center;
+            align-items: flex-start;
             z-index: 1000;
-            padding: 2rem;
+            padding: 4rem 2rem;
             overflow-y: auto;
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
 
         .modal-overlay.active {
             display: flex;
+            opacity: 1;
         }
 
         .modal-content {
-            background-color: #121212;
-            border: 1px solid var(--border-color);
-            max-width: 900px;
             width: 100%;
-            max-height: 90vh;
-            overflow-y: auto;
+            max-width: 1200px;
+            margin: auto;
             position: relative;
-            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
         }
 
         .close-btn {
-            position: absolute;
-            top: 1rem;
-            right: 1.5rem;
+            position: fixed;
+            top: 2rem;
+            right: 3rem;
             background: none;
             border: none;
-            color: var(--text-color);
-            font-size: 1.5rem;
+            color: var(--muted-color);
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
             cursor: pointer;
+            z-index: 1001;
+            transition: color 0.3s ease;
+        }
+
+        .close-btn:hover {
+            color: var(--accent-color);
         }
 
         .video-container {
             width: 100%;
             aspect-ratio: 16 / 9;
             background-color: #000;
-            margin-bottom: 2rem;
-            border: 1px solid var(--border-color);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
         .video-container iframe {
@@ -227,87 +229,127 @@
             border: none;
         }
 
+        .modal-info-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 1rem;
+        }
+
+        .modal-info-bar h2 {
+            font-size: 1.25rem;
+            font-weight: 400;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
         .modal-credits {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 1.5rem;
-            border-top: 1px solid var(--border-color);
-            padding-top: 1.5rem;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem 1.5rem;
+            padding-top: 1rem;
         }
 
         .credit-item h4 {
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             text-transform: uppercase;
             color: var(--muted-color);
-            margin-bottom: 0.25rem;
-            letter-spacing: 0.05em;
+            margin-bottom: 0.4rem;
+            letter-spacing: 0.1em;
+            font-weight: 500;
         }
 
         .credit-item p {
-            font-size: 0.9rem;
+            font-size: 0.95rem;
+            font-weight: 300;
         }
 
         /* INFO & CONTACT SECTION */
         #info-section {
             display: none;
-            padding: 4rem 0;
-            max-width: 600px;
-            background: rgba(0, 0, 0, 0.75); /* Added for readability over the flag */
-            padding: 2rem;
-            border-radius: 8px;
-            margin-top: 2rem;
+            max-width: var(--container-width);
+            margin: 0 auto;
+            padding: 10rem 3rem 6rem;
+            animation: fadeIn 0.5s ease forwards;
         }
 
-        .info-block {
-            margin-bottom: 2rem;
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
         }
 
         .info-block h3 {
-            font-size: 0.8rem;
+            font-size: 0.7rem;
             text-transform: uppercase;
-            letter-spacing: 0.1em;
+            letter-spacing: 0.15em;
             color: var(--muted-color);
-            margin-bottom: 0.5rem;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.5rem;
         }
 
         .info-block p, .info-block a {
             font-size: 1.1rem;
-            margin-bottom: 0.25rem;
+            font-weight: 300;
+            margin-bottom: 0.5rem;
+            display: block;
         }
 
         .link-desc {
             color: var(--muted-color);
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             margin-left: 0.5rem;
         }
 
         /* FOOTER */
         footer {
-            border-top: 1px solid var(--border-color);
-            padding: 2rem;
-            margin-top: 2rem;
+            max-width: var(--container-width);
+            margin: 0 auto;
+            padding: 2rem 3rem 4rem;
             display: flex;
             justify-content: space-between;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             color: var(--muted-color);
-            background: rgba(0, 0, 0, 0.8); /* Added for readability */
-            border-radius: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
         }
 
         @media (max-width: 768px) {
             header {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 1.5rem;
+                padding: 1.5rem;
             }
-
-            .portfolio-grid {
-                grid-template-columns: 1fr;
+            .logo {
+                font-size: 0.9rem;
             }
-            
+            main, #info-section {
+                padding: 8rem 1.5rem 3rem;
+            }
             footer {
+                padding: 1rem 1.5rem 3rem;
                 flex-direction: column;
                 gap: 1rem;
+            }
+            .project-meta {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            .info-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            .close-btn {
+                top: 1rem;
+                right: 1.5rem;
+            }
+            .modal-overlay {
+                padding: 4rem 1rem 2rem;
             }
         }
     </style>
@@ -319,12 +361,11 @@
         <div class="logo">Mason Cline</div>
         <nav>
             <ul class="directory-nav">
-                <li><button class="nav-btn active" onclick="filterProjects('all', this)">All</button></li>
+                <li><button class="nav-btn active" onclick="filterProjects('all', this)">Work</button></li>
                 <li><button class="nav-btn" onclick="filterProjects('music-video', this)">Music Videos</button></li>
-                <li><button class="nav-btn" onclick="filterProjects('campaigns', this)">Campaigns</button></li>
                 <li><button class="nav-btn" onclick="filterProjects('short-film', this)">Short Films</button></li>
                 <li><button class="nav-btn" onclick="filterProjects('photography', this)">Photography</button></li>
-                <li><button class="nav-btn" onclick="showInfo(this)">Info / Contact</button></li>
+                <li><button class="nav-btn" onclick="showInfo(this)">Info</button></li>
             </ul>
         </nav>
     </header>
@@ -333,22 +374,23 @@
     <main id="work-section">
         <div class="portfolio-grid">
 
-            <!-- PROJECT 1: 360 - INSIGHT -->
+            <!-- PROJECT: 4NICATE -->
             <div class="project-card" data-category="music-video" 
-                 data-title="360 - Insight [Official Music Video]"
+                 data-title="Prettybxkay — 4nicate"
                  data-category-name="Music Video"
-                 data-video="CKdqD851gQ0"
-                 data-credits="Directed By: Mason Cline|Produced By: Declan McKenna|Assistant Director: Maya Charlandy|Director of Photography: Dario Butera|Cinematographer: Jackson McMartin|Edited By: Mason Cline & Jackson McMartin|Production Designer: Jordan Wong|Art Director: Joel Capan|Gaffer: James Csatari|Graphics: Jackson McMartin|Location Support: Naim Realca">
+                 data-poster="https://i.imgur.com/qGb1VbR.jpg"
+                 data-video="https://www.youtube.com/watch?v=ZTq6Xg301Eg"
+                 data-credits="Directed By: Mason Cline|Executive Producers: Misan Edema, Daniel Abiodun|Producer: Misan Edema|Assistant Director: Maya Charlandy|Production Designer: Raim Realce|Director of Photography: Dario Butera|Gaffer: Daniel Fusco|Graphics: Jessica Binns|Sound Mixer: Izzy Flores|Transportation: Jevaughn Stewart-Hinds">
                 <div class="thumbnail-box">
-                    <span>[ 360 - Insight ]</span>
+                    <img src="https://i.imgur.com/qGb1VbR.jpg" alt="Prettybxkay — 4nicate">
                 </div>
                 <div class="project-meta">
-                    <div class="project-title">360 - Insight [Official Music Video]</div>
+                    <div class="project-title">Prettybxkay — 4nicate</div>
                     <div class="project-credits-preview">Dir. Mason Cline | DP. Dario Butera</div>
                 </div>
             </div>
 
-            <!-- PROJECT 2: KAI BANKS — MAZE (CUSTOM COVER IMAGE APPLIED) -->
+            <!-- PROJECT: KAI BANKS — MAZE -->
             <div class="project-card" data-category="music-video" 
                  data-title="Kai Banks — Maze"
                  data-category-name="Music Video"
@@ -364,14 +406,15 @@
                 </div>
             </div>
 
-            <!-- PROJECT 3: INSYT. — PUPPET STRINGS -->
+            <!-- PROJECT: INSYT. — PUPPET STRINGS -->
             <div class="project-card" data-category="music-video" 
                  data-title="insyt. — Puppet Strings"
                  data-category-name="Music Video"
+                 data-poster="https://i.imgur.com/MnP8xCO.jpg"
                  data-video="https://youtu.be/6GvYSWZT93s"
                  data-credits="Directed By: Mason Cline|Produced By: Declan McKenna|Cinematography: Dario Butera|Gaffer: Daniel Fusco|BTS / Gradist: Christian Kinn|Titling / Swing: Jackson McMcMurdo|Edited By: Mason Cline|2nd Swing: James Tweedy">
                 <div class="thumbnail-box">
-                    <span>[ insyt. — Puppet Strings ]</span>
+                    <img src="https://i.imgur.com/MnP8xCO.jpg" alt="insyt. — Puppet Strings">
                 </div>
                 <div class="project-meta">
                     <div class="project-title">insyt. — Puppet Strings</div>
@@ -379,22 +422,39 @@
                 </div>
             </div>
 
-            <!-- PROJECT 4: PRETTYBXKAY — FORNICATE -->
+            <!-- PROJECT: HEAL -->
             <div class="project-card" data-category="music-video" 
-                 data-title="Prettybxkay — Fornicate"
+                 data-title="insyt. — HEAL (feat. Jay Versace & Mileena)"
                  data-category-name="Music Video"
-                 data-video="PASTE_FORNICATE_YOUTUBE_LINK_HERE"
-                 data-credits="Directed By: Mason Cline|Executive Producers: Misan Edema, Daniel Abiodun|Producer: Misan Edema|Assistant Director: Maya Charlandy|Production Designer: Raim Realce|Director of Photography: Dario Butera|Gaffer: Daniel Fusco|Graphics: Jessica Binns|Sound Mixer: Izzy Flores|Transportation: Jevaughn Stewart-Hinds">
+                 data-poster="https://i.imgur.com/7vFyeHO.jpg"
+                 data-video="https://youtu.be/2i1VwJyLIs0"
+                 data-credits="Performed By: insyt., Mileena, Jay Versace|Director: Mason Cline|Cinematography: Mason Cline">
                 <div class="thumbnail-box">
-                    <span>[ Prettybxkay — Fornicate ]</span>
+                    <img src="https://i.imgur.com/7vFyeHO.jpg" alt="insyt. — HEAL">
                 </div>
                 <div class="project-meta">
-                    <div class="project-title">Prettybxkay — Fornicate</div>
+                    <div class="project-title">insyt. — HEAL (feat. Jay Versace & Mileena)</div>
+                    <div class="project-credits-preview">Dir. Mason Cline</div>
+                </div>
+            </div>
+
+            <!-- PROJECT: 360 - INSIGHT -->
+            <div class="project-card" data-category="music-video" 
+                 data-title="360 - Insight [Official Music Video]"
+                 data-category-name="Music Video"
+                 data-video="CKdqD851gQ0"
+                 data-credits="Directed By: Mason Cline|Produced By: Declan McKenna|Assistant Director: Maya Charlandy|Director of Photography: Dario Butera|Cinematographer: Jackson McMartin|Edited By: Mason Cline & Jackson McMartin|Production Designer: Jordan Wong|Art Director: Joel Capan|Gaffer: James Csatari|Graphics: Jackson McMartin|Location Support: Naim Realca">
+                <div class="thumbnail-box">
+                    <!-- Standard YouTube grab since no Imgur provided for this one -->
+                    <span>[ 360 - Insight ]</span>
+                </div>
+                <div class="project-meta">
+                    <div class="project-title">360 - Insight</div>
                     <div class="project-credits-preview">Dir. Mason Cline | DP. Dario Butera</div>
                 </div>
             </div>
 
-            <!-- PROJECT 5: ATTITUDE & MOTION — ZOE -->
+            <!-- PROJECT: ATTITUDE & MOTION — ZOE -->
             <div class="project-card" data-category="music-video" 
                  data-title="Zoe — Attitude & Motion"
                  data-category-name="Music Video"
@@ -409,18 +469,19 @@
                 </div>
             </div>
 
-            <!-- PROJECT 6: HEAL -->
-            <div class="project-card" data-category="music-video" 
-                 data-title="insyt. — HEAL (feat. Jay Versace & Mileena)"
-                 data-category-name="Music Video"
-                 data-video="https://youtu.be/2i1VwJyLIs0"
-                 data-credits="Performed By: insyt., Mileena, Jay Versace|Director: Mason Cline|Cinematography: Mason Cline">
+            <!-- PROJECT: TOLL (Placeholder, no video link provided yet) -->
+            <div class="project-card" data-category="short-film" 
+                 data-title="Toll"
+                 data-category-name="Short Film"
+                 data-poster="https://i.imgur.com/F39p0K6.jpg"
+                 data-video=""
+                 data-credits="Director: Mason Cline">
                 <div class="thumbnail-box">
-                    <span>[ insyt. — HEAL (feat. Jay Versace & Mileena) ]</span>
+                    <img src="https://i.imgur.com/F39p0K6.jpg" alt="Toll">
                 </div>
                 <div class="project-meta">
-                    <div class="project-title">insyt. — HEAL (feat. Jay Versace & Mileena)</div>
-                    <div class="project-credits-preview">Dir. Mason Cline</div>
+                    <div class="project-title">Toll</div>
+                    <div class="project-credits-preview">Short Film</div>
                 </div>
             </div>
 
@@ -429,48 +490,55 @@
 
     <!-- INFO / CONTACT SECTION -->
     <section id="info-section">
-        <div class="info-block">
-            <h3>About</h3>
-            <p>Mason Cline is a director, cinematographer, and photographer specializing in music videos, campaigns, short films, and visual arts. He is also the owner and founder of Pylon Collective.</p>
-        </div>
-        <div class="info-block">
-            <h3>Email</h3>
-            <p><a href="mailto:mcline@bell.net">mcline@bell.net</a></p>
-        </div>
-        <div class="info-block">
-            <h3>Socials</h3>
-            <p><a href="https://www.instagram.com/mason.clinee/" target="_blank">@mason.clinee</a> <span class="link-desc">— Director & DP</span></p>
-            <p><a href="https://www.instagram.com/planetbogus/" target="_blank">@planetbogus</a> <span class="link-desc">— Film & BTS</span></p>
-            <p><a href="https://www.instagram.com/pyloncollective/" target="_blank">@pyloncollective</a> <span class="link-desc">— Pylon Collective</span></p>
+        <div class="info-grid">
+            <div class="info-block">
+                <h3>About</h3>
+                <p>Mason Cline is a director, cinematographer, and photographer specializing in music videos, campaigns, short films, and visual arts.</p>
+                <p style="margin-top: 1rem;">Owner and founder of Pylon Collective.</p>
+            </div>
+            
+            <div>
+                <div class="info-block">
+                    <h3>Contact</h3>
+                    <a href="mailto:mcline@bell.net">mcline@bell.net</a>
+                </div>
+                
+                <div class="info-block">
+                    <h3>Socials</h3>
+                    <a href="https://www.instagram.com/mason.clinee/" target="_blank">@mason.clinee <span class="link-desc">Dir / DP</span></a>
+                    <a href="https://www.instagram.com/planetbogus/" target="_blank">@planetbogus <span class="link-desc">Film / BTS</span></a>
+                    <a href="https://www.instagram.com/pyloncollective/" target="_blank">@pyloncollective <span class="link-desc">Collective</span></a>
+                </div>
+            </div>
         </div>
     </section>
 
     <!-- MODAL FOR IN-WEBSITE PLAYBACK & CREDITS VIEW -->
     <div class="modal-overlay" id="projectModal">
+        <button class="close-btn" onclick="closeModal()">Close &times;</button>
         <div class="modal-content">
-            <button class="close-btn" onclick="closeModal()">&times;</button>
-            <h2 id="modalTitle" style="margin-bottom: 0.5rem;"></h2>
-            <p id="modalCategory" style="color: var(--muted-color); font-size: 0.85rem; text-transform: uppercase; margin-bottom: 1.5rem;"></p>
             
             <div class="video-container" id="modalPlayer">
                 <iframe id="videoIframe" src="" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
             </div>
 
-            <h3 style="font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 1rem;">Credits</h3>
-            <div class="modal-credits" id="modalCredits">
-                <!-- Credits populated dynamically -->
+            <div>
+                <div class="modal-info-bar">
+                    <h2 id="modalTitle"></h2>
+                    <span id="modalCategory" style="color: var(--muted-color); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em;"></span>
+                </div>
+                
+                <div class="modal-credits" id="modalCredits">
+                    <!-- Credits populated dynamically -->
+                </div>
             </div>
         </div>
     </div>
 
     <!-- FOOTER -->
     <footer>
-        <div>&copy; <span id="year"></span> Mason Cline. All Rights Reserved.</div>
-        <div>
-            <a href="mailto:mcline@bell.net">mcline@bell.net</a> | 
-            <a href="https://www.instagram.com/mason.clinee/" target="_blank">Instagram</a> | 
-            <a href="https://www.instagram.com/pyloncollective/" target="_blank">Pylon Collective</a>
-        </div>
+        <div>&copy; <span id="year"></span> Mason Cline</div>
+        <div>Toronto, ON</div>
     </footer>
 
     <!-- JAVASCRIPT FOR INTERACTIVITY & THUMBNAILS -->
@@ -495,7 +563,7 @@
         // Convert ANY YouTube Link / ID into the required embed format
         function parseYouTubeUrl(url) {
             const id = getYouTubeId(url);
-            return id ? `https://www.youtube.com/embed/${id}?autoplay=1` : '';
+            return id ? `https://www.youtube.com/embed/${id}?autoplay=1&color=white` : '';
         }
 
         // Auto-generate Thumbnail Images or use custom data-poster
@@ -505,10 +573,13 @@
             const videoId = getYouTubeId(rawVideoUrl);
             const thumbBox = card.querySelector('.thumbnail-box');
             
-            if (customPoster) {
-                thumbBox.innerHTML = `<img src="${customPoster}" alt="${card.getAttribute('data-title')}">`;
-            } else if (videoId) {
-                thumbBox.innerHTML = `<img src="https://img.youtube.com/vi/${videoId}/hqdefault.jpg" alt="${card.getAttribute('data-title')}">`;
+            // If the thumbnail wasn't already hardcoded in the HTML structure
+            if (!thumbBox.querySelector('img')) {
+                if (customPoster) {
+                    thumbBox.innerHTML = `<img src="${customPoster}" alt="${card.getAttribute('data-title')}">`;
+                } else if (videoId) {
+                    thumbBox.innerHTML = `<img src="https://img.youtube.com/vi/${videoId}/maxresdefault.jpg" onerror="this.src='https://img.youtube.com/vi/${videoId}/hqdefault.jpg'" alt="${card.getAttribute('data-title')}">`;
+                }
             }
 
             card.addEventListener('click', () => {
@@ -533,10 +604,15 @@
             cards.forEach(card => {
                 if (category === 'all' || card.getAttribute('data-category') === category) {
                     card.style.display = 'flex';
+                    // Slight animation reset
+                    card.style.animation = 'none';
+                    card.offsetHeight; /* trigger reflow */
+                    card.style.animation = 'fadeIn 0.5s ease forwards';
                 } else {
                     card.style.display = 'none';
                 }
             });
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         // Show Info / Contact view
@@ -547,6 +623,7 @@
             const buttons = document.querySelectorAll('.nav-btn');
             buttons.forEach(btn => btn.classList.remove('active'));
             button.classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         // Open modal detail view
@@ -561,6 +638,7 @@
                 iframe.parentElement.style.display = 'block';
                 iframe.src = embedUrl;
             } else {
+                // If no video (like the Toll placeholder)
                 iframe.parentElement.style.display = 'none';
                 iframe.src = '';
             }
@@ -582,12 +660,16 @@
             }
 
             document.getElementById('projectModal').classList.add('active');
+            document.body.style.overflow = 'hidden'; // Prevent background scrolling
         }
 
         // Close modal view and stop video audio
         function closeModal() {
             document.getElementById('projectModal').classList.remove('active');
-            document.getElementById('videoIframe').src = '';
+            setTimeout(() => {
+                document.getElementById('videoIframe').src = '';
+            }, 300); // Wait for fade out
+            document.body.style.overflow = 'auto';
         }
 
         // Close modal when clicking outside content box
@@ -597,6 +679,13 @@
                 closeModal();
             }
         }
+        
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === "Escape") {
+                closeModal();
+            }
+        });
     </script>
 </body>
 </html>
