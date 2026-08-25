@@ -4,16 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mason Cline — Portfolio</title>
+    
+    <!-- Import Comfortaa Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
     <style>
         /* BASE STYLES & TYPOGRAPHY */
         :root {
-            --bg-color: #050505;
-            --text-color: #f8f8f8;
-            --muted-color: #888888;
-            --border-color: #333333;
-            --accent-color: #ffffff;
-            --font-main: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            --font-mono: "Courier New", Courier, monospace;
+            --bg-color: #F5EBD9;
+            --text-color: #111111;
+            --muted-color: #666666;
+            --border-color: #d1c8b8;
+            --accent-color: #000000;
+            --font-main: "Comfortaa", sans-serif;
+            --font-mono: "Comfortaa", sans-serif;
             --container-width: 1000px;
         }
 
@@ -50,11 +56,28 @@
             padding: 3rem 3rem 2rem 3rem;
             max-width: var(--container-width);
             margin: 0 auto;
+            position: relative;
+            z-index: 100;
+        }
+
+        /* Fading sticky header effect for light mode */
+        .header-wrapper {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: linear-gradient(to bottom, rgba(245, 235, 217, 0.95) 0%, rgba(245, 235, 217, 0.7) 70%, rgba(245, 235, 217, 0) 100%);
+            backdrop-filter: blur(5px);
+            z-index: 100;
+            pointer-events: none;
+        }
+        
+        .header-wrapper header {
+            pointer-events: auto;
         }
 
         .logo {
             font-size: 1.2rem;
-            font-weight: 500;
+            font-weight: 600;
             letter-spacing: 0.05em;
             text-transform: uppercase;
         }
@@ -73,6 +96,7 @@
             font-size: 0.75rem;
             text-transform: uppercase;
             letter-spacing: 0.15em;
+            font-weight: 600;
             cursor: pointer;
             transition: color 0.3s ease;
             padding: 0;
@@ -88,12 +112,14 @@
             border-top: 1px solid var(--border-color);
             max-width: var(--container-width);
             margin: 0 auto;
+            position: relative;
+            z-index: 101;
         }
 
         /* HERO SECTION (Matching Screenshot) */
         .hero-section {
             text-align: center;
-            padding: 6rem 3rem 4rem 3rem;
+            padding: 8rem 3rem 4rem 3rem;
             max-width: var(--container-width);
             margin: 0 auto;
         }
@@ -101,7 +127,7 @@
         .hero-section h1 {
             font-family: var(--font-mono);
             font-size: 1.4rem;
-            font-weight: 400;
+            font-weight: 700;
             letter-spacing: 0.05em;
             margin-bottom: 1.5rem;
         }
@@ -110,7 +136,7 @@
             font-family: var(--font-mono);
             font-size: 1rem;
             color: var(--text-color);
-            font-weight: 300;
+            font-weight: 400;
         }
 
         /* MAIN CONTENT LAYOUT */
@@ -142,7 +168,7 @@
         .thumbnail-box {
             width: 100%;
             aspect-ratio: 16 / 9;
-            background-color: #111;
+            background-color: #e3d8c5;
             overflow: hidden;
             position: relative;
         }
@@ -152,7 +178,7 @@
             height: 100%;
             object-fit: cover;
             transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1), filter 0.5s ease;
-            filter: brightness(0.85);
+            filter: brightness(0.95);
         }
 
         .project-card:hover .thumbnail-box img {
@@ -170,7 +196,7 @@
 
         .project-title {
             font-size: 1.1rem;
-            font-weight: 400;
+            font-weight: 600;
             letter-spacing: 0.05em;
             text-transform: uppercase;
         }
@@ -179,6 +205,7 @@
             font-size: 0.8rem;
             color: var(--muted-color);
             letter-spacing: 0.1em;
+            font-weight: 500;
             text-transform: uppercase;
         }
 
@@ -189,7 +216,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(5, 5, 5, 0.98);
+            background: rgba(245, 235, 217, 0.98);
             display: none;
             justify-content: center;
             align-items: flex-start;
@@ -223,6 +250,7 @@
             border: none;
             color: var(--muted-color);
             font-size: 1rem;
+            font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.1em;
             cursor: pointer;
@@ -238,7 +266,7 @@
             width: 100%;
             aspect-ratio: 16 / 9;
             background-color: #000;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
         }
 
         .video-container iframe {
@@ -257,7 +285,7 @@
 
         .modal-info-bar h2 {
             font-size: 1.25rem;
-            font-weight: 400;
+            font-weight: 700;
             letter-spacing: 0.05em;
             text-transform: uppercase;
         }
@@ -270,17 +298,17 @@
         }
 
         .credit-item h4 {
-            font-size: 0.7rem;
+            font-size: 0.75rem;
             text-transform: uppercase;
             color: var(--muted-color);
             margin-bottom: 0.4rem;
             letter-spacing: 0.1em;
-            font-weight: 500;
+            font-weight: 700;
         }
 
         .credit-item p {
             font-size: 0.95rem;
-            font-weight: 300;
+            font-weight: 400;
         }
 
         /* INFO & CONTACT SECTION */
@@ -304,10 +332,11 @@
         }
 
         .info-block h3 {
-            font-size: 0.7rem;
+            font-size: 0.75rem;
             text-transform: uppercase;
             letter-spacing: 0.15em;
             color: var(--muted-color);
+            font-weight: 700;
             margin-bottom: 1rem;
             border-bottom: 1px solid var(--border-color);
             padding-bottom: 0.5rem;
@@ -315,7 +344,7 @@
 
         .info-block p, .info-block a {
             font-size: 1.1rem;
-            font-weight: 300;
+            font-weight: 400;
             margin-bottom: 0.5rem;
             display: block;
         }
@@ -333,7 +362,8 @@
             padding: 2rem 3rem 4rem;
             display: flex;
             justify-content: space-between;
-            font-size: 0.75rem;
+            font-size: 0.8rem;
+            font-weight: 500;
             color: var(--muted-color);
             text-transform: uppercase;
             letter-spacing: 0.05em;
@@ -350,7 +380,7 @@
                 margin: 0 1.5rem;
             }
             .hero-section {
-                padding: 4rem 1.5rem 2rem;
+                padding: 6rem 1.5rem 2rem;
             }
             .directory-nav {
                 flex-wrap: wrap;
@@ -384,21 +414,23 @@
 </head>
 <body>
 
-    <!-- HEADER / DIRECTORY NAVIGATION -->
-    <header>
-        <div class="logo">Mason Cline</div>
-        <nav>
-            <ul class="directory-nav">
-                <li><button class="nav-btn active" onclick="filterProjects('all', this)">Home</button></li>
-                <li><button class="nav-btn" onclick="filterProjects('music-video', this)">Music Video</button></li>
-                <li><button class="nav-btn" onclick="filterProjects('short-film', this)">Short Film</button></li>
-                <li><button class="nav-btn" onclick="filterProjects('photography', this)">Photography</button></li>
-                <li><button class="nav-btn" onclick="showInfo(this)">About</button></li>
-            </ul>
-        </nav>
-    </header>
+    <div class="header-wrapper">
+        <!-- HEADER / DIRECTORY NAVIGATION -->
+        <header>
+            <div class="logo">Mason Cline</div>
+            <nav>
+                <ul class="directory-nav">
+                    <li><button class="nav-btn active" onclick="filterProjects('all', this)">Home</button></li>
+                    <li><button class="nav-btn" onclick="filterProjects('music-video', this)">Music Video</button></li>
+                    <li><button class="nav-btn" onclick="filterProjects('short-film', this)">Short Film</button></li>
+                    <li><button class="nav-btn" onclick="filterProjects('photography', this)">Photography</button></li>
+                    <li><button class="nav-btn" onclick="showInfo(this)">About</button></li>
+                </ul>
+            </nav>
+        </header>
+    </div>
 
-    <hr class="header-divider">
+    <hr class="header-divider" style="margin-top: 7rem;">
 
     <!-- HERO SECTION (Matching Screenshot) -->
     <section class="hero-section">
@@ -560,7 +592,7 @@
             <div>
                 <div class="modal-info-bar">
                     <h2 id="modalTitle"></h2>
-                    <span id="modalCategory" style="color: var(--muted-color); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em;"></span>
+                    <span id="modalCategory" style="color: var(--muted-color); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600;"></span>
                 </div>
                 
                 <div class="modal-credits" id="modalCredits">
@@ -598,7 +630,7 @@
         // Convert ANY YouTube Link / ID into the required embed format
         function parseYouTubeUrl(url) {
             const id = getYouTubeId(url);
-            return id ? `https://www.youtube.com/embed/${id}?autoplay=1&color=white` : '';
+            return id ? `https://www.youtube.com/embed/${id}?autoplay=1` : '';
         }
 
         // Auto-generate Thumbnail Images or use custom data-poster
