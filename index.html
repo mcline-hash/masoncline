@@ -5,6 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mason Cline — Portfolio</title>
     
+    <!-- Meta tags for link sharing and browser tabs -->
+    <link rel="icon" href="https://i.imgur.com/qDcDABi.png" type="image/png">
+    <meta property="og:title" content="Mason Cline — Portfolio">
+    <meta property="og:description" content="Director, Editor, Cinematographer & Photographer">
+    <meta property="og:image" content="https://i.imgur.com/qDcDABi.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://i.imgur.com/qDcDABi.png">
+
     <!-- Import Michroma & Loved by the King Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -35,6 +43,7 @@
             font-family: var(--font-main);
             line-height: 1.6;
             -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
             overflow-y: scroll;
         }
 
@@ -60,7 +69,7 @@
             z-index: 100;
         }
 
-        /* Fading sticky header effect for light mode */
+        /* Fading sticky header effect */
         .header-wrapper {
             position: fixed;
             top: 0;
@@ -87,17 +96,98 @@
         }
 
         .logo img {
-            height: 45px; /* Adjust this value if you want the logo bigger/smaller */
+            height: 45px;
             width: auto;
             display: block;
         }
 
+        /* HAMBURGER MENU */
+        .hamburger-btn {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 10px;
+            z-index: 105;
+        }
+
+        .hamburger-btn span {
+            display: block;
+            width: 32px;
+            height: 2px;
+            background-color: var(--text-color);
+            transition: 0.3s ease;
+        }
+
+        .hamburger-btn:hover span {
+            background-color: var(--muted-color);
+        }
+
+        /* SIDE NAVIGATION PANEL */
+        .menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(3px);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s ease, visibility 0.4s ease;
+        }
+
+        .menu-overlay.open {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .side-menu {
+            position: fixed;
+            top: 0;
+            right: -400px;
+            width: 100%;
+            max-width: 400px;
+            height: 100vh;
+            background-color: var(--bg-color);
+            box-shadow: -5px 0 25px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            padding: 8rem 4rem;
+            display: flex;
+            flex-direction: column;
+            transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .side-menu.open {
+            right: 0;
+        }
+
+        .close-menu-btn {
+            position: absolute;
+            top: 3.5rem;
+            right: 3rem;
+            background: none;
+            border: none;
+            font-size: 2rem;
+            color: var(--muted-color);
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .close-menu-btn:hover {
+            color: var(--accent-color);
+        }
+
         .directory-nav {
             display: flex;
-            gap: 2rem;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 2.5rem;
             list-style: none;
-            flex-wrap: wrap;
-            justify-content: flex-end;
+            width: 100%;
         }
 
         .directory-nav button {
@@ -105,13 +195,14 @@
             border: none;
             color: var(--muted-color);
             font-family: inherit;
-            font-size: 0.7rem;
+            font-size: 0.85rem;
             text-transform: uppercase;
             letter-spacing: 0.15em;
             font-weight: 600;
             cursor: pointer;
             transition: color 0.3s ease;
             padding: 0;
+            text-align: right;
         }
 
         .directory-nav button:hover,
@@ -125,7 +216,7 @@
             max-width: var(--container-width);
             margin: 0 auto;
             position: relative;
-            z-index: 101;
+            z-index: 90;
         }
 
         /* HERO SECTION */
@@ -138,10 +229,11 @@
 
         .hero-section h1 {
             font-family: var(--font-hero);
-            font-size: 4rem; 
+            font-size: 6rem; /* Increased significantly for larger impact */
             font-weight: 400;
             letter-spacing: 0.02em;
             margin-bottom: 0.5rem;
+            line-height: 1.1;
         }
 
         .hero-section p {
@@ -163,7 +255,7 @@
         .portfolio-grid {
             display: flex;
             flex-direction: column;
-            gap: 6rem; /* Large spacing between lined-up projects */
+            gap: 6rem;
         }
 
         /* PROJECT CARDS */
@@ -291,9 +383,8 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
         }
 
-        /* Special handling for Instagram Embeds */
         .video-container iframe.ig-embed {
-            background: white; /* IG needs white background for its UI */
+            background: white; 
         }
 
         .video-container iframe {
@@ -398,9 +489,6 @@
 
         @media (max-width: 768px) {
             header {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 1.5rem;
                 padding: 2rem 1.5rem;
             }
             .header-divider {
@@ -409,8 +497,12 @@
             .hero-section {
                 padding: 6rem 1.5rem 2rem;
             }
-            .directory-nav {
-                justify-content: flex-start;
+            .hero-section h1 {
+                font-size: 4rem; /* Scale down hero text for mobile */
+            }
+            .side-menu {
+                max-width: 300px;
+                padding: 6rem 2rem;
             }
             main, #info-section {
                 padding: 2rem 1.5rem 3rem;
@@ -441,23 +533,33 @@
 <body>
 
     <div class="header-wrapper">
-        <!-- HEADER / DIRECTORY NAVIGATION -->
+        <!-- HEADER -->
         <header>
             <div class="logo" onclick="document.querySelector('.nav-btn[onclick*=\'all\']').click()">
                 <img src="https://i.imgur.com/qDcDABi.png" alt="Mason Cline">
             </div>
-            <nav>
-                <ul class="directory-nav">
-                    <li><button class="nav-btn active" onclick="filterProjects('all', this)">Home</button></li>
-                    <li><button class="nav-btn" onclick="filterProjects('commercial', this)">Commercial</button></li>
-                    <li><button class="nav-btn" onclick="filterProjects('music-video', this)">Music Video</button></li>
-                    <li><button class="nav-btn" onclick="filterProjects('short-film', this)">Short Film</button></li>
-                    <li><button class="nav-btn" onclick="filterProjects('photography', this)">Photography</button></li>
-                    <li><button class="nav-btn" onclick="showInfo(this)">About</button></li>
-                </ul>
-            </nav>
+            <!-- HAMBURGER MENU BUTTON -->
+            <button class="hamburger-btn" onclick="toggleMenu()" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </header>
     </div>
+
+    <!-- SIDE NAVIGATION MENU -->
+    <div class="menu-overlay" onclick="toggleMenu()"></div>
+    <nav class="side-menu">
+        <button class="close-menu-btn" onclick="toggleMenu()">&times;</button>
+        <ul class="directory-nav">
+            <li><button class="nav-btn active" onclick="filterProjects('all', this); toggleMenu()">Home</button></li>
+            <li><button class="nav-btn" onclick="filterProjects('commercial', this); toggleMenu()">Commercial</button></li>
+            <li><button class="nav-btn" onclick="filterProjects('music-video', this); toggleMenu()">Music Video</button></li>
+            <li><button class="nav-btn" onclick="filterProjects('short-film', this); toggleMenu()">Short Film</button></li>
+            <li><button class="nav-btn" onclick="filterProjects('photography', this); toggleMenu()">Photography</button></li>
+            <li><button class="nav-btn" onclick="showInfo(this); toggleMenu()">About</button></li>
+        </ul>
+    </nav>
 
     <hr class="header-divider" style="margin-top: 7rem;">
 
@@ -542,7 +644,7 @@
                  data-video="https://youtu.be/EfRm28PLvKA"
                  data-credits="Direction & Cinematography: Mason Cline & Maya Chariandy|Starring: Zoe Lewis, Candice Bonair, Janell Vacianna|Producers: Declan McKenna & Jevaughn Stewart-Hinds|1st AD: Jordan Wong|2nd AD: Justin Tan|Colour + Edit: Mason Cline|Gaffer: Daniel Fusco|1st AC: Dario Butera|2nd AC: Adam Venckus|Dolly Grip: Misan Edema|BTS: Christian Kin|Production Design: Aimal Jaward|Art Direction: Aneesa Shariff|Styling + HMUA: Tandie Tyrell|Projection Mapping: Jessica Binns">
                 <div class="thumbnail-box">
-                    <span>[ Zoe — Attitude & Motion ]</span>
+                    <!-- Blank div allows script to automatically pull YouTube thumbnail -->
                 </div>
                 <div class="project-meta">
                     <div class="project-title">ZOE — ATTITUDE & MOTION</div>
@@ -602,11 +704,11 @@
             <div class="project-card" data-category="commercial" 
                  data-title="“DRAFT DAY” CÔTÉ Ibis New Era Fitted Campaign"
                  data-category-name="Commercial"
-                 data-poster="PASTE_DRAFT_DAY_IMGUR_LINK_HERE.jpg"
+                 data-poster="https://i.imgur.com/aXJIkZV.png"
                  data-video="https://www.instagram.com/p/DQXlhpPidWF/"
                  data-credits="Director: Mason Cline|Editor: Mason Cline">
                 <div class="thumbnail-box">
-                    <span>[ DRAFT DAY ]</span>
+                    <img src="https://i.imgur.com/aXJIkZV.png" alt="DRAFT DAY">
                 </div>
                 <div class="project-meta">
                     <div class="project-title">“DRAFT DAY” CÔTÉ Ibis New Era</div>
@@ -673,6 +775,20 @@
     <!-- JAVASCRIPT FOR INTERACTIVITY & THUMBNAILS -->
     <script>
         document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Hamburger Menu Logic
+        function toggleMenu() {
+            const menu = document.querySelector('.side-menu');
+            const overlay = document.querySelector('.menu-overlay');
+            menu.classList.toggle('open');
+            overlay.classList.toggle('open');
+            
+            if (menu.classList.contains('open')) {
+                document.body.style.overflow = 'hidden'; // Prevent scrolling when menu is open
+            } else {
+                document.body.style.overflow = 'auto';
+            }
+        }
 
         // Extracts video ID from ANY YouTube link
         function getYouTubeId(url) {
@@ -747,7 +863,7 @@
 
             const buttons = document.querySelectorAll('.nav-btn');
             buttons.forEach(btn => btn.classList.remove('active'));
-            button.classList.add('active');
+            if(button) button.classList.add('active');
 
             const cards = document.querySelectorAll('.project-card');
             cards.forEach(card => {
@@ -772,7 +888,7 @@
 
             const buttons = document.querySelectorAll('.nav-btn');
             buttons.forEach(btn => btn.classList.remove('active'));
-            button.classList.add('active');
+            if(button) button.classList.add('active');
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
@@ -784,7 +900,7 @@
             const embedUrl = parseVideoUrl(rawVideoUrl);
             const iframe = document.getElementById('videoIframe');
             
-            // Adjust iframe class depending on source (Instagram needs a white background to look normal)
+            // Adjust iframe class depending on source
             if (rawVideoUrl && rawVideoUrl.includes('instagram.com')) {
                 iframe.classList.add('ig-embed');
             } else {
@@ -795,7 +911,7 @@
                 iframe.parentElement.style.display = 'block';
                 iframe.src = embedUrl;
             } else {
-                // If no video (like the Toll placeholder)
+                // If no video 
                 iframe.parentElement.style.display = 'none';
                 iframe.src = '';
             }
