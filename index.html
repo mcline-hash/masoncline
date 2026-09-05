@@ -473,6 +473,37 @@
         }
 
         /* MASONRY GALLERY & PHOTOGRAPHY UI */
+        
+        /* Master Scattered Gallery Grid */
+        .scattered-gallery {
+            column-count: 4;
+            column-gap: 2rem;
+            width: 100%;
+        }
+
+        .scattered-gallery img {
+            width: 100%;
+            display: block;
+            margin-bottom: 2rem;
+            cursor: pointer;
+            transition: filter 0.3s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            background-color: #d4d0c9;
+        }
+
+        .scattered-gallery img:hover {
+            transform: scale(1.02);
+            filter: brightness(1.05);
+            z-index: 10;
+            position: relative;
+        }
+
+        /* CSS rules to simulate a scattered, uneven grid */
+        .scattered-gallery img:nth-child(2n) { padding-left: 15%; padding-bottom: 2rem; }
+        .scattered-gallery img:nth-child(3n) { padding-right: 20%; }
+        .scattered-gallery img:nth-child(5n) { padding-left: 10%; margin-top: 3rem; }
+        .scattered-gallery img:nth-child(7n) { padding-right: 15%; padding-bottom: 4rem; }
+
+        /* Traditional Masonry for Album Details */
         .masonry-grid {
             column-count: 3;
             column-gap: 1.5rem;
@@ -483,7 +514,7 @@
             margin-bottom: 1.5rem;
             display: block;
             background-color: #d4d0c9;
-            transition: filter 0.3s ease, transform 0.3s ease;
+            transition: filter 0.3s ease;
         }
 
         .masonry-grid img:hover {
@@ -521,24 +552,34 @@
             letter-spacing: 0.05em;
         }
 
+        @media (max-width: 1024px) {
+            .scattered-gallery { column-count: 3; }
+        }
+
         @media (max-width: 768px) {
             header { padding: 2rem 1.5rem; }
             .header-divider { margin: 0 1.5rem; }
             .hero-section { padding: 6rem 1.5rem 2rem; }
             .hero-section h1 { font-size: 4rem; }
             .side-menu { max-width: 300px; padding: 6rem 2rem; }
-            main, #info-section { padding: 2rem 1.5rem 3rem; }
+            main, #info-section, #photography-section { padding: 2rem 1.5rem 3rem; }
             footer { padding: 1rem 1.5rem 3rem; flex-direction: column; gap: 1rem; }
             .project-meta { flex-direction: column; gap: 0.5rem; }
             .info-grid { grid-template-columns: 1fr; gap: 2rem; }
             .close-btn { top: 1rem; right: 1.5rem; }
             .modal-overlay { padding: 4rem 1rem 2rem; }
+            
             .masonry-grid { column-count: 2; column-gap: 1rem; }
             .masonry-grid img { margin-bottom: 1rem; }
+            
+            .scattered-gallery { column-count: 2; column-gap: 1rem; }
+            .scattered-gallery img { margin-bottom: 1rem; }
+            /* Reset padding on mobile for better viewing */
+            .scattered-gallery img:nth-child(n) { padding: 0; margin-top: 0; }
         }
 
         @media (max-width: 480px) {
-            .masonry-grid { column-count: 1; }
+            .masonry-grid, .scattered-gallery { column-count: 1; }
         }
     </style>
 </head>
@@ -737,24 +778,24 @@
         </div>
     </main>
 
-    <!-- NEW: PHOTOGRAPHY SECTION -->
-    <section id="photography-section" style="display: none; max-width: var(--container-width); margin: 0 auto; padding: 2rem 3rem 6rem; animation: fadeIn 0.5s ease forwards;">
+    <!-- PHOTOGRAPHY SECTION -->
+    <section id="photography-section" style="display: none; max-width: 1400px; margin: 0 auto; padding: 2rem 3rem 6rem; animation: fadeIn 0.5s ease forwards;">
         
-        <!-- View 1: Albums List -->
-        <div id="albums-view" class="portfolio-grid">
-            <!-- JavaScript will populate the album covers here -->
+        <!-- View 1: Master Scattered Gallery -->
+        <div id="master-gallery-view" class="scattered-gallery">
+            <!-- JavaScript will populate randomized scattered photos here -->
         </div>
 
         <!-- View 2: Masonry Gallery inside an Album -->
         <div id="gallery-view" style="display: none;">
             <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid var(--border-color); padding-bottom: 1rem; margin-bottom: 2rem;">
-                <button onclick="backToAlbums()" class="back-btn">&#8592; Back to Series</button>
+                <button onclick="backToMasterGallery()" class="back-btn">&#8592; Back to All Photography</button>
                 <div id="current-album-title" style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-color); font-weight: 600;"></div>
             </div>
             <p id="current-album-desc" style="font-size: 0.8rem; color: var(--muted-color); margin-bottom: 3rem; max-width: 600px; text-transform: uppercase; letter-spacing: 0.05em;"></p>
             
             <div class="masonry-grid" id="masonry-container">
-                <!-- JavaScript will populate the photo grid here -->
+                <!-- JavaScript will populate the specific photo grid here -->
             </div>
         </div>
     </section>
@@ -878,10 +919,8 @@
                 const title = card.getAttribute('data-title');
                 const category = card.getAttribute('data-category-name');
                 const creditsRaw = card.getAttribute('data-credits');
-                // Don't open video modal for photography album cards
-                if(!card.closest('#albums-view')){
-                    openModal(title, category, rawVideoUrl, creditsRaw);
-                }
+                
+                openModal(title, category, rawVideoUrl, creditsRaw);
             });
         });
 
@@ -963,78 +1002,14 @@
             }
         });
 
-        // --- NEW PHOTOGRAPHY DATA & LOGIC ---
+        // --- UPDATED PHOTOGRAPHY DATA WITH NEW FILE PATHS ---
         const photoAlbums = [
             {
                 id: "reach",
                 title: "REACH campaign",
                 desc: "Editorial Fashion Campaign for REACH COLLECTIVE, featuring Tandie Tyrell & Seunn, shot on 35mm",
                 photos: [
-                    "/PHOTO FOR SITE/1 REACH/000036340019.jpg", "/PHOTO FOR SITE/1 REACH/000036340024.jpg", "/PHOTO FOR SITE/1 REACH/000036340018.jpg", "/PHOTO FOR SITE/1 REACH/000036340022.jpg", "/PHOTO FOR SITE/1 REACH/000036340021.jpg", "/PHOTO FOR SITE/1 REACH/000070280041.jpg", "/PHOTO FOR SITE/1 REACH/000036340004.jpg", "/PHOTO FOR SITE/1 REACH/000036340011.jpg", "/PHOTO FOR SITE/1 REACH/000036340007.jpg", "/PHOTO FOR SITE/1 REACH/000036340013.jpg", "/PHOTO FOR SITE/1 REACH/000036340012.jpg", "/PHOTO FOR SITE/1 REACH/000036340017.jpg", "/PHOTO FOR SITE/1 REACH/000070280038.jpg", "/PHOTO FOR SITE/1 REACH/000036340015.jpg"
-                ]
-            },
-            {
-                id: "thieu-nu",
-                title: "Thiếu, Nữ",
-                desc: "A photo series complimenting the documentary Thiếu, Nữ (2025), featuring Thuỵ Huỳnh Thái, shot on 35mm & 120mm",
-                photos: [
-                    "/PHOTO FOR SITE/2 THIEU NU/000046350019.jpg", "/PHOTO FOR SITE/2 THIEU NU/IMG_9634.jpg", "/PHOTO FOR SITE/2 THIEU NU/000046350021.jpg", "/PHOTO FOR SITE/2 THIEU NU/IMG_9824.jpg", "/PHOTO FOR SITE/2 THIEU NU/005034680006.jpg", "/PHOTO FOR SITE/2 THIEU NU/IMG_9833.jpg", "/PHOTO FOR SITE/2 THIEU NU/005034680005.jpg", "/PHOTO FOR SITE/2 THIEU NU/IMG_9615.jpg", "/PHOTO FOR SITE/2 THIEU NU/000046350017.jpg", "/PHOTO FOR SITE/2 THIEU NU/005034680001.jpg", "/PHOTO FOR SITE/2 THIEU NU/005034680002.jpg", "/PHOTO FOR SITE/2 THIEU NU/005034680003.jpg"
-                ]
-            },
-            {
-                id: "spike-bts",
-                title: "SP!KE shortfilm BTS",
-                desc: "BTS & HEADSHOTS from the shortfilm SP!KE, shot on 35mm",
-                photos: [
-                    "/PHOTO FOR SITE/3 BTS /000066330015.jpg", "/PHOTO FOR SITE/3 BTS /000022180035.jpg", "/PHOTO FOR SITE/3 BTS /000066330013.jpg", "/PHOTO FOR SITE/3 BTS /005014470033.jpg", "/PHOTO FOR SITE/3 BTS /005014470025.jpg", "/PHOTO FOR SITE/3 BTS /005014470019.jpg", "/PHOTO FOR SITE/3 BTS /IMG_1551.jpg", "/PHOTO FOR SITE/3 BTS /005014470021.jpg", "/PHOTO FOR SITE/3 BTS /005014470022.jpg", "/PHOTO FOR SITE/3 BTS /005014470010.jpg", "/PHOTO FOR SITE/3 BTS /005014470005.jpg", "/PHOTO FOR SITE/3 BTS /000022180007.jpg", "/PHOTO FOR SITE/3 BTS /000066330008.jpg", "/PHOTO FOR SITE/3 BTS /000022180015.jpg"
-                ]
-            },
-            {
-                id: "toll-bts",
-                title: "TOLL BTS",
-                desc: "BTS & press photos from the music video TOLL featuring Insyt. & Nardos Almaz, shot on 35mm",
-                photos: [
-                    "/PHOTO FOR SITE/4 TOLL/000405190013.jpg", "/PHOTO FOR SITE/4 TOLL/000405190007.jpg", "/PHOTO FOR SITE/4 TOLL/000405190006.jpg", "/PHOTO FOR SITE/4 TOLL/000405190018.jpg", "/PHOTO FOR SITE/4 TOLL/000405190027.jpg", "/PHOTO FOR SITE/4 TOLL/000405190023.jpg", "/PHOTO FOR SITE/4 TOLL/000405190021.jpg", "/PHOTO FOR SITE/4 TOLL/000405190008.jpg"
-                ]
-            },
-            {
-                id: "360-bts",
-                title: "360° BTS",
-                desc: "BTS & press photos from the music video 360° starring Insyt. Shot on 35mm",
-                photos: [
-                    "/PHOTO FOR SITE/5 360/000004040006.jpg", "/PHOTO FOR SITE/5 360/000004040004.jpg", "/PHOTO FOR SITE/5 360/000004040015.jpg", "/PHOTO FOR SITE/5 360/000004040016.jpg", "/PHOTO FOR SITE/5 360/000004040017.jpg", "/PHOTO FOR SITE/5 360/000004040024.jpg", "/PHOTO FOR SITE/5 360/000004040008.jpg", "/PHOTO FOR SITE/5 360/000004040009-2.jpg", "/PHOTO FOR SITE/5 360/000004040010-2.jpg"
-                ]
-            },
-            {
-                id: "cellular-tones",
-                title: "Cellular Tones",
-                desc: "Editorial shoot featuring Jessica Binns, shot on 35mm",
-                photos: [
-                    "/PHOTO FOR SITE/CELLULAR TONES/000073880019.jpg", "/PHOTO FOR SITE/CELLULAR TONES/000073880018.jpg", "/PHOTO FOR SITE/CELLULAR TONES/000073880027.jpg"
-                ]
-            },
-            {
-                id: "gbl-campaign",
-                title: "GBL campaign",
-                desc: "GBL fashion campaign featuring Deeds, Noah Ferguson & Tafara Gwata, shot on 35mm",
-                photos: [
-                    "/PHOTO FOR SITE/GBL CAMPAIGN/000006640023.jpg", "/PHOTO FOR SITE/GBL CAMPAIGN/000006640025.jpg", "/PHOTO FOR SITE/GBL CAMPAIGN/IMG_2325.jpg", "/PHOTO FOR SITE/GBL CAMPAIGN/IMG_8586.jpg"
-                ]
-            },
-            {
-                id: "heal-bts",
-                title: "HEAL BTS",
-                desc: "BTS from the music video HEAL featuring Insyt. & Declan Mckenna, shot on 35mm",
-                photos: [
-                    "/PHOTO FOR SITE/HEAL BTS /000051540026.jpg", "/PHOTO FOR SITE/HEAL BTS /000051540025.jpg", "/PHOTO FOR SITE/HEAL BTS /000051540020.jpg", "/PHOTO FOR SITE/HEAL BTS /000051540022.jpg"
-                ]
-            },
-            {
-                id: "kuay-lucia",
-                title: "KUAY & LUCIA",
-                desc: "Editorial shot featuring Kuay Madit & Lucia Castro Giron, shot on 35mm",
-                photos: [
-                    "/PHOTO FOR SITE/KUAY & LUCIA /005003490009.jpg", "/PHOTO FOR SITE/KUAY & LUCIA /000047690008.jpg", "/PHOTO FOR SITE/KUAY & LUCIA /000047690010.jpg", "/PHOTO FOR SITE/KUAY & LUCIA /000047690009.jpg", "/PHOTO FOR SITE/KUAY & LUCIA /000047690011.jpg", "/PHOTO FOR SITE/KUAY & LUCIA /000047690005.jpg"
+                    "1 REACH/000036340004 Large.jpeg", "1 REACH/000036340007 Large.jpeg", "1 REACH/000036340011 Large.jpeg", "1 REACH/000036340012 Large.jpeg", "1 REACH/000036340013 Large.jpeg", "1 REACH/000036340015 Large.jpeg", "1 REACH/000036340017 Large.jpeg", "1 REACH/000036340018 Large.jpeg", "1 REACH/000036340019 Large.jpeg", "1 REACH/000036340021 Large.jpeg", "1 REACH/000036340022 Large.jpeg", "1 REACH/000036340024 Large.jpeg", "1 REACH/000070280038 Large.jpeg", "1 REACH/000070280041 Large.jpeg"
                 ]
             },
             {
@@ -1042,7 +1017,7 @@
                 title: "PATHFINDER",
                 desc: "Headshots & press photos from the Documentary PATHFINDER (2026) featuring Siby Dioms, Jamal Burger, Magdalena Grammenopoulos, Claire Senjule & Kait Nichols, shot on 35mm",
                 photos: [
-                    "/PHOTO FOR SITE/PATHFINDER/000012260013.jpg", "/PHOTO FOR SITE/PATHFINDER/000012260029.jpg", "/PHOTO FOR SITE/PATHFINDER/000012250004.jpg", "/PHOTO FOR SITE/PATHFINDER/000012250014.jpg", "/PHOTO FOR SITE/PATHFINDER/000012250015.jpg", "/PHOTO FOR SITE/PATHFINDER/000012250016.jpg", "/PHOTO FOR SITE/PATHFINDER/000012250019.jpg", "/PHOTO FOR SITE/PATHFINDER/000012250008.jpg", "/PHOTO FOR SITE/PATHFINDER/000012250022.jpg", "/PHOTO FOR SITE/PATHFINDER/000012250023.jpg", "/PHOTO FOR SITE/PATHFINDER/000012260025.jpg", "/PHOTO FOR SITE/PATHFINDER/000012260027.jpg", "/PHOTO FOR SITE/PATHFINDER/000012260026.jpg", "/PHOTO FOR SITE/PATHFINDER/000012260036.jpg", "/PHOTO FOR SITE/PATHFINDER/000012260034.jpg"
+                    "10 PATHFINDER/000012250004 Large.jpeg", "10 PATHFINDER/000012250008 Large.jpeg", "10 PATHFINDER/000012250014 Large.jpeg", "10 PATHFINDER/000012250015 Large.jpeg", "10 PATHFINDER/000012250016 Large.jpeg", "10 PATHFINDER/000012250019 Large.jpeg", "10 PATHFINDER/000012250022 Large.jpeg", "10 PATHFINDER/000012250023 Large.jpeg", "10 PATHFINDER/000012260013 Large.jpeg", "10 PATHFINDER/000012260025 Large.jpeg", "10 PATHFINDER/000012260026 Large.jpeg", "10 PATHFINDER/000012260027 Large.jpeg", "10 PATHFINDER/000012260029 Large.jpeg", "10 PATHFINDER/000012260034 Large.jpeg", "10 PATHFINDER/000012260036 Large.jpeg"
                 ]
             },
             {
@@ -1050,40 +1025,120 @@
                 title: "ZOE",
                 desc: "Editorial and BTS featuring Zoe.",
                 photos: [
-                    "/PHOTO FOR SITE/ZOE /000047690026.jpg", "/PHOTO FOR SITE/ZOE /000047690032.jpg", "/PHOTO FOR SITE/ZOE /000047690033.jpg", "/PHOTO FOR SITE/ZOE /000047690031.jpg", "/PHOTO FOR SITE/ZOE /000029480033.jpg", "/PHOTO FOR SITE/ZOE /ZOE LONG 2.png"
+                    "11 ZOE/000029480033 Large.jpeg", "11 ZOE/000047690026 Large.jpeg", "11 ZOE/000047690031 Large.jpeg", "11 ZOE/000047690032 Large.jpeg", "11 ZOE/000047690033 Large.jpeg", "11 ZOE/ZOE LONG 2 Large.jpeg"
+                ]
+            },
+            {
+                id: "other",
+                title: "OTHER PHOTOS",
+                desc: "Miscellaneous photography.",
+                photos: [
+                    "12 OTHER PHOTOS/000024940007 Large.jpeg", "12 OTHER PHOTOS/000051540001 Large.jpeg"
+                ]
+            },
+            {
+                id: "thieu-nu",
+                title: "Thiếu, Nữ",
+                desc: "A photo series complimenting the documentary Thiếu, Nữ (2025), featuring Thuỵ Huỳnh Thái, shot on 35mm & 120mm",
+                photos: [
+                    "2 THIEU NU/000046350017.jpeg", "2 THIEU NU/000046350019.jpeg", "2 THIEU NU/000046350021.jpeg", "2 THIEU NU/005034680001.jpeg", "2 THIEU NU/005034680002.jpeg", "2 THIEU NU/005034680003.jpeg", "2 THIEU NU/005034680005.jpeg", "2 THIEU NU/005034680006.jpeg", "2 THIEU NU/IMG_9615.jpeg", "2 THIEU NU/IMG_9634.jpeg", "2 THIEU NU/IMG_9824.jpeg", "2 THIEU NU/IMG_9833.jpeg"
+                ]
+            },
+            {
+                id: "spike-bts",
+                title: "SP!KE shortfilm BTS",
+                desc: "BTS & HEADSHOTS from the shortfilm SP!KE, shot on 35mm",
+                photos: [
+                    "3 BTS/000022180007.jpeg", "3 BTS/000022180015.jpeg", "3 BTS/000022180035.jpeg", "3 BTS/000066330008.jpeg", "3 BTS/000066330013.jpeg", "3 BTS/000066330015.jpeg", "3 BTS/005014470005.jpeg", "3 BTS/005014470010.jpeg", "3 BTS/005014470019.jpeg", "3 BTS/005014470021.jpeg", "3 BTS/005014470022.jpeg", "3 BTS/005014470025.jpeg", "3 BTS/005014470033.jpeg", "3 BTS/IMG_1551.jpeg"
+                ]
+            },
+            {
+                id: "toll-bts",
+                title: "TOLL BTS",
+                desc: "BTS & press photos from the music video TOLL featuring Insyt. & Nardos Almaz, shot on 35mm",
+                photos: [
+                    "4 TOLL/000405190006 Large.jpeg", "4 TOLL/000405190007 Large.jpeg", "4 TOLL/000405190008 Large.jpeg", "4 TOLL/000405190013 Large.jpeg", "4 TOLL/000405190018 Large.jpeg", "4 TOLL/000405190021 Large.jpeg", "4 TOLL/000405190023 Large.jpeg", "4 TOLL/000405190027 Large.jpeg"
+                ]
+            },
+            {
+                id: "360-bts",
+                title: "360° BTS",
+                desc: "BTS & press photos from the music video 360° starring Insyt. Shot on 35mm",
+                photos: [
+                    "5 360/000004040004 Large.jpeg", "5 360/000004040006 Large.jpeg", "5 360/000004040008 Large.jpeg", "5 360/000004040009-2 Large.jpeg", "5 360/000004040010-2 Large.jpeg", "5 360/000004040015 Large.jpeg", "5 360/000004040016 Large.jpeg", "5 360/000004040017 Large.jpeg", "5 360/000004040024 Large.jpeg"
+                ]
+            },
+            {
+                id: "cellular-tones",
+                title: "Cellular Tones",
+                desc: "Editorial shoot featuring Jessica Binns, shot on 35mm",
+                photos: [
+                    "6 CELLULAR TONES/000073880018 Large.jpeg", "6 CELLULAR TONES/000073880019 Large.jpeg", "6 CELLULAR TONES/000073880027 Large.jpeg"
+                ]
+            },
+            {
+                id: "gbl-campaign",
+                title: "GBL campaign",
+                desc: "GBL fashion campaign featuring Deeds, Noah Ferguson & Tafara Gwata, shot on 35mm",
+                photos: [
+                    "7 GBL CAMPAIGN/000006640023 Large.jpeg", "7 GBL CAMPAIGN/000006640025 Large.jpeg", "7 GBL CAMPAIGN/IMG_2325 Large.jpeg", "7 GBL CAMPAIGN/IMG_8586 Large.jpeg"
+                ]
+            },
+            {
+                id: "heal-bts",
+                title: "HEAL BTS",
+                desc: "BTS from the music video HEAL featuring Insyt. & Declan Mckenna, shot on 35mm",
+                photos: [
+                    "8 HEAL BTS/000051540020 Large.jpeg", "8 HEAL BTS/000051540022 Large.jpeg", "8 HEAL BTS/000051540025 Large.jpeg", "8 HEAL BTS/000051540026 Large.jpeg"
+                ]
+            },
+            {
+                id: "kuay-lucia",
+                title: "KUAY & LUCIA",
+                desc: "Editorial shot featuring Kuay Madit & Lucia Castro Giron, shot on 35mm",
+                photos: [
+                    "9 KUAY & LUCIA/000047690005 Large.jpeg", "9 KUAY & LUCIA/000047690008 Large.jpeg", "9 KUAY & LUCIA/000047690009 Large.jpeg", "9 KUAY & LUCIA/000047690010 Large.jpeg"
                 ]
             }
         ];
 
-        function renderAlbums() {
-            const albumsView = document.getElementById('albums-view');
-            albumsView.innerHTML = ''; 
+        // 1. Render the massive scattered home gallery
+        function renderMasterGallery() {
+            const masterView = document.getElementById('master-gallery-view');
+            masterView.innerHTML = ''; 
 
+            let allPhotos = [];
+            
+            // Loop through all folders and combine all photos into one massive array
             photoAlbums.forEach(album => {
-                const coverImg = album.photos[0]; 
-                
-                const card = document.createElement('div');
-                card.className = 'project-card';
-                card.onclick = () => openGallery(album.id);
-                
-                card.innerHTML = `
-                    <div class="thumbnail-box">
-                        <img src="${coverImg}" alt="${album.title}" loading="lazy">
-                    </div>
-                    <div class="project-meta">
-                        <div class="project-title">${album.title}</div>
-                        <div class="project-credits-preview" style="text-transform:none; font-weight:400; letter-spacing:0.02em;">${album.desc}</div>
-                    </div>
-                `;
-                albumsView.appendChild(card);
+                album.photos.forEach(photoSrc => {
+                    allPhotos.push({ src: photoSrc, albumId: album.id });
+                });
+            });
+
+            // Randomly shuffle the array so the master gallery is thoroughly mixed 
+            // This achieves the scattered, unorganized editorial look
+            for (let i = allPhotos.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [allPhotos[i], allPhotos[j]] = [allPhotos[j], allPhotos[i]];
+            }
+
+            allPhotos.forEach(item => {
+                const img = document.createElement('img');
+                img.src = item.src;
+                img.loading = "lazy"; 
+                // When clicked, open that specific album
+                img.onclick = () => openGallery(item.albumId);
+                masterView.appendChild(img);
             });
         }
 
+        // 2. Open a specific album when a scattered photo is clicked
         function openGallery(albumId) {
             const album = photoAlbums.find(a => a.id === albumId);
             if(!album) return;
 
-            document.getElementById('albums-view').style.display = 'none';
+            document.getElementById('master-gallery-view').style.display = 'none';
             document.getElementById('gallery-view').style.display = 'block';
             
             document.getElementById('current-album-title').textContent = album.title;
@@ -1102,15 +1157,17 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        function backToAlbums() {
+        // 3. Return to the massive scattered gallery
+        function backToMasterGallery() {
             document.getElementById('gallery-view').style.display = 'none';
-            document.getElementById('albums-view').style.display = 'flex';
+            document.getElementById('master-gallery-view').style.display = 'block';
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        renderAlbums();
+        // Initialize the master gallery on load
+        renderMasterGallery();
 
-        // Updated traffic controller for all page navigation
+        // Traffic controller for page navigation
         function filterProjects(category, button) {
             document.getElementById('work-section').style.display = 'none';
             document.getElementById('info-section').style.display = 'none';
@@ -1127,7 +1184,8 @@
                 heroSection.style.display = 'none';
                 headerGalleryTitle.style.display = 'block'; 
                 document.getElementById('photography-section').style.display = 'block';
-                backToAlbums(); 
+                // Always reset to the master scattered view when the tab is clicked
+                backToMasterGallery(); 
             } else {
                 heroSection.style.display = 'none';
                 headerGalleryTitle.style.display = 'none';
