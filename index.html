@@ -66,7 +66,7 @@
             max-width: var(--container-width);
             margin: 0 auto;
             position: relative;
-            z-index: 1000; /* Increased to stay above the void */
+            z-index: 1000;
         }
 
         .header-wrapper {
@@ -484,7 +484,7 @@
 
         .void-viewport {
             width: 100vw;
-            height: calc(100vh - 120px); /* Fill screen minus header area */
+            height: calc(100vh - 120px);
             overflow: hidden;
             position: relative;
             background-color: var(--bg-color);
@@ -497,9 +497,9 @@
 
         .void-canvas {
             position: absolute;
-            width: 6000px;
-            height: 6000px;
-            transform-origin: 0 0; /* Scaling is done from top left, math handles the rest */
+            width: 8000px; /* Expanded for better spacing */
+            height: 8000px; /* Expanded for better spacing */
+            transform-origin: 0 0; 
             will-change: transform;
         }
 
@@ -508,7 +508,7 @@
             box-shadow: 0 10px 40px rgba(0,0,0,0.15);
             transition: filter 0.3s ease;
             user-select: none;
-            -webkit-user-drag: none; /* Prevent native dragging so panning works */
+            -webkit-user-drag: none; 
             cursor: pointer;
         }
 
@@ -846,7 +846,7 @@
             </div>
 
             <div class="void-canvas" id="void-canvas">
-                <!-- JavaScript populates overlapping images here -->
+                <!-- JavaScript populates grid-scattered images here -->
             </div>
             
         </div>
@@ -1170,7 +1170,7 @@
             }
         ];
 
-        // --- VOID ENGINE (PAN & ZOOM) ---
+        // --- JITTER GRID VOID ENGINE (PAN & ZOOM) ---
         let scale = 0.25;
         let posX = -1000;
         let posY = -1000;
@@ -1187,7 +1187,7 @@
             canvas.style.transform = `translate(${posX}px, ${posY}px) scale(${scale})`;
         }
 
-        // Render the 97 images randomly across a giant 6000x6000 canvas
+        // Render the images in a controlled "Jitter Grid" to prevent heavy overlap
         function renderMasterGallery() {
             canvas.innerHTML = ''; 
             let allPhotos = [];
@@ -1204,15 +1204,28 @@
                 [allPhotos[i], allPhotos[j]] = [allPhotos[j], allPhotos[i]];
             }
 
+            // Grid variables: 10 columns by 10 rows (100 total slots for 97 photos)
+            const cols = 10; 
+            const cellSize = 800; // 800px square per photo slot
+            
             allPhotos.forEach((item, index) => {
                 const img = document.createElement('img');
                 img.src = item.src;
                 img.loading = "lazy"; 
                 
-                // Randomize sizes and placement within the 6000px bounds
-                const w = Math.floor(Math.random() * 400) + 300; 
-                const x = Math.floor(Math.random() * (6000 - w));
-                const y = Math.floor(Math.random() * 5200); // leave room at bottom
+                const col = index % cols;
+                const row = Math.floor(index / cols);
+                
+                // Randomize width between 300px and 500px
+                const w = Math.floor(Math.random() * 200) + 300; 
+                
+                // Offset the image slightly within its 800x800px cell boundaries
+                // The math allows for a tiny bit of clipping over the edge but mostly keeps them separate
+                const offsetX = Math.floor(Math.random() * (cellSize - w + 100)) - 50; 
+                const offsetY = Math.floor(Math.random() * (cellSize - w + 100)) - 50;
+                
+                const x = (col * cellSize) + offsetX;
+                const y = (row * cellSize) + offsetY;
                 const z = index + 1;
 
                 img.style.width = `${w}px`;
@@ -1265,10 +1278,10 @@
         // Slider Zooming
         zoomSlider.addEventListener('input', (e) => {
             scale = parseFloat(e.target.value);
-            // Quick center logic on slider use
+            // Quick center logic on slider use (adjusted for 8000px canvas)
             const rect = viewport.getBoundingClientRect();
-            posX = - (3000 * scale) + (rect.width / 2);
-            posY = - (3000 * scale) + (rect.height / 2);
+            posX = - (4000 * scale) + (rect.width / 2);
+            posY = - (4000 * scale) + (rect.height / 2);
             updateTransform();
         });
 
@@ -1359,8 +1372,8 @@
                 
                 // Recenter the void slightly
                 const rect = viewport.getBoundingClientRect();
-                posX = - (3000 * scale) + (rect.width / 2);
-                posY = - (3000 * scale) + (rect.height / 2);
+                posX = - (4000 * scale) + (rect.width / 2);
+                posY = - (4000 * scale) + (rect.height / 2);
                 updateTransform();
                 
                 backToMasterGallery(); 
