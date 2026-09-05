@@ -69,7 +69,6 @@
             z-index: 100;
         }
 
-        /* Fading sticky header effect */
         .header-wrapper {
             position: fixed;
             top: 0;
@@ -229,7 +228,7 @@
 
         .hero-section h1 {
             font-family: var(--font-hero);
-            font-size: 6rem; /* Increased significantly for larger impact */
+            font-size: 6rem;
             font-weight: 400;
             letter-spacing: 0.02em;
             margin-bottom: 0.5rem;
@@ -473,6 +472,41 @@
             margin-left: 0.5rem;
         }
 
+        /* MASONRY GALLERY & PHOTOGRAPHY UI */
+        .masonry-grid {
+            column-count: 3;
+            column-gap: 1.5rem;
+        }
+
+        .masonry-grid img {
+            width: 100%;
+            margin-bottom: 1.5rem;
+            display: block;
+            background-color: #d4d0c9;
+            transition: filter 0.3s ease, transform 0.3s ease;
+        }
+
+        .masonry-grid img:hover {
+            filter: brightness(0.9);
+        }
+
+        .back-btn {
+            background: none;
+            border: none;
+            color: var(--muted-color);
+            font-family: var(--font-main);
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .back-btn:hover {
+            color: var(--accent-color);
+        }
+
         /* FOOTER */
         footer {
             max-width: var(--container-width);
@@ -488,45 +522,23 @@
         }
 
         @media (max-width: 768px) {
-            header {
-                padding: 2rem 1.5rem;
-            }
-            .header-divider {
-                margin: 0 1.5rem;
-            }
-            .hero-section {
-                padding: 6rem 1.5rem 2rem;
-            }
-            .hero-section h1 {
-                font-size: 4rem; /* Scale down hero text for mobile */
-            }
-            .side-menu {
-                max-width: 300px;
-                padding: 6rem 2rem;
-            }
-            main, #info-section {
-                padding: 2rem 1.5rem 3rem;
-            }
-            footer {
-                padding: 1rem 1.5rem 3rem;
-                flex-direction: column;
-                gap: 1rem;
-            }
-            .project-meta {
-                flex-direction: column;
-                gap: 0.5rem;
-            }
-            .info-grid {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-            .close-btn {
-                top: 1rem;
-                right: 1.5rem;
-            }
-            .modal-overlay {
-                padding: 4rem 1rem 2rem;
-            }
+            header { padding: 2rem 1.5rem; }
+            .header-divider { margin: 0 1.5rem; }
+            .hero-section { padding: 6rem 1.5rem 2rem; }
+            .hero-section h1 { font-size: 4rem; }
+            .side-menu { max-width: 300px; padding: 6rem 2rem; }
+            main, #info-section { padding: 2rem 1.5rem 3rem; }
+            footer { padding: 1rem 1.5rem 3rem; flex-direction: column; gap: 1rem; }
+            .project-meta { flex-direction: column; gap: 0.5rem; }
+            .info-grid { grid-template-columns: 1fr; gap: 2rem; }
+            .close-btn { top: 1rem; right: 1.5rem; }
+            .modal-overlay { padding: 4rem 1rem 2rem; }
+            .masonry-grid { column-count: 2; column-gap: 1rem; }
+            .masonry-grid img { margin-bottom: 1rem; }
+        }
+
+        @media (max-width: 480px) {
+            .masonry-grid { column-count: 1; }
         }
     </style>
 </head>
@@ -538,6 +550,12 @@
             <div class="logo" onclick="document.querySelector('.nav-btn[onclick*=\'all\']').click()">
                 <img src="https://i.imgur.com/qDcDABi.png" alt="Mason Cline">
             </div>
+            
+            <!-- NEW: Hidden Gallery Title -->
+            <div id="header-gallery-title" style="display: none; font-family: var(--font-main); font-size: 1rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted-color);">
+                Gallery
+            </div>
+
             <!-- HAMBURGER MENU BUTTON -->
             <button class="hamburger-btn" onclick="toggleMenu()" aria-label="Menu">
                 <span></span>
@@ -719,6 +737,28 @@
         </div>
     </main>
 
+    <!-- NEW: PHOTOGRAPHY SECTION -->
+    <section id="photography-section" style="display: none; max-width: var(--container-width); margin: 0 auto; padding: 2rem 3rem 6rem; animation: fadeIn 0.5s ease forwards;">
+        
+        <!-- View 1: Albums List -->
+        <div id="albums-view" class="portfolio-grid">
+            <!-- JavaScript will populate the album covers here -->
+        </div>
+
+        <!-- View 2: Masonry Gallery inside an Album -->
+        <div id="gallery-view" style="display: none;">
+            <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid var(--border-color); padding-bottom: 1rem; margin-bottom: 2rem;">
+                <button onclick="backToAlbums()" class="back-btn">&#8592; Back to Series</button>
+                <div id="current-album-title" style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-color); font-weight: 600;"></div>
+            </div>
+            <p id="current-album-desc" style="font-size: 0.8rem; color: var(--muted-color); margin-bottom: 3rem; max-width: 600px; text-transform: uppercase; letter-spacing: 0.05em;"></p>
+            
+            <div class="masonry-grid" id="masonry-container">
+                <!-- JavaScript will populate the photo grid here -->
+            </div>
+        </div>
+    </section>
+
     <!-- INFO / CONTACT SECTION -->
     <section id="info-section">
         <div class="info-grid">
@@ -784,7 +824,7 @@
             overlay.classList.toggle('open');
             
             if (menu.classList.contains('open')) {
-                document.body.style.overflow = 'hidden'; // Prevent scrolling when menu is open
+                document.body.style.overflow = 'hidden';
             } else {
                 document.body.style.overflow = 'auto';
             }
@@ -800,7 +840,7 @@
             } else if (url.includes('embed/')) {
                 return url.split('embed/')[1].split('?')[0];
             } else if (url.length === 11) {
-                return url.trim(); // Raw video ID
+                return url.trim(); 
             }
             return null;
         }
@@ -808,17 +848,13 @@
         // Convert ANY YouTube or Instagram Link into an embed format
         function parseVideoUrl(url) {
             if (!url) return '';
-            
-            // Handle Instagram Links
             if (url.includes('instagram.com')) {
-                let cleanUrl = url.split('?')[0]; // Remove any tracking params
+                let cleanUrl = url.split('?')[0]; 
                 if (!cleanUrl.endsWith('/')) {
                     cleanUrl += '/';
                 }
                 return cleanUrl + 'embed/';
             }
-            
-            // Handle YouTube Links
             const id = getYouTubeId(url);
             return id ? `https://www.youtube.com/embed/${id}?autoplay=1` : '';
         }
@@ -830,7 +866,6 @@
             const videoId = getYouTubeId(rawVideoUrl);
             const thumbBox = card.querySelector('.thumbnail-box');
             
-            // If the thumbnail wasn't already hardcoded with text (spans) in the HTML
             if (!thumbBox.querySelector('img') && !thumbBox.querySelector('span')) {
                 if (customPoster && !customPoster.includes("PASTE_")) {
                     thumbBox.innerHTML = `<img src="${customPoster}" alt="${card.getAttribute('data-title')}">`;
@@ -843,47 +878,19 @@
                 const title = card.getAttribute('data-title');
                 const category = card.getAttribute('data-category-name');
                 const creditsRaw = card.getAttribute('data-credits');
-
-                openModal(title, category, rawVideoUrl, creditsRaw);
-            });
-        });
-
-        // Filter projects based on directory navigation
-        function filterProjects(category, button) {
-            document.getElementById('work-section').style.display = 'block';
-            document.getElementById('info-section').style.display = 'none';
-
-            // Show/hide hero section based on tab
-            const heroSection = document.querySelector('.hero-section');
-            if(category === 'all') {
-                heroSection.style.display = 'block';
-            } else {
-                heroSection.style.display = 'none';
-            }
-
-            const buttons = document.querySelectorAll('.nav-btn');
-            buttons.forEach(btn => btn.classList.remove('active'));
-            if(button) button.classList.add('active');
-
-            const cards = document.querySelectorAll('.project-card');
-            cards.forEach(card => {
-                if (category === 'all' || card.getAttribute('data-category') === category) {
-                    card.style.display = 'flex';
-                    // Slight animation reset
-                    card.style.animation = 'none';
-                    card.offsetHeight; /* trigger reflow */
-                    card.style.animation = 'fadeIn 0.5s ease forwards';
-                } else {
-                    card.style.display = 'none';
+                // Don't open video modal for photography album cards
+                if(!card.closest('#albums-view')){
+                    openModal(title, category, rawVideoUrl, creditsRaw);
                 }
             });
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
+        });
 
         // Show Info / Contact view
         function showInfo(button) {
             document.getElementById('work-section').style.display = 'none';
             document.querySelector('.hero-section').style.display = 'none';
+            document.getElementById('photography-section').style.display = 'none';
+            document.getElementById('header-gallery-title').style.display = 'none';
             document.getElementById('info-section').style.display = 'block';
 
             const buttons = document.querySelectorAll('.nav-btn');
@@ -892,7 +899,7 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // Open modal detail view
+        // Open modal detail view (Video)
         function openModal(title, category, rawVideoUrl, creditsRaw) {
             document.getElementById('modalTitle').textContent = title;
             document.getElementById('modalCategory').textContent = category;
@@ -900,7 +907,6 @@
             const embedUrl = parseVideoUrl(rawVideoUrl);
             const iframe = document.getElementById('videoIframe');
             
-            // Adjust iframe class depending on source
             if (rawVideoUrl && rawVideoUrl.includes('instagram.com')) {
                 iframe.classList.add('ig-embed');
             } else {
@@ -911,7 +917,6 @@
                 iframe.parentElement.style.display = 'block';
                 iframe.src = embedUrl;
             } else {
-                // If no video 
                 iframe.parentElement.style.display = 'none';
                 iframe.src = '';
             }
@@ -933,7 +938,7 @@
             }
 
             document.getElementById('projectModal').classList.add('active');
-            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+            document.body.style.overflow = 'hidden'; 
         }
 
         // Close modal view and stop video audio
@@ -941,11 +946,10 @@
             document.getElementById('projectModal').classList.remove('active');
             setTimeout(() => {
                 document.getElementById('videoIframe').src = '';
-            }, 300); // Wait for fade out
+            }, 300); 
             document.body.style.overflow = 'auto';
         }
 
-        // Close modal when clicking outside content box
         window.onclick = function(event) {
             const modal = document.getElementById('projectModal');
             if (event.target === modal) {
@@ -953,12 +957,203 @@
             }
         }
         
-        // Close modal with Escape key
         document.addEventListener('keydown', function(event) {
             if (event.key === "Escape") {
                 closeModal();
             }
         });
+
+        // --- NEW PHOTOGRAPHY DATA & LOGIC ---
+        const photoAlbums = [
+            {
+                id: "reach",
+                title: "REACH campaign",
+                desc: "Editorial Fashion Campaign for REACH COLLECTIVE, featuring Tandie Tyrell & Seunn, shot on 35mm",
+                photos: [
+                    "/PHOTO FOR SITE/1 REACH/000036340019.jpg", "/PHOTO FOR SITE/1 REACH/000036340024.jpg", "/PHOTO FOR SITE/1 REACH/000036340018.jpg", "/PHOTO FOR SITE/1 REACH/000036340022.jpg", "/PHOTO FOR SITE/1 REACH/000036340021.jpg", "/PHOTO FOR SITE/1 REACH/000070280041.jpg", "/PHOTO FOR SITE/1 REACH/000036340004.jpg", "/PHOTO FOR SITE/1 REACH/000036340011.jpg", "/PHOTO FOR SITE/1 REACH/000036340007.jpg", "/PHOTO FOR SITE/1 REACH/000036340013.jpg", "/PHOTO FOR SITE/1 REACH/000036340012.jpg", "/PHOTO FOR SITE/1 REACH/000036340017.jpg", "/PHOTO FOR SITE/1 REACH/000070280038.jpg", "/PHOTO FOR SITE/1 REACH/000036340015.jpg"
+                ]
+            },
+            {
+                id: "thieu-nu",
+                title: "Thiếu, Nữ",
+                desc: "A photo series complimenting the documentary Thiếu, Nữ (2025), featuring Thuỵ Huỳnh Thái, shot on 35mm & 120mm",
+                photos: [
+                    "/PHOTO FOR SITE/2 THIEU NU/000046350019.jpg", "/PHOTO FOR SITE/2 THIEU NU/IMG_9634.jpg", "/PHOTO FOR SITE/2 THIEU NU/000046350021.jpg", "/PHOTO FOR SITE/2 THIEU NU/IMG_9824.jpg", "/PHOTO FOR SITE/2 THIEU NU/005034680006.jpg", "/PHOTO FOR SITE/2 THIEU NU/IMG_9833.jpg", "/PHOTO FOR SITE/2 THIEU NU/005034680005.jpg", "/PHOTO FOR SITE/2 THIEU NU/IMG_9615.jpg", "/PHOTO FOR SITE/2 THIEU NU/000046350017.jpg", "/PHOTO FOR SITE/2 THIEU NU/005034680001.jpg", "/PHOTO FOR SITE/2 THIEU NU/005034680002.jpg", "/PHOTO FOR SITE/2 THIEU NU/005034680003.jpg"
+                ]
+            },
+            {
+                id: "spike-bts",
+                title: "SP!KE shortfilm BTS",
+                desc: "BTS & HEADSHOTS from the shortfilm SP!KE, shot on 35mm",
+                photos: [
+                    "/PHOTO FOR SITE/3 BTS /000066330015.jpg", "/PHOTO FOR SITE/3 BTS /000022180035.jpg", "/PHOTO FOR SITE/3 BTS /000066330013.jpg", "/PHOTO FOR SITE/3 BTS /005014470033.jpg", "/PHOTO FOR SITE/3 BTS /005014470025.jpg", "/PHOTO FOR SITE/3 BTS /005014470019.jpg", "/PHOTO FOR SITE/3 BTS /IMG_1551.jpg", "/PHOTO FOR SITE/3 BTS /005014470021.jpg", "/PHOTO FOR SITE/3 BTS /005014470022.jpg", "/PHOTO FOR SITE/3 BTS /005014470010.jpg", "/PHOTO FOR SITE/3 BTS /005014470005.jpg", "/PHOTO FOR SITE/3 BTS /000022180007.jpg", "/PHOTO FOR SITE/3 BTS /000066330008.jpg", "/PHOTO FOR SITE/3 BTS /000022180015.jpg"
+                ]
+            },
+            {
+                id: "toll-bts",
+                title: "TOLL BTS",
+                desc: "BTS & press photos from the music video TOLL featuring Insyt. & Nardos Almaz, shot on 35mm",
+                photos: [
+                    "/PHOTO FOR SITE/4 TOLL/000405190013.jpg", "/PHOTO FOR SITE/4 TOLL/000405190007.jpg", "/PHOTO FOR SITE/4 TOLL/000405190006.jpg", "/PHOTO FOR SITE/4 TOLL/000405190018.jpg", "/PHOTO FOR SITE/4 TOLL/000405190027.jpg", "/PHOTO FOR SITE/4 TOLL/000405190023.jpg", "/PHOTO FOR SITE/4 TOLL/000405190021.jpg", "/PHOTO FOR SITE/4 TOLL/000405190008.jpg"
+                ]
+            },
+            {
+                id: "360-bts",
+                title: "360° BTS",
+                desc: "BTS & press photos from the music video 360° starring Insyt. Shot on 35mm",
+                photos: [
+                    "/PHOTO FOR SITE/5 360/000004040006.jpg", "/PHOTO FOR SITE/5 360/000004040004.jpg", "/PHOTO FOR SITE/5 360/000004040015.jpg", "/PHOTO FOR SITE/5 360/000004040016.jpg", "/PHOTO FOR SITE/5 360/000004040017.jpg", "/PHOTO FOR SITE/5 360/000004040024.jpg", "/PHOTO FOR SITE/5 360/000004040008.jpg", "/PHOTO FOR SITE/5 360/000004040009-2.jpg", "/PHOTO FOR SITE/5 360/000004040010-2.jpg"
+                ]
+            },
+            {
+                id: "cellular-tones",
+                title: "Cellular Tones",
+                desc: "Editorial shoot featuring Jessica Binns, shot on 35mm",
+                photos: [
+                    "/PHOTO FOR SITE/CELLULAR TONES/000073880019.jpg", "/PHOTO FOR SITE/CELLULAR TONES/000073880018.jpg", "/PHOTO FOR SITE/CELLULAR TONES/000073880027.jpg"
+                ]
+            },
+            {
+                id: "gbl-campaign",
+                title: "GBL campaign",
+                desc: "GBL fashion campaign featuring Deeds, Noah Ferguson & Tafara Gwata, shot on 35mm",
+                photos: [
+                    "/PHOTO FOR SITE/GBL CAMPAIGN/000006640023.jpg", "/PHOTO FOR SITE/GBL CAMPAIGN/000006640025.jpg", "/PHOTO FOR SITE/GBL CAMPAIGN/IMG_2325.jpg", "/PHOTO FOR SITE/GBL CAMPAIGN/IMG_8586.jpg"
+                ]
+            },
+            {
+                id: "heal-bts",
+                title: "HEAL BTS",
+                desc: "BTS from the music video HEAL featuring Insyt. & Declan Mckenna, shot on 35mm",
+                photos: [
+                    "/PHOTO FOR SITE/HEAL BTS /000051540026.jpg", "/PHOTO FOR SITE/HEAL BTS /000051540025.jpg", "/PHOTO FOR SITE/HEAL BTS /000051540020.jpg", "/PHOTO FOR SITE/HEAL BTS /000051540022.jpg"
+                ]
+            },
+            {
+                id: "kuay-lucia",
+                title: "KUAY & LUCIA",
+                desc: "Editorial shot featuring Kuay Madit & Lucia Castro Giron, shot on 35mm",
+                photos: [
+                    "/PHOTO FOR SITE/KUAY & LUCIA /005003490009.jpg", "/PHOTO FOR SITE/KUAY & LUCIA /000047690008.jpg", "/PHOTO FOR SITE/KUAY & LUCIA /000047690010.jpg", "/PHOTO FOR SITE/KUAY & LUCIA /000047690009.jpg", "/PHOTO FOR SITE/KUAY & LUCIA /000047690011.jpg", "/PHOTO FOR SITE/KUAY & LUCIA /000047690005.jpg"
+                ]
+            },
+            {
+                id: "pathfinder",
+                title: "PATHFINDER",
+                desc: "Headshots & press photos from the Documentary PATHFINDER (2026) featuring Siby Dioms, Jamal Burger, Magdalena Grammenopoulos, Claire Senjule & Kait Nichols, shot on 35mm",
+                photos: [
+                    "/PHOTO FOR SITE/PATHFINDER/000012260013.jpg", "/PHOTO FOR SITE/PATHFINDER/000012260029.jpg", "/PHOTO FOR SITE/PATHFINDER/000012250004.jpg", "/PHOTO FOR SITE/PATHFINDER/000012250014.jpg", "/PHOTO FOR SITE/PATHFINDER/000012250015.jpg", "/PHOTO FOR SITE/PATHFINDER/000012250016.jpg", "/PHOTO FOR SITE/PATHFINDER/000012250019.jpg", "/PHOTO FOR SITE/PATHFINDER/000012250008.jpg", "/PHOTO FOR SITE/PATHFINDER/000012250022.jpg", "/PHOTO FOR SITE/PATHFINDER/000012250023.jpg", "/PHOTO FOR SITE/PATHFINDER/000012260025.jpg", "/PHOTO FOR SITE/PATHFINDER/000012260027.jpg", "/PHOTO FOR SITE/PATHFINDER/000012260026.jpg", "/PHOTO FOR SITE/PATHFINDER/000012260036.jpg", "/PHOTO FOR SITE/PATHFINDER/000012260034.jpg"
+                ]
+            },
+            {
+                id: "zoe",
+                title: "ZOE",
+                desc: "Editorial and BTS featuring Zoe.",
+                photos: [
+                    "/PHOTO FOR SITE/ZOE /000047690026.jpg", "/PHOTO FOR SITE/ZOE /000047690032.jpg", "/PHOTO FOR SITE/ZOE /000047690033.jpg", "/PHOTO FOR SITE/ZOE /000047690031.jpg", "/PHOTO FOR SITE/ZOE /000029480033.jpg", "/PHOTO FOR SITE/ZOE /ZOE LONG 2.png"
+                ]
+            }
+        ];
+
+        function renderAlbums() {
+            const albumsView = document.getElementById('albums-view');
+            albumsView.innerHTML = ''; 
+
+            photoAlbums.forEach(album => {
+                const coverImg = album.photos[0]; 
+                
+                const card = document.createElement('div');
+                card.className = 'project-card';
+                card.onclick = () => openGallery(album.id);
+                
+                card.innerHTML = `
+                    <div class="thumbnail-box">
+                        <img src="${coverImg}" alt="${album.title}" loading="lazy">
+                    </div>
+                    <div class="project-meta">
+                        <div class="project-title">${album.title}</div>
+                        <div class="project-credits-preview" style="text-transform:none; font-weight:400; letter-spacing:0.02em;">${album.desc}</div>
+                    </div>
+                `;
+                albumsView.appendChild(card);
+            });
+        }
+
+        function openGallery(albumId) {
+            const album = photoAlbums.find(a => a.id === albumId);
+            if(!album) return;
+
+            document.getElementById('albums-view').style.display = 'none';
+            document.getElementById('gallery-view').style.display = 'block';
+            
+            document.getElementById('current-album-title').textContent = album.title;
+            document.getElementById('current-album-desc').textContent = album.desc;
+
+            const masonry = document.getElementById('masonry-container');
+            masonry.innerHTML = '';
+
+            album.photos.forEach(photoSrc => {
+                const img = document.createElement('img');
+                img.src = photoSrc;
+                img.loading = "lazy"; 
+                masonry.appendChild(img);
+            });
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function backToAlbums() {
+            document.getElementById('gallery-view').style.display = 'none';
+            document.getElementById('albums-view').style.display = 'flex';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        renderAlbums();
+
+        // Updated traffic controller for all page navigation
+        function filterProjects(category, button) {
+            document.getElementById('work-section').style.display = 'none';
+            document.getElementById('info-section').style.display = 'none';
+            document.getElementById('photography-section').style.display = 'none';
+            
+            const heroSection = document.querySelector('.hero-section');
+            const headerGalleryTitle = document.getElementById('header-gallery-title');
+
+            if(category === 'all') {
+                heroSection.style.display = 'block';
+                headerGalleryTitle.style.display = 'none';
+                document.getElementById('work-section').style.display = 'block';
+            } else if (category === 'photography') {
+                heroSection.style.display = 'none';
+                headerGalleryTitle.style.display = 'block'; 
+                document.getElementById('photography-section').style.display = 'block';
+                backToAlbums(); 
+            } else {
+                heroSection.style.display = 'none';
+                headerGalleryTitle.style.display = 'none';
+                document.getElementById('work-section').style.display = 'block';
+            }
+
+            const buttons = document.querySelectorAll('.nav-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            if(button) button.classList.add('active');
+
+            if(category !== 'photography') {
+                const cards = document.querySelectorAll('#work-section .project-card');
+                cards.forEach(card => {
+                    if (category === 'all' || card.getAttribute('data-category') === category) {
+                        card.style.display = 'flex';
+                        card.style.animation = 'none';
+                        card.offsetHeight;
+                        card.style.animation = 'fadeIn 0.5s ease forwards';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            }
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
     </script>
 </body>
 </html>
