@@ -66,7 +66,7 @@
             max-width: var(--container-width);
             margin: 0 auto;
             position: relative;
-            z-index: 100;
+            z-index: 1000; /* Increased to stay above the void */
         }
 
         .header-wrapper {
@@ -75,7 +75,7 @@
             width: 100%;
             background: linear-gradient(to bottom, rgba(232, 229, 223, 0.95) 0%, rgba(232, 229, 223, 0.7) 70%, rgba(232, 229, 223, 0) 100%);
             backdrop-filter: blur(5px);
-            z-index: 100;
+            z-index: 1000;
             pointer-events: none;
         }
         
@@ -109,7 +109,7 @@
             border: none;
             cursor: pointer;
             padding: 10px;
-            z-index: 105;
+            z-index: 1005;
         }
 
         .hamburger-btn span {
@@ -133,7 +133,7 @@
             height: 100%;
             background: rgba(0, 0, 0, 0.3);
             backdrop-filter: blur(3px);
-            z-index: 999;
+            z-index: 1999;
             opacity: 0;
             visibility: hidden;
             transition: opacity 0.4s ease, visibility 0.4s ease;
@@ -153,7 +153,7 @@
             height: 100vh;
             background-color: var(--bg-color);
             box-shadow: -5px 0 25px rgba(0, 0, 0, 0.1);
-            z-index: 1000;
+            z-index: 2000;
             padding: 8rem 4rem;
             display: flex;
             flex-direction: column;
@@ -273,7 +273,7 @@
         .thumbnail-box {
             width: 100%;
             aspect-ratio: 16 / 9;
-            background-color: #d4d0c9;
+            background-color: transparent;
             overflow: hidden;
             position: relative;
             display: flex;
@@ -332,7 +332,7 @@
             display: none;
             justify-content: center;
             align-items: flex-start;
-            z-index: 1000;
+            z-index: 2500;
             padding: 4rem 2rem;
             overflow-y: auto;
             opacity: 0;
@@ -367,7 +367,7 @@
             text-transform: uppercase;
             letter-spacing: 0.1em;
             cursor: pointer;
-            z-index: 1001;
+            z-index: 2501;
             transition: color 0.3s ease;
         }
 
@@ -472,38 +472,101 @@
             margin-left: 0.5rem;
         }
 
-        /* MASONRY GALLERY & PHOTOGRAPHY UI */
-        
-        /* Master Scattered Gallery Grid */
-        .scattered-gallery {
-            column-count: 4;
-            column-gap: 2rem;
-            width: 100%;
-        }
-
-        .scattered-gallery img {
-            width: 100%;
-            display: block;
-            margin-bottom: 2rem;
-            cursor: pointer;
-            transition: filter 0.3s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            background-color: #d4d0c9;
-        }
-
-        .scattered-gallery img:hover {
-            transform: scale(1.02);
-            filter: brightness(1.05);
-            z-index: 10;
+        /* THE PHOTOGRAPHY VOID UI */
+        #photography-section {
+            display: none; 
+            width: 100vw;
+            margin: 0 auto; 
+            padding: 0;
+            animation: fadeIn 0.5s ease forwards;
             position: relative;
         }
 
-        /* CSS rules to simulate a scattered, uneven grid */
-        .scattered-gallery img:nth-child(2n) { padding-left: 15%; padding-bottom: 2rem; }
-        .scattered-gallery img:nth-child(3n) { padding-right: 20%; }
-        .scattered-gallery img:nth-child(5n) { padding-left: 10%; margin-top: 3rem; }
-        .scattered-gallery img:nth-child(7n) { padding-right: 15%; padding-bottom: 4rem; }
+        .void-viewport {
+            width: 100vw;
+            height: calc(100vh - 120px); /* Fill screen minus header area */
+            overflow: hidden;
+            position: relative;
+            background-color: var(--bg-color);
+            cursor: grab;
+        }
 
-        /* Traditional Masonry for Album Details */
+        .void-viewport:active {
+            cursor: grabbing;
+        }
+
+        .void-canvas {
+            position: absolute;
+            width: 6000px;
+            height: 6000px;
+            transform-origin: 0 0; /* Scaling is done from top left, math handles the rest */
+            will-change: transform;
+        }
+
+        .void-canvas img {
+            position: absolute;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+            transition: filter 0.3s ease;
+            user-select: none;
+            -webkit-user-drag: none; /* Prevent native dragging so panning works */
+            cursor: pointer;
+        }
+
+        .void-canvas img:hover {
+            filter: brightness(1.08);
+        }
+
+        /* On-Screen Zoom Controls */
+        .zoom-ui {
+            position: absolute;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 50;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background: rgba(232, 229, 223, 0.7);
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            backdrop-filter: blur(8px);
+            border: 1px solid var(--border-color);
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-color);
+        }
+
+        .zoom-ui input[type=range] {
+            -webkit-appearance: none;
+            width: 100px;
+            background: transparent;
+        }
+        
+        .zoom-ui input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 12px;
+            width: 12px;
+            border-radius: 50%;
+            background: var(--text-color);
+            cursor: pointer;
+            margin-top: -5px;
+        }
+        
+        .zoom-ui input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 2px;
+            cursor: pointer;
+            background: var(--border-color);
+        }
+
+        /* Traditional Masonry for Folder Views */
+        #gallery-view {
+            max-width: var(--container-width);
+            margin: 0 auto;
+            padding: 2rem 3rem 6rem;
+        }
+
         .masonry-grid {
             column-count: 3;
             column-gap: 1.5rem;
@@ -513,7 +576,7 @@
             width: 100%;
             margin-bottom: 1.5rem;
             display: block;
-            background-color: #d4d0c9;
+            background-color: transparent;
             transition: filter 0.3s ease;
         }
 
@@ -552,34 +615,27 @@
             letter-spacing: 0.05em;
         }
 
-        @media (max-width: 1024px) {
-            .scattered-gallery { column-count: 3; }
-        }
-
         @media (max-width: 768px) {
             header { padding: 2rem 1.5rem; }
             .header-divider { margin: 0 1.5rem; }
             .hero-section { padding: 6rem 1.5rem 2rem; }
             .hero-section h1 { font-size: 4rem; }
             .side-menu { max-width: 300px; padding: 6rem 2rem; }
-            main, #info-section, #photography-section { padding: 2rem 1.5rem 3rem; }
+            main, #info-section { padding: 2rem 1.5rem 3rem; }
+            #gallery-view { padding: 1rem 1.5rem 3rem; }
             footer { padding: 1rem 1.5rem 3rem; flex-direction: column; gap: 1rem; }
             .project-meta { flex-direction: column; gap: 0.5rem; }
             .info-grid { grid-template-columns: 1fr; gap: 2rem; }
             .close-btn { top: 1rem; right: 1.5rem; }
             .modal-overlay { padding: 4rem 1rem 2rem; }
-            
             .masonry-grid { column-count: 2; column-gap: 1rem; }
             .masonry-grid img { margin-bottom: 1rem; }
-            
-            .scattered-gallery { column-count: 2; column-gap: 1rem; }
-            .scattered-gallery img { margin-bottom: 1rem; }
-            /* Reset padding on mobile for better viewing */
-            .scattered-gallery img:nth-child(n) { padding: 0; margin-top: 0; }
+            .void-viewport { height: calc(100vh - 100px); }
+            .zoom-ui { bottom: 1rem; right: 1rem; padding: 0.5rem 1rem; }
         }
 
         @media (max-width: 480px) {
-            .masonry-grid, .scattered-gallery { column-count: 1; }
+            .masonry-grid { column-count: 1; }
         }
     </style>
 </head>
@@ -592,7 +648,7 @@
                 <img src="https://i.imgur.com/qDcDABi.png" alt="Mason Cline">
             </div>
             
-            <!-- NEW: Hidden Gallery Title -->
+            <!-- Hidden Gallery Title -->
             <div id="header-gallery-title" style="display: none; font-family: var(--font-main); font-size: 1rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted-color);">
                 Gallery
             </div>
@@ -620,7 +676,7 @@
         </ul>
     </nav>
 
-    <hr class="header-divider" style="margin-top: 7rem;">
+    <hr class="header-divider" style="margin-top: 7rem;" id="nav-divider">
 
     <!-- HERO SECTION -->
     <section class="hero-section">
@@ -778,24 +834,33 @@
         </div>
     </main>
 
-    <!-- PHOTOGRAPHY SECTION -->
-    <section id="photography-section" style="display: none; max-width: 1400px; margin: 0 auto; padding: 2rem 3rem 6rem; animation: fadeIn 0.5s ease forwards;">
+    <!-- NEW PHOTOGRAPHY VOID SECTION -->
+    <section id="photography-section">
         
-        <!-- View 1: Master Scattered Gallery -->
-        <div id="master-gallery-view" class="scattered-gallery">
-            <!-- JavaScript will populate randomized scattered photos here -->
+        <!-- View 1: Master Interactive Void -->
+        <div id="master-gallery-view" class="void-viewport">
+            
+            <div class="zoom-ui">
+                <label for="zoom-slider">Zoom</label>
+                <input type="range" id="zoom-slider" min="0.1" max="1.5" step="0.05" value="0.2">
+            </div>
+
+            <div class="void-canvas" id="void-canvas">
+                <!-- JavaScript populates overlapping images here -->
+            </div>
+            
         </div>
 
-        <!-- View 2: Masonry Gallery inside an Album -->
+        <!-- View 2: Traditional Masonry Gallery inside an Album -->
         <div id="gallery-view" style="display: none;">
             <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid var(--border-color); padding-bottom: 1rem; margin-bottom: 2rem;">
-                <button onclick="backToMasterGallery()" class="back-btn">&#8592; Back to All Photography</button>
+                <button onclick="backToMasterGallery()" class="back-btn">&#8592; Back to Void</button>
                 <div id="current-album-title" style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-color); font-weight: 600;"></div>
             </div>
             <p id="current-album-desc" style="font-size: 0.8rem; color: var(--muted-color); margin-bottom: 3rem; max-width: 600px; text-transform: uppercase; letter-spacing: 0.05em;"></p>
             
             <div class="masonry-grid" id="masonry-container">
-                <!-- JavaScript will populate the specific photo grid here -->
+                <!-- Specific folder photos populate here -->
             </div>
         </div>
     </section>
@@ -853,7 +918,7 @@
         <div>Toronto, ON</div>
     </footer>
 
-    <!-- JAVASCRIPT FOR INTERACTIVITY & THUMBNAILS -->
+    <!-- JAVASCRIPT FOR INTERACTIVITY -->
     <script>
         document.getElementById('year').textContent = new Date().getFullYear();
 
@@ -886,7 +951,6 @@
             return null;
         }
 
-        // Convert ANY YouTube or Instagram Link into an embed format
         function parseVideoUrl(url) {
             if (!url) return '';
             if (url.includes('instagram.com')) {
@@ -900,7 +964,7 @@
             return id ? `https://www.youtube.com/embed/${id}?autoplay=1` : '';
         }
 
-        // Auto-generate Thumbnail Images or use custom data-poster
+        // Auto-generate Thumbnail Images for Videos
         document.querySelectorAll('.project-card').forEach(card => {
             const rawVideoUrl = card.getAttribute('data-video');
             const customPoster = card.getAttribute('data-poster');
@@ -930,7 +994,9 @@
             document.querySelector('.hero-section').style.display = 'none';
             document.getElementById('photography-section').style.display = 'none';
             document.getElementById('header-gallery-title').style.display = 'none';
+            document.getElementById('nav-divider').style.display = 'block';
             document.getElementById('info-section').style.display = 'block';
+            document.body.style.overflow = 'auto'; // restore scroll for info
 
             const buttons = document.querySelectorAll('.nav-btn');
             buttons.forEach(btn => btn.classList.remove('active'));
@@ -980,13 +1046,15 @@
             document.body.style.overflow = 'hidden'; 
         }
 
-        // Close modal view and stop video audio
         function closeModal() {
             document.getElementById('projectModal').classList.remove('active');
             setTimeout(() => {
                 document.getElementById('videoIframe').src = '';
             }, 300); 
-            document.body.style.overflow = 'auto';
+            // Only restore scroll if we aren't in the void
+            if(document.getElementById('master-gallery-view').style.display !== 'block'){
+                document.body.style.overflow = 'auto';
+            }
         }
 
         window.onclick = function(event) {
@@ -1002,7 +1070,7 @@
             }
         });
 
-        // --- UPDATED PHOTOGRAPHY DATA WITH NEW FILE PATHS ---
+        // --- PHOTOGRAPHY DATA ---
         const photoAlbums = [
             {
                 id: "reach",
@@ -1102,44 +1170,147 @@
             }
         ];
 
-        // 1. Render the massive scattered home gallery
-        function renderMasterGallery() {
-            const masterView = document.getElementById('master-gallery-view');
-            masterView.innerHTML = ''; 
+        // --- VOID ENGINE (PAN & ZOOM) ---
+        let scale = 0.25;
+        let posX = -1000;
+        let posY = -1000;
+        
+        const viewport = document.getElementById('master-gallery-view');
+        const canvas = document.getElementById('void-canvas');
+        const zoomSlider = document.getElementById('zoom-slider');
+        
+        let isDragging = false;
+        let hasDragged = false; // to prevent accidental clicks while moving
+        let startX, startY;
 
+        function updateTransform() {
+            canvas.style.transform = `translate(${posX}px, ${posY}px) scale(${scale})`;
+        }
+
+        // Render the 97 images randomly across a giant 6000x6000 canvas
+        function renderMasterGallery() {
+            canvas.innerHTML = ''; 
             let allPhotos = [];
             
-            // Loop through all folders and combine all photos into one massive array
             photoAlbums.forEach(album => {
                 album.photos.forEach(photoSrc => {
                     allPhotos.push({ src: photoSrc, albumId: album.id });
                 });
             });
 
-            // Randomly shuffle the array so the master gallery is thoroughly mixed 
-            // This achieves the scattered, unorganized editorial look
+            // Scramble for chaos
             for (let i = allPhotos.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
                 [allPhotos[i], allPhotos[j]] = [allPhotos[j], allPhotos[i]];
             }
 
-            allPhotos.forEach(item => {
+            allPhotos.forEach((item, index) => {
                 const img = document.createElement('img');
                 img.src = item.src;
                 img.loading = "lazy"; 
-                // When clicked, open that specific album
-                img.onclick = () => openGallery(item.albumId);
-                masterView.appendChild(img);
+                
+                // Randomize sizes and placement within the 6000px bounds
+                const w = Math.floor(Math.random() * 400) + 300; 
+                const x = Math.floor(Math.random() * (6000 - w));
+                const y = Math.floor(Math.random() * 5200); // leave room at bottom
+                const z = index + 1;
+
+                img.style.width = `${w}px`;
+                img.style.left = `${x}px`;
+                img.style.top = `${y}px`;
+                img.style.zIndex = z;
+
+                // Only trigger the click if they didn't drag to move the map
+                img.onclick = (e) => {
+                    if(!hasDragged) {
+                        openGallery(item.albumId);
+                    }
+                };
+                
+                canvas.appendChild(img);
             });
+            
+            updateTransform();
         }
 
-        // 2. Open a specific album when a scattered photo is clicked
+        // Mouse Wheel Zooming Engine
+        viewport.addEventListener('wheel', (e) => {
+            // Only operate if the void is actually visible
+            if(viewport.style.display === 'none') return; 
+            
+            e.preventDefault();
+            
+            // Calculate cursor position relative to the canvas
+            const rect = viewport.getBoundingClientRect();
+            const xs = (e.clientX - rect.left - posX) / scale;
+            const ys = (e.clientY - rect.top - posY) / scale;
+            
+            // Zoom intensity
+            const delta = e.deltaY > 0 ? -0.05 : 0.05;
+            let newScale = scale + delta;
+            
+            // Clamp scaling bounds
+            newScale = Math.max(0.1, Math.min(newScale, 1.5)); 
+            
+            // Adjust position so it zooms towards the mouse pointer
+            posX = e.clientX - rect.left - xs * newScale;
+            posY = e.clientY - rect.top - ys * newScale;
+            
+            scale = newScale;
+            zoomSlider.value = scale;
+            
+            updateTransform();
+        }, { passive: false });
+
+        // Slider Zooming
+        zoomSlider.addEventListener('input', (e) => {
+            scale = parseFloat(e.target.value);
+            // Quick center logic on slider use
+            const rect = viewport.getBoundingClientRect();
+            posX = - (3000 * scale) + (rect.width / 2);
+            posY = - (3000 * scale) + (rect.height / 2);
+            updateTransform();
+        });
+
+        // Dragging & Panning Engine
+        viewport.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            hasDragged = false;
+            startX = e.clientX - posX;
+            startY = e.clientY - posY;
+        });
+
+        window.addEventListener('mousemove', (e) => {
+            if(!isDragging) return;
+            hasDragged = true; // Flag to prevent image click on drop
+            posX = e.clientX - startX;
+            posY = e.clientY - startY;
+            updateTransform();
+        });
+
+        window.addEventListener('mouseup', () => {
+            isDragging = false;
+            // Reset drag state after a tiny delay so clicks can process
+            setTimeout(() => { hasDragged = false; }, 50);
+        });
+
+        viewport.addEventListener('mouseleave', () => {
+            isDragging = false;
+        });
+
+        // Initialize Void
+        renderMasterGallery();
+
+
+        // --- FOLDER VIEWS & TRAFFIC CONTROLLER ---
+        
         function openGallery(albumId) {
             const album = photoAlbums.find(a => a.id === albumId);
             if(!album) return;
 
             document.getElementById('master-gallery-view').style.display = 'none';
             document.getElementById('gallery-view').style.display = 'block';
+            document.body.style.overflow = 'auto'; // allow standard scroll in album view
             
             document.getElementById('current-album-title').textContent = album.title;
             document.getElementById('current-album-desc').textContent = album.desc;
@@ -1157,17 +1328,13 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // 3. Return to the massive scattered gallery
         function backToMasterGallery() {
             document.getElementById('gallery-view').style.display = 'none';
             document.getElementById('master-gallery-view').style.display = 'block';
+            document.body.style.overflow = 'hidden'; // Lock native scroll while in the void
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // Initialize the master gallery on load
-        renderMasterGallery();
-
-        // Traffic controller for page navigation
         function filterProjects(category, button) {
             document.getElementById('work-section').style.display = 'none';
             document.getElementById('info-section').style.display = 'none';
@@ -1175,21 +1342,34 @@
             
             const heroSection = document.querySelector('.hero-section');
             const headerGalleryTitle = document.getElementById('header-gallery-title');
+            const navDivider = document.getElementById('nav-divider');
 
             if(category === 'all') {
                 heroSection.style.display = 'block';
                 headerGalleryTitle.style.display = 'none';
+                navDivider.style.display = 'block';
                 document.getElementById('work-section').style.display = 'block';
+                document.body.style.overflow = 'auto';
             } else if (category === 'photography') {
                 heroSection.style.display = 'none';
                 headerGalleryTitle.style.display = 'block'; 
+                navDivider.style.display = 'none'; // hide dividing line for cleaner void
                 document.getElementById('photography-section').style.display = 'block';
-                // Always reset to the master scattered view when the tab is clicked
+                document.body.style.overflow = 'hidden'; // Lock page scroll for pan/zoom
+                
+                // Recenter the void slightly
+                const rect = viewport.getBoundingClientRect();
+                posX = - (3000 * scale) + (rect.width / 2);
+                posY = - (3000 * scale) + (rect.height / 2);
+                updateTransform();
+                
                 backToMasterGallery(); 
             } else {
                 heroSection.style.display = 'none';
                 headerGalleryTitle.style.display = 'none';
+                navDivider.style.display = 'block';
                 document.getElementById('work-section').style.display = 'block';
+                document.body.style.overflow = 'auto';
             }
 
             const buttons = document.querySelectorAll('.nav-btn');
