@@ -472,101 +472,72 @@
             margin-left: 0.5rem;
         }
 
-        /* THE PHOTOGRAPHY VOID UI */
+        /* NEW PHOTOGRAPHY UI */
         #photography-section {
             display: none; 
-            width: 100vw;
+            max-width: 1200px;
             margin: 0 auto; 
-            padding: 0;
+            padding: 2rem 3rem 6rem;
             animation: fadeIn 0.5s ease forwards;
+        }
+
+        /* The Master Uniform Grid */
+        .master-grid {
+            column-count: 4;
+            column-gap: 1.5rem;
+            width: 100%;
+        }
+
+        .gallery-item {
             position: relative;
-        }
-
-        .void-viewport {
-            width: 100vw;
-            height: calc(100vh - 120px);
-            overflow: hidden;
-            position: relative;
-            background-color: var(--bg-color);
-            cursor: grab;
-        }
-
-        .void-viewport:active {
-            cursor: grabbing;
-        }
-
-        .void-canvas {
-            position: absolute;
-            width: 8000px; /* Expanded for better spacing */
-            height: 8000px; /* Expanded for better spacing */
-            transform-origin: 0 0; 
-            will-change: transform;
-        }
-
-        .void-canvas img {
-            position: absolute;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
-            transition: filter 0.3s ease;
-            user-select: none;
-            -webkit-user-drag: none; 
+            margin-bottom: 1.5rem;
             cursor: pointer;
+            break-inside: avoid;
+            display: inline-block;
+            width: 100%;
+            overflow: hidden;
+            background-color: #d4d0c9;
         }
 
-        .void-canvas img:hover {
-            filter: brightness(1.08);
+        .gallery-item img {
+            width: 100%;
+            display: block;
+            transition: transform 0.4s ease, filter 0.4s ease;
         }
 
-        /* On-Screen Zoom Controls */
-        .zoom-ui {
+        /* The Hover Overlay */
+        .hover-label {
             position: absolute;
-            bottom: 2rem;
-            right: 2rem;
-            z-index: 50;
+            top: 0; 
+            left: 0; 
+            right: 0; 
+            bottom: 0;
+            background: rgba(17, 17, 17, 0.6);
+            color: #ffffff;
             display: flex;
             align-items: center;
-            gap: 1rem;
-            background: rgba(232, 229, 223, 0.7);
-            padding: 0.75rem 1.5rem;
-            border-radius: 50px;
-            backdrop-filter: blur(8px);
-            border: 1px solid var(--border-color);
-            font-size: 0.75rem;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            font-size: 0.85rem;
             font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: var(--text-color);
+            letter-spacing: 0.15em;
+            text-align: center;
+            padding: 1.5rem;
+            z-index: 10;
         }
 
-        .zoom-ui input[type=range] {
-            -webkit-appearance: none;
-            width: 100px;
-            background: transparent;
-        }
-        
-        .zoom-ui input[type=range]::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            height: 12px;
-            width: 12px;
-            border-radius: 50%;
-            background: var(--text-color);
-            cursor: pointer;
-            margin-top: -5px;
-        }
-        
-        .zoom-ui input[type=range]::-webkit-slider-runnable-track {
-            width: 100%;
-            height: 2px;
-            cursor: pointer;
-            background: var(--border-color);
+        .gallery-item:hover img {
+            transform: scale(1.05);
+            filter: blur(2px);
         }
 
-        /* Traditional Masonry for Folder Views */
-        #gallery-view {
-            max-width: var(--container-width);
-            margin: 0 auto;
-            padding: 2rem 3rem 6rem;
+        .gallery-item:hover .hover-label {
+            opacity: 1;
         }
 
+        /* Traditional Masonry for Individual Folder Views */
         .masonry-grid {
             column-count: 3;
             column-gap: 1.5rem;
@@ -615,27 +586,32 @@
             letter-spacing: 0.05em;
         }
 
+        @media (max-width: 1024px) {
+            .master-grid { column-count: 3; }
+        }
+
         @media (max-width: 768px) {
             header { padding: 2rem 1.5rem; }
             .header-divider { margin: 0 1.5rem; }
             .hero-section { padding: 6rem 1.5rem 2rem; }
             .hero-section h1 { font-size: 4rem; }
             .side-menu { max-width: 300px; padding: 6rem 2rem; }
-            main, #info-section { padding: 2rem 1.5rem 3rem; }
-            #gallery-view { padding: 1rem 1.5rem 3rem; }
+            main, #info-section, #photography-section { padding: 2rem 1.5rem 3rem; }
             footer { padding: 1rem 1.5rem 3rem; flex-direction: column; gap: 1rem; }
             .project-meta { flex-direction: column; gap: 0.5rem; }
             .info-grid { grid-template-columns: 1fr; gap: 2rem; }
             .close-btn { top: 1rem; right: 1.5rem; }
             .modal-overlay { padding: 4rem 1rem 2rem; }
+            
+            .master-grid { column-count: 2; column-gap: 1rem; }
+            .gallery-item { margin-bottom: 1rem; }
+            
             .masonry-grid { column-count: 2; column-gap: 1rem; }
             .masonry-grid img { margin-bottom: 1rem; }
-            .void-viewport { height: calc(100vh - 100px); }
-            .zoom-ui { bottom: 1rem; right: 1rem; padding: 0.5rem 1rem; }
         }
 
         @media (max-width: 480px) {
-            .masonry-grid { column-count: 1; }
+            .master-grid, .masonry-grid { column-count: 1; }
         }
     </style>
 </head>
@@ -834,27 +810,18 @@
         </div>
     </main>
 
-    <!-- NEW PHOTOGRAPHY VOID SECTION -->
+    <!-- NEW PHOTOGRAPHY SECTION -->
     <section id="photography-section">
         
-        <!-- View 1: Master Interactive Void -->
-        <div id="master-gallery-view" class="void-viewport">
-            
-            <div class="zoom-ui">
-                <label for="zoom-slider">Zoom</label>
-                <input type="range" id="zoom-slider" min="0.1" max="1.5" step="0.05" value="0.2">
-            </div>
-
-            <div class="void-canvas" id="void-canvas">
-                <!-- JavaScript populates grid-scattered images here -->
-            </div>
-            
+        <!-- View 1: Master Uniform Gallery Grid -->
+        <div id="master-gallery-view" class="master-grid">
+            <!-- JavaScript populates images with hover overlays here -->
         </div>
 
         <!-- View 2: Traditional Masonry Gallery inside an Album -->
         <div id="gallery-view" style="display: none;">
             <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid var(--border-color); padding-bottom: 1rem; margin-bottom: 2rem;">
-                <button onclick="backToMasterGallery()" class="back-btn">&#8592; Back to Void</button>
+                <button onclick="backToMasterGallery()" class="back-btn">&#8592; Back to All Photography</button>
                 <div id="current-album-title" style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-color); font-weight: 600;"></div>
             </div>
             <p id="current-album-desc" style="font-size: 0.8rem; color: var(--muted-color); margin-bottom: 3rem; max-width: 600px; text-transform: uppercase; letter-spacing: 0.05em;"></p>
@@ -1051,10 +1018,7 @@
             setTimeout(() => {
                 document.getElementById('videoIframe').src = '';
             }, 300); 
-            // Only restore scroll if we aren't in the void
-            if(document.getElementById('master-gallery-view').style.display !== 'block'){
-                document.body.style.overflow = 'auto';
-            }
+            document.body.style.overflow = 'auto';
         }
 
         window.onclick = function(event) {
@@ -1170,148 +1134,47 @@
             }
         ];
 
-        // --- JITTER GRID VOID ENGINE (PAN & ZOOM) ---
-        let scale = 0.25;
-        let posX = -1000;
-        let posY = -1000;
+        // --- MASTER UNIFORM GRID ENGINE ---
         
-        const viewport = document.getElementById('master-gallery-view');
-        const canvas = document.getElementById('void-canvas');
-        const zoomSlider = document.getElementById('zoom-slider');
-        
-        let isDragging = false;
-        let hasDragged = false; // to prevent accidental clicks while moving
-        let startX, startY;
-
-        function updateTransform() {
-            canvas.style.transform = `translate(${posX}px, ${posY}px) scale(${scale})`;
-        }
-
-        // Render the images in a controlled "Jitter Grid" to prevent heavy overlap
         function renderMasterGallery() {
-            canvas.innerHTML = ''; 
+            const masterView = document.getElementById('master-gallery-view');
+            masterView.innerHTML = ''; 
+            
             let allPhotos = [];
             
             photoAlbums.forEach(album => {
                 album.photos.forEach(photoSrc => {
-                    allPhotos.push({ src: photoSrc, albumId: album.id });
+                    allPhotos.push({ src: photoSrc, albumId: album.id, albumTitle: album.title });
                 });
             });
 
-            // Scramble for chaos
+            // Scramble the master array to mix up the folders naturally
             for (let i = allPhotos.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
                 [allPhotos[i], allPhotos[j]] = [allPhotos[j], allPhotos[i]];
             }
 
-            // Grid variables: 10 columns by 10 rows (100 total slots for 97 photos)
-            const cols = 10; 
-            const cellSize = 800; // 800px square per photo slot
-            
-            allPhotos.forEach((item, index) => {
+            // Build out the uniform grid elements
+            allPhotos.forEach(item => {
+                const wrapper = document.createElement('div');
+                wrapper.className = 'gallery-item';
+                wrapper.onclick = () => openGallery(item.albumId);
+
                 const img = document.createElement('img');
                 img.src = item.src;
                 img.loading = "lazy"; 
                 
-                const col = index % cols;
-                const row = Math.floor(index / cols);
-                
-                // Randomize width between 300px and 500px
-                const w = Math.floor(Math.random() * 200) + 300; 
-                
-                // Offset the image slightly within its 800x800px cell boundaries
-                // The math allows for a tiny bit of clipping over the edge but mostly keeps them separate
-                const offsetX = Math.floor(Math.random() * (cellSize - w + 100)) - 50; 
-                const offsetY = Math.floor(Math.random() * (cellSize - w + 100)) - 50;
-                
-                const x = (col * cellSize) + offsetX;
-                const y = (row * cellSize) + offsetY;
-                const z = index + 1;
+                const hoverLabel = document.createElement('div');
+                hoverLabel.className = 'hover-label';
+                hoverLabel.textContent = item.albumTitle;
 
-                img.style.width = `${w}px`;
-                img.style.left = `${x}px`;
-                img.style.top = `${y}px`;
-                img.style.zIndex = z;
-
-                // Only trigger the click if they didn't drag to move the map
-                img.onclick = (e) => {
-                    if(!hasDragged) {
-                        openGallery(item.albumId);
-                    }
-                };
-                
-                canvas.appendChild(img);
+                wrapper.appendChild(img);
+                wrapper.appendChild(hoverLabel);
+                masterView.appendChild(wrapper);
             });
-            
-            updateTransform();
         }
 
-        // Mouse Wheel Zooming Engine
-        viewport.addEventListener('wheel', (e) => {
-            // Only operate if the void is actually visible
-            if(viewport.style.display === 'none') return; 
-            
-            e.preventDefault();
-            
-            // Calculate cursor position relative to the canvas
-            const rect = viewport.getBoundingClientRect();
-            const xs = (e.clientX - rect.left - posX) / scale;
-            const ys = (e.clientY - rect.top - posY) / scale;
-            
-            // Zoom intensity
-            const delta = e.deltaY > 0 ? -0.05 : 0.05;
-            let newScale = scale + delta;
-            
-            // Clamp scaling bounds
-            newScale = Math.max(0.1, Math.min(newScale, 1.5)); 
-            
-            // Adjust position so it zooms towards the mouse pointer
-            posX = e.clientX - rect.left - xs * newScale;
-            posY = e.clientY - rect.top - ys * newScale;
-            
-            scale = newScale;
-            zoomSlider.value = scale;
-            
-            updateTransform();
-        }, { passive: false });
-
-        // Slider Zooming
-        zoomSlider.addEventListener('input', (e) => {
-            scale = parseFloat(e.target.value);
-            // Quick center logic on slider use (adjusted for 8000px canvas)
-            const rect = viewport.getBoundingClientRect();
-            posX = - (4000 * scale) + (rect.width / 2);
-            posY = - (4000 * scale) + (rect.height / 2);
-            updateTransform();
-        });
-
-        // Dragging & Panning Engine
-        viewport.addEventListener('mousedown', (e) => {
-            isDragging = true;
-            hasDragged = false;
-            startX = e.clientX - posX;
-            startY = e.clientY - posY;
-        });
-
-        window.addEventListener('mousemove', (e) => {
-            if(!isDragging) return;
-            hasDragged = true; // Flag to prevent image click on drop
-            posX = e.clientX - startX;
-            posY = e.clientY - startY;
-            updateTransform();
-        });
-
-        window.addEventListener('mouseup', () => {
-            isDragging = false;
-            // Reset drag state after a tiny delay so clicks can process
-            setTimeout(() => { hasDragged = false; }, 50);
-        });
-
-        viewport.addEventListener('mouseleave', () => {
-            isDragging = false;
-        });
-
-        // Initialize Void
+        // Initialize Master Grid
         renderMasterGallery();
 
 
@@ -1323,7 +1186,6 @@
 
             document.getElementById('master-gallery-view').style.display = 'none';
             document.getElementById('gallery-view').style.display = 'block';
-            document.body.style.overflow = 'auto'; // allow standard scroll in album view
             
             document.getElementById('current-album-title').textContent = album.title;
             document.getElementById('current-album-desc').textContent = album.desc;
@@ -1344,7 +1206,6 @@
         function backToMasterGallery() {
             document.getElementById('gallery-view').style.display = 'none';
             document.getElementById('master-gallery-view').style.display = 'block';
-            document.body.style.overflow = 'hidden'; // Lock native scroll while in the void
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
@@ -1362,19 +1223,11 @@
                 headerGalleryTitle.style.display = 'none';
                 navDivider.style.display = 'block';
                 document.getElementById('work-section').style.display = 'block';
-                document.body.style.overflow = 'auto';
             } else if (category === 'photography') {
                 heroSection.style.display = 'none';
                 headerGalleryTitle.style.display = 'block'; 
-                navDivider.style.display = 'none'; // hide dividing line for cleaner void
+                navDivider.style.display = 'none'; 
                 document.getElementById('photography-section').style.display = 'block';
-                document.body.style.overflow = 'hidden'; // Lock page scroll for pan/zoom
-                
-                // Recenter the void slightly
-                const rect = viewport.getBoundingClientRect();
-                posX = - (4000 * scale) + (rect.width / 2);
-                posY = - (4000 * scale) + (rect.height / 2);
-                updateTransform();
                 
                 backToMasterGallery(); 
             } else {
@@ -1382,7 +1235,6 @@
                 headerGalleryTitle.style.display = 'none';
                 navDivider.style.display = 'block';
                 document.getElementById('work-section').style.display = 'block';
-                document.body.style.overflow = 'auto';
             }
 
             const buttons = document.querySelectorAll('.nav-btn');
