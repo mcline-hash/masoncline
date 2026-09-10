@@ -99,6 +99,7 @@
         .header-title-container {
             flex: 1;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
@@ -124,12 +125,30 @@
             margin: 0;
         }
 
-        /* DESKTOP DIRECTORY TABS IN TOP RIGHT (STACKED, TIGHT SPACING) */
+        .header-contact-btn {
+            background: none;
+            border: none;
+            color: var(--muted-color);
+            font-family: var(--font-main);
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: color 0.3s ease;
+            margin-top: 0.4rem;
+        }
+        
+        .header-contact-btn:hover, .header-contact-btn.active {
+            color: var(--accent-color);
+        }
+
+        /* DESKTOP DIRECTORY TABS IN TOP RIGHT (TIGHT STACKED) */
         .directory-nav {
             display: flex;
             flex-direction: column;
             align-items: flex-end;
-            gap: 0.1rem; /* Significantly tighter spacing */
+            gap: 0; /* Removed gap entirely */
             list-style: none;
             margin-top: 5px;
         }
@@ -145,9 +164,9 @@
             font-weight: 600;
             cursor: pointer;
             transition: color 0.3s ease;
-            padding: 0;
+            padding: 3px 0;
             text-align: right;
-            line-height: 1.2;
+            line-height: 1; /* Tight line height */
         }
 
         .directory-nav button:hover,
@@ -165,7 +184,7 @@
 
         /* MAIN CONTENT LAYOUT */
         main {
-            padding: 1.5rem 3rem 6rem;
+            padding: 8rem 3rem 6rem; /* Extra padding top to ensure header clears */
             max-width: var(--container-width);
             margin: 0 auto;
         }
@@ -550,8 +569,8 @@
             .header-name-display { font-size: 2.2rem; }
             .hero-section { padding: 7rem 1.5rem 1rem; }
             .directory-nav { align-items: center; gap: 0.2rem; }
-            main { padding: 1rem 1.5rem 3rem; }
-            #info-section, #photography-section { padding: 7rem 1.5rem 3rem; }
+            main { padding: 10rem 1.5rem 3rem; }
+            #info-section, #photography-section { padding: 9rem 1.5rem 3rem; }
             footer { padding: 1rem 1.5rem 3rem; flex-direction: column; gap: 1rem; align-items: center; text-align: center; }
             .project-meta { flex-direction: column; gap: 0.5rem; }
             .info-grid { grid-template-columns: 1fr; gap: 2rem; }
@@ -582,6 +601,7 @@
             <!-- Dynamic Center Title -->
             <div class="header-title-container">
                 <h1 id="header-dynamic-title" class="header-name-display">Mason Cline</h1>
+                <button class="header-contact-btn" id="main-contact-btn" onclick="showInfo(null)">Contact</button>
             </div>
 
             <!-- DIRECTORY NAVIGATION TABS (STACKED) -->
@@ -590,14 +610,9 @@
                 <li><button class="nav-btn" onclick="filterProjects('cinematography', this)">Cinematography</button></li>
                 <li><button class="nav-btn" onclick="filterProjects('editing', this)">Editing</button></li>
                 <li><button class="nav-btn" onclick="filterProjects('photography', this)">Photography</button></li>
-                <li><button class="nav-btn" onclick="showInfo(this)">Contact</button></li>
             </ul>
         </header>
     </div>
-
-    <!-- HERO SECTION -->
-    <section class="hero-section">
-    </section>
 
     <!-- MAIN PORTFOLIO GRID -->
     <main id="work-section">
@@ -609,7 +624,7 @@
                  data-category-name="Music Video"
                  data-poster="https://i.imgur.com/raeeKgr.jpg"
                  data-video="CKdqD851gQ0"
-                 data-credits="Director | Edit ~ Mason Cline|Producer ~ Declan McKenna|Assistant Director ~ Maya Chariandy|DP ~ Dario Butera|1st AC ~ Jodi Gapan|Gaffer ~ Miles Lauterbach|Production Designer ~ Jordan Wong|Location Support ~ Raim Realce|Co-editor ~ Jackson McMurdo|Colourist ~ Jackson McMurdo">
+                 data-credits="Director | Edit ~ Mason Cline||Producer ~ Declan McKenna||Assistant Director ~ Maya Chariandy||DP ~ Dario Butera||1st AC ~ Jodi Gapan||Gaffer ~ Miles Lauterbach||Production Designer ~ Jordan Wong||Location Support ~ Raim Realce||Co-editor ~ Jackson McMurdo||Colourist ~ Jackson McMurdo">
                 <div class="thumbnail-box">
                     <img src="https://i.imgur.com/raeeKgr.jpg" alt="INSYT. - 360°">
                 </div>
@@ -625,7 +640,7 @@
                  data-category-name="Music Video"
                  data-poster="https://i.imgur.com/H61nT5i.jpg"
                  data-video=""
-                 data-credits="Director | Editor | Super 8 ~ Mason Cline|Producers ~ Evie Carrier & Declan McKenna|DP ~ Dario Butera|1st AC ~ Jodi Gapan|Gaffer ~ Daniel Fusco|Swings ~ Jevaughn Stewart-Hinds & Jackson McMurdo|Consultant ~ Aaron Murchison|Transportation ~ Daniel Fusco, Jevaughn Stewart-Hinds, & Aaron Murchison|Co editor| Colourist| DIT| Drone Op ~ Jackson McMurdo">
+                 data-credits="Director/ Editor/ super 8 ~ Mason Cline||Producers ~ Evie Carrier & Declan McKenna||DP ~ Dario Butera||1st AC ~ Jodi Gapan||Gaffer ~ Daniel Fusco||Swings ~ Jevaughn Stewart-Hinds & Jackson McMurdo||Consultant ~ Aaron Murchison||Transportation ~ Daniel Fusco, Jevaughn Stewart-Hinds, & Aaron Murchison||Co editor| Colourist| DIT| Drone Op: Jackson McMurdo">
                 <div class="thumbnail-box">
                     <img src="https://i.imgur.com/H61nT5i.jpg" alt="INSYT. - TOLL">
                 </div>
@@ -641,7 +656,7 @@
                  data-category-name="Music Video"
                  data-poster="https://i.imgur.com/5Z5JnBH.jpg"
                  data-video="https://youtu.be/2i1VwJyLIs0"
-                 data-credits="Director | Super 8 ~ Mason Cline|Co-director ~ Declan Mckenna|Producer ~ Christian Kinn|DP ~ Dario Butera|1st AC ~ Justin Gothreau|Gaffer ~ Miles Lauterbach|Key grip ~ Camille Sullivan|Editor ~ Alec Rudnitsky|Colourist ~ Christian Kinn|Titles ~ Jackson McMurdo">
+                 data-credits="Director/ Super 8 ~ Mason Cline||Co-director: Declan Mckenna||Producer ~ Christian Kinn||DP ~ Dario Butera||1st AC ~ Justin Gothreau||Gaffer ~ Miles Lauterbach||Key grip ~ Camille Sullivan||Editor ~ Alec Rudnitsky||Colourist ~ Christian Kinn||Titles~ Jackson McMurdo">
                 <div class="thumbnail-box">
                     <img src="https://i.imgur.com/5Z5JnBH.jpg" alt="INSYT. — HEAL">
                 </div>
@@ -657,7 +672,7 @@
                  data-category-name="Music Video"
                  data-poster="https://i.imgur.com/vB0edzz.jpg"
                  data-video="https://youtu.be/PFcnSxjB-KM?si=w2HrzcUGggr4wxon"
-                 data-credits="Director | Edit ~ mason clinee|Producer ~ Declan Mckenna|DP ~ Dario Butera|Production Designer ~ Hayley Naish|1st AD ~ maya chariandy|1st AC ~ barbara sanchez + Travis Wallave|Gaffer ~ priyand|Swing ~ Adam venckus|Stylist/ Casting ~ Revi|BTS/Locations/ Rchive Set dresser ~ Tafara Gwata|Co - Edit/Colour ~ Christian Kinn|Sound/ Titles/ Edit assit ~ JAckson McMurdo|Projectionist ~ Jessica Binns">
+                 data-credits="Director/ Editor: mason cline||Producer: Declan Mckenna||DP: Dario Butera||Production Designer: Hayley Naish||1st AD: maya chariandy||1st AC: barbara sanchez + Travis Wallave||Gaffer: priyand||Swing: Adam venckus||Stylist/ Casting : Revi||BTS/Locations/ Rchive Set dresser: Tafara Gwata||Co - Edit/Colour: Christian Kinn||Sound/ Titles/ Edit assit : JAckson McMurdo||Projectionist: Jessica Binns">
                 <div class="thumbnail-box">
                     <img src="https://i.imgur.com/vB0edzz.jpg" alt="Kai Banks — Maze">
                 </div>
@@ -672,7 +687,7 @@
                  data-title="ZOE — ATTITUDE & MOTION"
                  data-category-name="Music Video"
                  data-video="https://youtu.be/EfRm28PLvKA"
-                 data-credits="Director | DP | Edit | Colour ~ Mason Cline|Co-Director ~ Maya Chariandy|Producers ~ Declan McKenna & Jevaughn Stewart-Hynes|Starring ~ Zoe Lewis, Candice Bonair, Janell Vacianna|1st Ad ~ Jordan Wong|2nd Ad ~ Justin Tan|1st ac ~ Dario Butera|2nd ac ~ Adam Venckus|Gaffer ~ Daniel Fusco|Dolly grip ~ Misan Edema|Production design ~ Aimal Jawaid|Art direction ~ Aneesa Sharifs|Projections mapping/ titling ~ Jessica Binns|Styling/ hmua ~ Tandie Tyrell|DIT/BTS photography ~ Christian Kinn">
+                 data-credits="Producer: Declan McKenna & Jevaughn Stewart-Hynes||DP/ Director/ Edit/ Colour : Mason Cline||Co-Director: Maya Chariandy||1st Ad: Jordan Wong||2nd Ad: Justin Tan||1st ac: Dario Butera||2nd ac: Adam Venckus||Gaffer: Daniel Fusco||Dolly grip: Misan Edema||Production design: Aimal Jawaid||Art direction: Aneesa Sharifs||Projections mapping/ titling: Jessica Binns||Styling/ hmua: Tandie Tyrell||DIT/BTS photography: Christian Kinn">
                 <div class="thumbnail-box">
                     <!-- Blank div allows script to automatically pull YouTube thumbnail -->
                 </div>
@@ -690,7 +705,7 @@
                  data-video="https://youtu.be/66nTpR10RQQ"
                  data-synopsis="“A Trans Vietnamese woman’s letter to herself and her family before secretly starting Hormone Replacement Therapy”"
                  data-festivals="festival1.png,festival2.png"
-                 data-credits="DP | Colour ~ Mason Cline|Direction & choreography ~ Thuỵ Huỳnh Thái|Producer ~ Jordan Wong|Gaffer ~ Daniel Fusco|Sound ~ Izzy Flores-Glasner|Make up & Hairstyling ~ E Mittens Raposo|Executive Producers ~ Thuỵ Huỳnh Thái, Mason Cline, Daniel Fusco, & Jordan Wong">
+                 data-credits="Direction & choreography: Thuỵ Huỳnh Thái||Producer: Jordan Wong||Cinematography & Photo: Mason Cline||Gaffer: Daniel Fusco||Sound: Izzy Flores-Glasner||Make up & Hairstyling: E Mittens Raposo||Executive Producers: Thuỵ Huỳnh Thái, Mason Cline, Daniel Fusco, & Jordan Wong">
                 <div class="thumbnail-box">
                     <img src="2 THIEU NU/000046350017.jpeg" alt="Thiếu, Nữ">
                 </div>
@@ -706,7 +721,7 @@
                  data-category-name="Music Video"
                  data-poster="https://i.imgur.com/8tk6QnM.jpg"
                  data-video="https://youtu.be/6GvYSWZT93s"
-                 data-credits="Director | Edit ~ Mason Cline|Producer ~ Declan McKenna|DP ~ Dario Butera|Gaffer ~ Daniel Fusco|Colourist/ bts ~ Christian Kinn|Graphics/ swing ~ Jackson McMurdo|Analog bts ~ Tafara Gwata|Swing ~ James Tweedy">
+                 data-credits="Director/ Editor : Mason Cline||Producer: Declan McKenna||DP: Dario Butera||Gaffer: Daniel Fusco||Colourist/ bts: Christian Kinn||Graphics/ swing: Jackson McMurdo||Analog bts: Tafara Gwata||Swing: James Tweedy">
                 <div class="thumbnail-box">
                     <img src="https://i.imgur.com/8tk6QnM.jpg" alt="insyt. — Puppet Strings">
                 </div>
@@ -722,7 +737,7 @@
                  data-category-name="Music Video"
                  data-poster="https://i.imgur.com/Eh1h6kf.jpg"
                  data-video="https://www.youtube.com/watch?v=ZTq6Xg301Eg"
-                 data-credits="Director | Edit | Super 8 ~ Mason Cline|Executive producer ~ Misan Edema & @_.ddanielll|DP/Colourist ~ Dario Butera|Producer/stylist ~ Misan Edema|AD ~ Maya Chariandy|PD ~ Raim Realce|Gaffer ~ Daniel Fusco|graphics ~ Jessica Binns|sound mixer ~ Izzy Flores|Transportation ~ Jevaughn Stewart Hinds">
+                 data-credits="Director/ Edit/ Super 8: Mason Cline||Executive producer: Misan Edema & @_.ddanielll||DP/Colourist: Dario Butera||Producer/stylist: Misan Edema||AD: Maya Chariandy||PD: Raim Realce||Gaffer: Daniel Fusco||graphics: Jessica Binns||sound mixer: Izzy Flores||Transportation: Jevaughn Stewart Hinds">
                 <div class="thumbnail-box">
                     <img src="https://i.imgur.com/Eh1h6kf.jpg" alt="Prettybxkay — 4nicate">
                 </div>
@@ -739,7 +754,7 @@
                  data-poster="https://i.imgur.com/kPeqMb7.jpg"
                  data-video="https://www.instagram.com/p/DP7EbUoEogg/"
                  data-synopsis="A creative campaign for the Brand GBL and their limited edition Khaki Set"
-                 data-credits="Director | Edit | DP | Colour ~ Mason Cline|Creative Direction|Desinger ~ Tafara Gwata|1st AC ~ Dario Butera|Dolly Grip ~ Misan Edema">
+                 data-credits="Director/ Editor/ DP: Mason Cline||Creative Direction/ Designer: Tafara Gwata||1st AC: Dario Butera||Dolly Grip: Misan Edema">
                 <div class="thumbnail-box">
                     <img src="https://i.imgur.com/kPeqMb7.jpg" alt="Gangsta is Gorgeous">
                 </div>
@@ -755,7 +770,7 @@
                  data-category-name="Commercial"
                  data-poster="https://i.imgur.com/aXJIkZV.png"
                  data-video="https://www.instagram.com/p/DQXlhpPidWF/"
-                 data-credits="Director | Edit ~ Mason Cline|DOP ~ Christian Kinn|B cam ~ Dario Butera|Hi-8 ~ Tafara Gwata|Gaffer ~ Declan McKenna|Sound|colour ~ Jackson McMurdo|Production design ~ Tae Lee">
+                 data-credits="Director/ edit: Mason Cline||DOP: Christian Kinn||B cam: Dario Butera||Hi-8: Tafara Gwata||Gaffer: Declan McKenna||Sound|colour: Jackson McMurdo||Production design: Tae Lee">
                 <div class="thumbnail-box">
                     <img src="https://i.imgur.com/aXJIkZV.png" alt="DRAFT DAY">
                 </div>
@@ -842,7 +857,7 @@
     <!-- FOOTER -->
     <footer>
         <div>&copy; <span id="year"></span> Mason Cline</div>
-        <button class="footer-contact-btn" onclick="showInfo(document.querySelector('.directory-nav li:last-child button'))">Contact</button>
+        <button class="footer-contact-btn" onclick="showInfo(null)">Contact</button>
         <div>Toronto, ON</div>
     </footer>
 
@@ -907,7 +922,6 @@
         // Show Info / Contact view
         function showInfo(button) {
             document.getElementById('work-section').style.display = 'none';
-            document.querySelector('.hero-section').style.display = 'none';
             document.getElementById('photography-section').style.display = 'none';
             
             const dynamicTitle = document.getElementById('header-dynamic-title');
@@ -917,9 +931,13 @@
             document.getElementById('info-section').style.display = 'block';
             document.body.style.overflow = 'auto';
 
-            const buttons = document.querySelectorAll('.nav-btn');
+            const buttons = document.querySelectorAll('.nav-btn, .header-contact-btn');
             buttons.forEach(btn => btn.classList.remove('active'));
-            if(button) button.classList.add('active');
+            if(button) {
+                button.classList.add('active');
+            } else {
+                document.getElementById('main-contact-btn').classList.add('active');
+            }
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
@@ -974,13 +992,21 @@
             creditsContainer.innerHTML = '';
 
             if (creditsRaw) {
-                const lines = creditsRaw.split('|');
+                // Split by double pipe to handle complex lines
+                const lines = creditsRaw.split('||');
                 lines.forEach(line => {
-                    const parts = line.split('~');
-                    if (parts.length === 2) {
+                    // Try splitting by tilde first, fallback to colon
+                    let parts = line.split('~');
+                    if (parts.length < 2) {
+                        parts = line.split(':');
+                    }
+                    if (parts.length >= 2) {
+                        const role = parts[0].trim();
+                        // join back with colon just in case the name itself had a colon
+                        const names = parts.slice(1).join(':').trim(); 
                         const item = document.createElement('div');
                         item.className = 'credit-item';
-                        item.innerHTML = `<h4>${parts[0].trim()}</h4><p>${parts[1].trim()}</p>`;
+                        item.innerHTML = `<h4>${role}</h4><p>${names}</p>`;
                         creditsContainer.appendChild(item);
                     }
                 });
@@ -1184,28 +1210,24 @@
             document.getElementById('info-section').style.display = 'none';
             document.getElementById('photography-section').style.display = 'none';
             
-            const heroSection = document.querySelector('.hero-section');
             const dynamicTitle = document.getElementById('header-dynamic-title');
 
             if(category === 'all') {
-                heroSection.style.display = 'block';
                 dynamicTitle.textContent = 'Mason Cline';
                 dynamicTitle.className = 'header-name-display';
                 document.getElementById('work-section').style.display = 'block';
             } else if (category === 'photography') {
-                heroSection.style.display = 'none';
                 dynamicTitle.textContent = 'Gallery';
                 dynamicTitle.className = 'header-gallery-display';
                 document.getElementById('photography-section').style.display = 'block';
                 backToMasterGallery(); 
             } else {
-                heroSection.style.display = 'none';
                 dynamicTitle.textContent = 'Mason Cline';
                 dynamicTitle.className = 'header-name-display';
                 document.getElementById('work-section').style.display = 'block';
             }
 
-            const buttons = document.querySelectorAll('.nav-btn');
+            const buttons = document.querySelectorAll('.nav-btn, .header-contact-btn');
             buttons.forEach(btn => btn.classList.remove('active'));
             if(button) button.classList.add('active');
 
