@@ -71,9 +71,15 @@
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            padding: 1.5rem 3rem;
+            padding: 1rem 3rem; /* Decreased top bar padding */
             max-width: var(--container-width);
             margin: 0 auto;
+        }
+
+        .header-left {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
         }
 
         .logo {
@@ -81,8 +87,6 @@
             display: flex;
             align-items: center;
             transition: opacity 0.3s ease;
-            width: 80px; 
-            margin-top: 5px;
         }
         
         .logo:hover {
@@ -90,67 +94,19 @@
         }
 
         .logo img {
-            height: 40px;
+            height: 52px; /* Matched linear sizing to Name + Contact combined */
             width: auto;
             display: block;
         }
 
-        /* DYNAMIC HEADER TITLE */
-        .header-title-container {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            margin-top: 5px;
-        }
-
-        .header-name-display {
-            font-family: var(--font-hero);
-            font-size: 3rem;
-            color: var(--text-color);
-            margin: 0;
-            line-height: 1;
-            letter-spacing: 0.02em;
-        }
-
-        .header-gallery-display {
-            font-family: var(--font-main);
-            font-size: 1rem;
-            font-weight: 600;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            color: var(--muted-color);
-            margin: 0;
-        }
-
-        .header-contact-btn {
-            background: none;
-            border: none;
-            color: var(--muted-color);
-            font-family: var(--font-main);
-            font-size: 0.65rem;
-            text-transform: uppercase;
-            letter-spacing: 0.15em;
-            font-weight: 600;
-            cursor: pointer;
-            transition: color 0.3s ease;
-            margin-top: 0.4rem;
-        }
-        
-        .header-contact-btn:hover, .header-contact-btn.active {
-            color: var(--accent-color);
-        }
-
-        /* DESKTOP DIRECTORY TABS IN TOP RIGHT (TIGHT STACKED) */
+        /* DIRECTORY TABS BENEATH ICON */
         .directory-nav {
             display: flex;
             flex-direction: column;
-            align-items: flex-end;
-            gap: 0; /* Removed gap entirely */
+            align-items: flex-start;
+            gap: 0; 
             list-style: none;
-            margin-top: 5px;
+            margin-top: 8px; /* Tighter gap */
         }
 
         .directory-nav button {
@@ -165,12 +121,58 @@
             cursor: pointer;
             transition: color 0.3s ease;
             padding: 3px 0;
-            text-align: right;
-            line-height: 1; /* Tight line height */
+            text-align: left;
+            line-height: 1;
         }
 
         .directory-nav button:hover,
         .directory-nav button.active {
+            color: var(--accent-color);
+        }
+
+        /* HEADER RIGHT SIDE (NAME & CONTACT) */
+        .header-right {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            justify-content: flex-start;
+        }
+
+        .header-name-display {
+            font-family: var(--font-hero);
+            font-size: 2.5rem; /* Scaled down slightly */
+            color: var(--text-color);
+            margin: 0;
+            line-height: 1;
+            letter-spacing: 0.02em;
+        }
+
+        .header-gallery-display {
+            font-family: var(--font-main);
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--muted-color);
+            margin: 0;
+            margin-bottom: 0.2rem;
+        }
+
+        .header-contact-btn {
+            background: none;
+            border: none;
+            color: var(--muted-color);
+            font-family: var(--font-main);
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: color 0.3s ease;
+            margin-top: 0.2rem;
+        }
+        
+        .header-contact-btn:hover, .header-contact-btn.active {
             color: var(--accent-color);
         }
 
@@ -184,7 +186,7 @@
 
         /* MAIN CONTENT LAYOUT */
         main {
-            padding: 8rem 3rem 6rem; /* Extra padding top to ensure header clears */
+            padding: 8rem 3rem 6rem; /* Adjusted for new header height */
             max-width: var(--container-width);
             margin: 0 auto;
         }
@@ -565,12 +567,11 @@
         }
 
         @media (max-width: 768px) {
-            header { padding: 1.5rem; flex-direction: column; gap: 1rem; align-items: center; }
-            .header-name-display { font-size: 2.2rem; }
-            .hero-section { padding: 7rem 1.5rem 1rem; }
-            .directory-nav { align-items: center; gap: 0.2rem; }
-            main { padding: 10rem 1.5rem 3rem; }
-            #info-section, #photography-section { padding: 9rem 1.5rem 3rem; }
+            header { padding: 1rem 1.5rem; }
+            .header-name-display { font-size: 2rem; }
+            .logo img { height: 45px; } 
+            main { padding: 8rem 1.5rem 3rem; }
+            #info-section, #photography-section { padding: 8rem 1.5rem 3rem; }
             footer { padding: 1rem 1.5rem 3rem; flex-direction: column; gap: 1rem; align-items: center; text-align: center; }
             .project-meta { flex-direction: column; gap: 0.5rem; }
             .info-grid { grid-template-columns: 1fr; gap: 2rem; }
@@ -594,23 +595,24 @@
     <div class="header-wrapper">
         <!-- HEADER -->
         <header>
-            <div class="logo" onclick="filterProjects('all', null)" title="Home">
-                <img src="https://i.imgur.com/qDcDABi.png" alt="Mason Cline">
+            <div class="header-left">
+                <div class="logo" onclick="filterProjects('all', null)" title="Home">
+                    <img src="https://i.imgur.com/qDcDABi.png" alt="Mason Cline">
+                </div>
+                <!-- DIRECTORY NAVIGATION TABS (BENEATH ICON) -->
+                <ul class="directory-nav">
+                    <li><button class="nav-btn" onclick="filterProjects('direction', this)">Direction</button></li>
+                    <li><button class="nav-btn" onclick="filterProjects('cinematography', this)">Cinematography</button></li>
+                    <li><button class="nav-btn" onclick="filterProjects('editing', this)">Editing</button></li>
+                    <li><button class="nav-btn" onclick="filterProjects('photography', this)">Photography</button></li>
+                </ul>
             </div>
             
-            <!-- Dynamic Center Title -->
-            <div class="header-title-container">
+            <div class="header-right">
+                <!-- Dynamic Center Title -->
                 <h1 id="header-dynamic-title" class="header-name-display">Mason Cline</h1>
                 <button class="header-contact-btn" id="main-contact-btn" onclick="showInfo(null)">Contact</button>
             </div>
-
-            <!-- DIRECTORY NAVIGATION TABS (STACKED) -->
-            <ul class="directory-nav">
-                <li><button class="nav-btn" onclick="filterProjects('direction', this)">Direction</button></li>
-                <li><button class="nav-btn" onclick="filterProjects('cinematography', this)">Cinematography</button></li>
-                <li><button class="nav-btn" onclick="filterProjects('editing', this)">Editing</button></li>
-                <li><button class="nav-btn" onclick="filterProjects('photography', this)">Photography</button></li>
-            </ul>
         </header>
     </div>
 
@@ -666,18 +668,18 @@
                 </div>
             </div>
 
-            <!-- 4. KAI BANKS — MAZE -->
+            <!-- 4. KAI BANKS - MAZE -->
             <div class="project-card" data-category="direction editing" 
-                 data-title=".KAI BANKS — MAZE"
+                 data-title="KAI BANKS - MAZE"
                  data-category-name="Music Video"
                  data-poster="https://i.imgur.com/vB0edzz.jpg"
                  data-video="https://youtu.be/PFcnSxjB-KM?si=w2HrzcUGggr4wxon"
                  data-credits="Director/ Editor: mason cline||Producer: Declan Mckenna||DP: Dario Butera||Production Designer: Hayley Naish||1st AD: maya chariandy||1st AC: barbara sanchez + Travis Wallave||Gaffer: priyand||Swing: Adam venckus||Stylist/ Casting : Revi||BTS/Locations/ Rchive Set dresser: Tafara Gwata||Co - Edit/Colour: Christian Kinn||Sound/ Titles/ Edit assit : JAckson McMurdo||Projectionist: Jessica Binns">
                 <div class="thumbnail-box">
-                    <img src="https://i.imgur.com/vB0edzz.jpg" alt="Kai Banks — Maze">
+                    <img src="https://i.imgur.com/vB0edzz.jpg" alt="KAI BANKS - MAZE">
                 </div>
                 <div class="project-meta">
-                    <div class="project-title">.KAI BANKS — MAZE</div>
+                    <div class="project-title">KAI BANKS - MAZE</div>
                     <div class="project-credits-preview">Director | edit</div>
                 </div>
             </div>
@@ -687,7 +689,7 @@
                  data-title="ZOE — ATTITUDE & MOTION"
                  data-category-name="Music Video"
                  data-video="https://youtu.be/EfRm28PLvKA"
-                 data-credits="Producer: Declan McKenna & Jevaughn Stewart-Hynes||DP/ Director/ Edit/ Colour : Mason Cline||Co-Director: Maya Chariandy||1st Ad: Jordan Wong||2nd Ad: Justin Tan||1st ac: Dario Butera||2nd ac: Adam Venckus||Gaffer: Daniel Fusco||Dolly grip: Misan Edema||Production design: Aimal Jawaid||Art direction: Aneesa Sharifs||Projections mapping/ titling: Jessica Binns||Styling/ hmua: Tandie Tyrell||DIT/BTS photography: Christian Kinn">
+                 data-credits="DP/ Director/ Edit/ Colour : Mason Cline||Producer: Declan McKenna & Jevaughn Stewart-Hynes||Co-Director: Maya Chariandy||1st Ad: Jordan Wong||2nd Ad: Justin Tan||1st ac: Dario Butera||2nd ac: Adam Venckus||Gaffer: Daniel Fusco||Dolly grip: Misan Edema||Production design: Aimal Jawaid||Art direction: Aneesa Sharifs||Projections mapping/ titling: Jessica Binns||Styling/ hmua: Tandie Tyrell||DIT/BTS photography: Christian Kinn">
                 <div class="thumbnail-box">
                     <!-- Blank div allows script to automatically pull YouTube thumbnail -->
                 </div>
@@ -705,7 +707,7 @@
                  data-video="https://youtu.be/66nTpR10RQQ"
                  data-synopsis="“A Trans Vietnamese woman’s letter to herself and her family before secretly starting Hormone Replacement Therapy”"
                  data-festivals="festival1.png,festival2.png"
-                 data-credits="Direction & choreography: Thuỵ Huỳnh Thái||Producer: Jordan Wong||Cinematography & Photo: Mason Cline||Gaffer: Daniel Fusco||Sound: Izzy Flores-Glasner||Make up & Hairstyling: E Mittens Raposo||Executive Producers: Thuỵ Huỳnh Thái, Mason Cline, Daniel Fusco, & Jordan Wong">
+                 data-credits="Cinematography & Photo: Mason Cline||Direction & choreography: Thuỵ Huỳnh Thái||Producer: Jordan Wong||Gaffer: Daniel Fusco||Sound: Izzy Flores-Glasner||Make up & Hairstyling: E Mittens Raposo||Executive Producers: Thuỵ Huỳnh Thái, Mason Cline, Daniel Fusco, & Jordan Wong">
                 <div class="thumbnail-box">
                     <img src="2 THIEU NU/000046350017.jpeg" alt="Thiếu, Nữ">
                 </div>
@@ -1002,7 +1004,6 @@
                     }
                     if (parts.length >= 2) {
                         const role = parts[0].trim();
-                        // join back with colon just in case the name itself had a colon
                         const names = parts.slice(1).join(':').trim(); 
                         const item = document.createElement('div');
                         item.className = 'credit-item';
