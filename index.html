@@ -122,95 +122,12 @@
             margin: 0;
         }
 
-        /* HAMBURGER MENU */
-        .hamburger-btn {
-            display: flex;
-            flex-direction: column;
-            gap: 7px;
-            background: none;
-            border: none;
-            cursor: pointer;
-            padding: 10px;
-            width: 80px; 
-            align-items: flex-end;
-            z-index: 1005;
-        }
-
-        .hamburger-btn span {
-            display: block;
-            width: 32px;
-            height: 2px;
-            background-color: var(--text-color);
-            transition: 0.3s ease;
-        }
-
-        .hamburger-btn:hover span {
-            background-color: var(--muted-color);
-        }
-
-        /* SIDE NAVIGATION PANEL */
-        .menu-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(3px);
-            z-index: 1999;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.4s ease, visibility 0.4s ease;
-        }
-
-        .menu-overlay.open {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .side-menu {
-            position: fixed;
-            top: 0;
-            right: -400px;
-            width: 100%;
-            max-width: 400px;
-            height: 100vh;
-            background-color: var(--bg-color);
-            box-shadow: -5px 0 25px rgba(0, 0, 0, 0.1);
-            z-index: 2000;
-            padding: 8rem 4rem;
-            display: flex;
-            flex-direction: column;
-            transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .side-menu.open {
-            right: 0;
-        }
-
-        .close-menu-btn {
-            position: absolute;
-            top: 3.5rem;
-            right: 3rem;
-            background: none;
-            border: none;
-            font-size: 2rem;
-            color: var(--muted-color);
-            cursor: pointer;
-            transition: color 0.3s ease;
-        }
-
-        .close-menu-btn:hover {
-            color: var(--accent-color);
-        }
-
+        /* DESKTOP DIRECTORY TABS IN TOP RIGHT */
         .directory-nav {
             display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-            gap: 2rem;
+            align-items: center;
+            gap: 1.5rem;
             list-style: none;
-            width: 100%;
         }
 
         .directory-nav button {
@@ -218,28 +135,18 @@
             border: none;
             color: var(--muted-color);
             font-family: inherit;
-            font-size: 0.85rem;
+            font-size: 0.75rem;
             text-transform: uppercase;
             letter-spacing: 0.15em;
             font-weight: 600;
             cursor: pointer;
             transition: color 0.3s ease;
             padding: 0;
-            text-align: right;
         }
 
         .directory-nav button:hover,
         .directory-nav button.active {
             color: var(--accent-color);
-        }
-
-        .header-divider {
-            border: none;
-            border-top: 1px solid var(--border-color);
-            max-width: var(--container-width);
-            margin: 0 auto;
-            position: relative;
-            z-index: 90;
         }
 
         /* HERO SECTION */
@@ -248,16 +155,6 @@
             padding: 8rem 3rem 1.5rem 3rem;
             max-width: var(--container-width);
             margin: 0 auto;
-        }
-
-        .hero-section p {
-            font-family: var(--font-main);
-            font-size: 0.8rem;
-            color: var(--text-color);
-            font-weight: 400;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            margin: 0;
         }
 
         /* MAIN CONTENT LAYOUT */
@@ -423,28 +320,6 @@
             text-transform: uppercase;
         }
 
-        .modal-synopsis {
-            font-size: 0.9rem;
-            font-style: italic;
-            color: var(--muted-color);
-            border-left: 2px solid var(--border-color);
-            padding-left: 1rem;
-            margin-top: 0.5rem;
-        }
-
-        .modal-festivals {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-            margin-top: 1rem;
-        }
-
-        .modal-festivals img {
-            height: 40px;
-            width: auto;
-            object-fit: contain;
-        }
-
         .modal-credits {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -510,7 +385,7 @@
             margin-left: 0.5rem;
         }
 
-        /* NEW PHOTOGRAPHY UI */
+        /* PHOTOGRAPHY SECTION */
         #photography-section {
             display: none; 
             max-width: 1200px;
@@ -519,7 +394,6 @@
             animation: fadeIn 0.5s ease forwards;
         }
 
-        /* The Master Uniform Grid */
         .master-grid {
             column-count: 4;
             column-gap: 1.5rem;
@@ -543,7 +417,6 @@
             transition: transform 0.4s ease, filter 0.4s ease;
         }
 
-        /* The Hover Overlay */
         .hover-label {
             position: absolute;
             top: 0; 
@@ -575,7 +448,6 @@
             opacity: 1;
         }
 
-        /* Traditional Masonry for Individual Folder Views */
         .masonry-grid {
             column-count: 3;
             column-gap: 1.5rem;
@@ -646,10 +518,10 @@
         }
 
         @media (max-width: 768px) {
-            header { padding: 1.5rem; }
+            header { padding: 1.5rem; flex-direction: column; gap: 1rem; }
             .header-name-display { font-size: 2.2rem; }
             .hero-section { padding: 7rem 1.5rem 1rem; }
-            .side-menu { max-width: 300px; padding: 6rem 2rem; }
+            .directory-nav { gap: 1rem; flex-wrap: wrap; justify-content: center; }
             main { padding: 1rem 1.5rem 3rem; }
             #info-section, #photography-section { padding: 7rem 1.5rem 3rem; }
             footer { padding: 1rem 1.5rem 3rem; flex-direction: column; gap: 1rem; align-items: center; text-align: center; }
@@ -675,7 +547,7 @@
     <div class="header-wrapper">
         <!-- HEADER -->
         <header>
-            <div class="logo" onclick="filterDirectory('home', null)">
+            <div class="logo" onclick="filterProjects('all', null)">
                 <img src="https://i.imgur.com/qDcDABi.png" alt="Mason Cline">
             </div>
             
@@ -684,32 +556,20 @@
                 <h1 id="header-dynamic-title" class="header-name-display">Mason Cline</h1>
             </div>
 
-            <!-- HAMBURGER MENU BUTTON -->
-            <button class="hamburger-btn" onclick="toggleMenu()" aria-label="Menu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
+            <!-- DIRECTORY NAVIGATION TABS -->
+            <ul class="directory-nav">
+                <li><button class="nav-btn active" onclick="filterProjects('all', this)">Home</button></li>
+                <li><button class="nav-btn" onclick="filterProjects('direction', this)">Direction</button></li>
+                <li><button class="nav-btn" onclick="filterProjects('cinematography', this)">Cinematography</button></li>
+                <li><button class="nav-btn" onclick="filterProjects('editing', this)">Editing</button></li>
+                <li><button class="nav-btn" onclick="filterProjects('photography', this)">Photography</button></li>
+                <li><button class="nav-btn" onclick="showInfo(this)">Contact</button></li>
+            </ul>
         </header>
     </div>
 
-    <!-- SIDE NAVIGATION MENU -->
-    <div class="menu-overlay" onclick="toggleMenu()"></div>
-    <nav class="side-menu">
-        <button class="close-menu-btn" onclick="toggleMenu()">&times;</button>
-        <ul class="directory-nav">
-            <li><button class="nav-btn active" onclick="filterDirectory('home', this); toggleMenu()">Home</button></li>
-            <li><button class="nav-btn" onclick="filterDirectory('direction', this); toggleMenu()">Direction</button></li>
-            <li><button class="nav-btn" onclick="filterDirectory('cinematography', this); toggleMenu()">Cinematography</button></li>
-            <li><button class="nav-btn" onclick="filterDirectory('editing', this); toggleMenu()">Editing</button></li>
-            <li><button class="nav-btn" onclick="filterDirectory('photography', this); toggleMenu()">Photography</button></li>
-            <li><button class="nav-btn" onclick="showInfo(this); toggleMenu()">Contact</button></li>
-        </ul>
-    </nav>
-
     <!-- HERO SECTION -->
     <section class="hero-section">
-        <p>Director, Editor, Cinematographer & Photographer</p>
     </section>
 
     <!-- MAIN PORTFOLIO GRID -->
@@ -717,170 +577,168 @@
         <div class="portfolio-grid">
 
             <!-- 1. INSYT. - 360° -->
-            <div class="project-card" data-roles="direction|dp|edit" 
+            <div class="project-card" data-category="direction editing" 
                  data-title="INSYT. - 360°"
                  data-category-name="Music Video"
                  data-poster="https://i.imgur.com/raeeKgr.jpg"
                  data-video="CKdqD851gQ0"
-                 data-credits="Director ~ Mason Cline|Producer ~ Declan McKenna|Assistant Director ~ Maya Chariandy|DP ~ Dario Butera|1st AC ~ Jodi Gapan|Gaffer ~ Miles Lauterbach|Production Designer ~ Jordan Wong|Location Support ~ Raim Realce|Edited by ~ Mason Cline and Jackson McMurdo|Colourist ~ Jackson McMurdo">
+                 data-credits="Directed By: Mason Cline|Produced By: Declan McKenna|Assistant Director: Maya Charlandy|Director of Photography: Dario Butera|Cinematographer: Jackson McMartin|Edited By: Mason Cline & Jackson McMartin|Production Designer: Jordan Wong|Art Director: Joel Capan|Gaffer: James Csatari|Graphics: Jackson McMartin|Location Support: Naim Realca">
                 <div class="thumbnail-box">
                     <img src="https://i.imgur.com/raeeKgr.jpg" alt="INSYT. - 360°">
                 </div>
                 <div class="project-meta">
                     <div class="project-title">INSYT. - 360°</div>
-                    <div class="project-credits-preview">Mason Cline</div>
+                    <div class="project-credits-preview">Director|edit</div>
                 </div>
             </div>
 
             <!-- 2. INSYT. - TOLL -->
-            <div class="project-card" data-roles="direction|dp|edit" 
+            <div class="project-card" data-category="direction editing cinematography" 
                  data-title="INSYT. - TOLL"
                  data-category-name="Music Video"
                  data-poster="https://i.imgur.com/H61nT5i.jpg"
                  data-video=""
-                 data-credits="Director|Editor|super ~ Mason Cline|Producers ~ Evie Carrier & Declan McKenna|DP ~ Dario Butera|1st AC ~ Jodi Gapan|Gaffer ~ Daniel Fusco|Swings ~ Jevaughn Stewart-Hinds & Jackson McMurdo|Consultant ~ Aaron Murchison|Transportation ~ Daniel Fusco, Jevaughn Stewart-Hinds, & Aaron Murchison|Co editor| Colourist| DIT| Drone Op ~ Jackson McMurdo">
+                 data-credits="Directed By: Mason Cline|Super 8 Specialist: Mason Cline">
                 <div class="thumbnail-box">
                     <img src="https://i.imgur.com/H61nT5i.jpg" alt="INSYT. - TOLL">
                 </div>
                 <div class="project-meta">
                     <div class="project-title">INSYT. - TOLL</div>
-                    <div class="project-credits-preview">Mason Cline</div>
+                    <div class="project-credits-preview">Director| edit</div>
                 </div>
             </div>
 
             <!-- 3. INSYT. — HEAL -->
-            <div class="project-card" data-roles="direction|dp|edit" 
+            <div class="project-card" data-category="direction editing cinematography" 
                  data-title="INSYT. — HEAL (FEAT. JAY VERSACE & MILEENA)"
                  data-category-name="Music Video"
                  data-poster="https://i.imgur.com/5Z5JnBH.jpg"
                  data-video="https://youtu.be/2i1VwJyLIs0"
-                 data-credits="Director|Super 8 ~ Mason Cline (Super 8 op and specialist on HEAL)|Co-director ~ Declan Mckenna|Producer ~ Christian Kinn|DP ~ Dario Butera|1st AC ~ Justin Gothreau|Gaffer ~ Miles Lauterbach|Key grip ~ Camille Sullivan|Editor ~ Alec Rudnitsky|Colourist ~ Christian Kinn|Titles ~ Jackson McMurdo">
+                 data-credits="Performed By: insyt., Mileena, Jay Versace|Director: Mason Cline|Cinematography: Mason Cline|Super 8 Specialist: Mason Cline">
                 <div class="thumbnail-box">
                     <img src="https://i.imgur.com/5Z5JnBH.jpg" alt="INSYT. — HEAL">
                 </div>
                 <div class="project-meta">
                     <div class="project-title">INSYT. — HEAL (FEAT. JAY VERSACE & MILEENA)</div>
-                    <div class="project-credits-preview">Mason Cline</div>
+                    <div class="project-credits-preview">Director|super 8</div>
                 </div>
             </div>
 
             <!-- 4. KAI BANKS — MAZE -->
-            <div class="project-card" data-roles="direction|edit" 
+            <div class="project-card" data-category="direction editing" 
                  data-title=".KAI BANKS — MAZE"
                  data-category-name="Music Video"
                  data-poster="https://i.imgur.com/vB0edzz.jpg"
                  data-video="https://youtu.be/PFcnSxjB-KM?si=w2HrzcUGggr4wxon"
-                 data-credits="Director|Edit ~ mason clinee|Producer ~ Declan Mckenna|DP ~ Dario Butera|Production Designer ~ Hayley Naish|1st AD ~ maya chariandy|1st AC ~ barbara sanchez + Travis Wallave|Gaffer ~ priyand|Swing ~ Adam venckus|Stylist/ Casting ~ Revi|BTS/Locations/ Rchive Set dresser ~ Tafara Gwata|Co - Edit/Colour ~ Christian Kinn|Sound/ Titles/ Edit assit ~ JAckson McMurdo|Projectionist ~ Jessica Binns">
+                 data-credits="Directed By: Mason Cline|Cinematography: Dario Butera|Producer: Declan McKenna|1st AD: Maya Charlandy|Production Design: Hayley Naish|1st AC: Barbara Sanchez, Travis Wallace|Gaffer: Priyand Karunainathan|Swing: Adam Venckus|BTS / Location: Tafara Rwata|Casting / Stylist: @MoodyRevi">
                 <div class="thumbnail-box">
                     <img src="https://i.imgur.com/vB0edzz.jpg" alt="Kai Banks — Maze">
                 </div>
                 <div class="project-meta">
                     <div class="project-title">.KAI BANKS — MAZE</div>
-                    <div class="project-credits-preview">Mason Cline</div>
+                    <div class="project-credits-preview">Director|edit</div>
                 </div>
             </div>
 
             <!-- 5. ZOE — ATTITUDE & MOTION -->
-            <div class="project-card" data-roles="direction|dp|edit" 
+            <div class="project-card" data-category="direction editing cinematography" 
                  data-title="ZOE — ATTITUDE & MOTION"
                  data-category-name="Music Video"
                  data-video="https://youtu.be/EfRm28PLvKA"
-                 data-credits="Producer ~ Declan McKenna & Jevaughn Stewart-Hynes|DP|Director|Edit|Colour ~ Mason Cline|Co-Director ~ Maya Chariandy|1st Ad ~ Jordan Wong|2nd Ad ~ Justin Tan|1st ac ~ Dario Butera|2nd ac ~ Adam Venckus|Gaffer ~ Daniel Fusco|Dolly grip ~ Misan Edema|Production design ~ Aimal Jawaid|Art direction ~ Aneesa Sharifs|Projections mapping/ titling ~ Jessica Binns|Styling/ hmua ~ Tandie Tyrell|DIT/BTS photography ~ Christian Kinn">
+                 data-credits="Direction & Cinematography: Mason Cline & Maya Chariandy|Starring: Zoe Lewis, Candice Bonair, Janell Vacianna|Producers: Declan McKenna & Jevaughn Stewart-Hinds|1st AD: Jordan Wong|2nd AD: Justin Tan|Colour + Edit: Mason Cline|Gaffer: Daniel Fusco|1st AC: Dario Butera|2nd AC: Adam Venckus|Dolly Grip: Misan Edema|BTS: Christian Kin|Production Design: Aimal Jaward|Art Direction: Aneesa Shariff|Styling + HMUA: Tandie Tyrell|Projection Mapping: Jessica Binns">
                 <div class="thumbnail-box">
                     <!-- Blank div allows script to automatically pull YouTube thumbnail -->
                 </div>
                 <div class="project-meta">
                     <div class="project-title">ZOE — ATTITUDE & MOTION</div>
-                    <div class="project-credits-preview">Mason Cline|DP|Edit</div>
+                    <div class="project-credits-preview">Director|DP|Edit|Colour</div>
                 </div>
             </div>
 
             <!-- THIẾU, NỮ (SHORT FILM) -->
-            <div class="project-card" data-roles="cinematography" 
+            <div class="project-card" data-category="cinematography" 
                  data-title="Thiếu, Nữ"
                  data-category-name="Short Film"
                  data-poster="2 THIEU NU/000046350017.jpeg"
                  data-video="https://youtu.be/66nTpR10RQQ"
-                 data-synopsis="“A Trans Vietnamese woman’s letter to herself and her family before secretly starting Hormone Replacement Therapy”"
-                 data-festivals="festival1.png,festival2.png"
-                 data-credits="Direction & choreography ~ Thuỵ Huỳnh Thái|Producer ~ Jordan Wong|Cinematography & Photo ~ Mason Cline|Gaffer ~ Daniel Fusco|Sound ~ Izzy Flores-Glasner|Make up & Hairstyling ~ E Mittens Raposo|Executive Producers ~ Thuỵ Huỳnh Thái, Mason Cline, Daniel Fusco, & Jordan Wong">
+                 data-credits="Direction & choreography: Thuỵ Huỳnh Thái|Producer: Jordan Wong|Cinematography & Photo: Mason Cline|Gaffer: Daniel Fusco|Sound: Izzy Flores-Glasner|Make up & Hairstyling: E Mittens Raposo|Executive Producers: Thuỵ Huỳnh Thái, Mason Cline, Daniel Fusco, & Jordan Wong">
                 <div class="thumbnail-box">
                     <img src="2 THIEU NU/000046350017.jpeg" alt="Thiếu, Nữ">
                 </div>
                 <div class="project-meta">
                     <div class="project-title">Thiếu, Nữ</div>
-                    <div class="project-credits-preview">Mason Cline</div>
+                    <div class="project-credits-preview">DP|Colour</div>
                 </div>
             </div>
 
             <!-- 6. INSYT. — PUPPET STRINGS -->
-            <div class="project-card" data-roles="direction|edit" 
+            <div class="project-card" data-category="direction editing" 
                  data-title="INSYT. — PUPPET STRINGS"
                  data-category-name="Music Video"
                  data-poster="https://i.imgur.com/8tk6QnM.jpg"
                  data-video="https://youtu.be/6GvYSWZT93s"
-                 data-credits="Director|Editor ~ Mason Cline|Producer ~ Declan McKenna|DP ~ Dario Butera|Gaffer ~ Daniel Fusco|Colourist/ bts ~ Christian Kinn|Graphics/ swing ~ Jackson McMurdo|Analog bts ~ Tafara Gwata|Swing ~ James Tweedy">
+                 data-credits="Directed By: Mason Cline|Produced By: Declan McKenna|Cinematography: Dario Butera|Gaffer: Daniel Fusco|BTS / Gradist: Christian Kinn|Titling / Swing: Jackson McMcMurdo|Edited By: Mason Cline|2nd Swing: James Tweedy">
                 <div class="thumbnail-box">
                     <img src="https://i.imgur.com/8tk6QnM.jpg" alt="insyt. — Puppet Strings">
                 </div>
                 <div class="project-meta">
                     <div class="project-title">INSYT. — PUPPET STRINGS</div>
-                    <div class="project-credits-preview">Mason Cline</div>
+                    <div class="project-credits-preview">Director|Edit</div>
                 </div>
             </div>
 
             <!-- 7. PRETTYBXKAY — 4NICATE -->
-            <div class="project-card" data-roles="direction|edit" 
+            <div class="project-card" data-category="direction editing" 
                  data-title="PRETTYBXKAY — 4NICATE"
                  data-category-name="Music Video"
                  data-poster="https://i.imgur.com/Eh1h6kf.jpg"
                  data-video="https://www.youtube.com/watch?v=ZTq6Xg301Eg"
-                 data-credits="Executive producer ~ Misan Edema & @_.ddanielll|DP/Colourist ~ Dario Butera|Producer/stylist ~ Misan Edema|AD ~ Maya Chariandy|PD ~ Raim Realce|Gaffer ~ Daniel Fusco|Director|Edit|Super 8 ~ Mason Cline|graphics ~ Jessica Binns|sound mixer ~ Izzy Flores|Transportation ~ Jevaughn Stewart Hinds">
+                 data-credits="Directed By: Mason Cline|Executive Producers: Misan Edema, Daniel Abiodun|Producer: Misan Edema|Assistant Director: Maya Charlandy|Production Designer: Raim Realce|Director of Photography: Dario Butera|Gaffer: Daniel Fusco|Graphics: Jessica Binns|Sound Mixer: Izzy Flores|Transportation: Jevaughn Stewart-Hinds|Super 8 Specialist: Mason Cline">
                 <div class="thumbnail-box">
                     <img src="https://i.imgur.com/Eh1h6kf.jpg" alt="Prettybxkay — 4nicate">
                 </div>
                 <div class="project-meta">
                     <div class="project-title">PRETTYBXKAY — 4NICATE</div>
-                    <div class="project-credits-preview">Mason Cline</div>
+                    <div class="project-credits-preview">Director|Edit|Super 8</div>
                 </div>
             </div>
 
             <!-- 8. GANGSTA IS GORGEOUS (COMMERCIAL) -->
-            <div class="project-card" data-roles="direction|dp|edit" 
+            <div class="project-card" data-category="direction editing cinematography" 
                  data-title="“Gangsta is Gorgeous” GBL Khaki Set campaign"
                  data-category-name="Commercial"
                  data-poster="https://i.imgur.com/kPeqMb7.jpg"
                  data-video="https://www.instagram.com/p/DP7EbUoEogg/"
-                 data-credits="Director|Editor|DP ~ Mason Cline|Creative Direction|Desinger ~ Tafara Gwata|1st AC ~ Dario Butera|Dolly Grip ~ Misan Edema">
+                 data-credits="Director: Mason Cline|Cinematographer: Mason Cline|Editor: Mason Cline">
                 <div class="thumbnail-box">
                     <img src="https://i.imgur.com/kPeqMb7.jpg" alt="Gangsta is Gorgeous">
                 </div>
                 <div class="project-meta">
                     <div class="project-title">“Gangsta is Gorgeous” GBL Khaki Set campaign</div>
-                    <div class="project-credits-preview">Mason Cline|DP|Edit</div>
+                    <div class="project-credits-preview">Director|Edit|DP|Colour</div>
                 </div>
             </div>
 
             <!-- 9. DRAFT DAY (COMMERCIAL) -->
-            <div class="project-card" data-roles="direction|edit" 
+            <div class="project-card" data-category="direction editing" 
                  data-title="“DRAFT DAY” CÔTÉ Ibis New Era Fitted Campaign"
                  data-category-name="Commercial"
                  data-poster="https://i.imgur.com/aXJIkZV.png"
                  data-video="https://www.instagram.com/p/DQXlhpPidWF/"
-                 data-credits="Director|edit ~ Mason Cline|DOP ~ Christian Kinn|B cam ~ Dario Butera|Hi-8 ~ Tafara Gwata|Gaffer ~ Declan McKenna|Sound|colour ~ Jackson McMurdo|Production design ~ Tae Lee">
+                 data-credits="Director: Mason Cline|Editor: Mason Cline">
                 <div class="thumbnail-box">
                     <img src="https://i.imgur.com/aXJIkZV.png" alt="DRAFT DAY">
                 </div>
                 <div class="project-meta">
                     <div class="project-title">“DRAFT DAY” CÔTÉ Ibis New Era Fitted Campaign</div>
-                    <div class="project-credits-preview">Mason Cline</div>
+                    <div class="project-credits-preview">Director|Edit</div>
                 </div>
             </div>
 
         </div>
     </main>
 
-    <!-- NEW PHOTOGRAPHY SECTION -->
+    <!-- PHOTOGRAPHY SECTION -->
     <section id="photography-section">
         
         <!-- View 1: Master Uniform Gallery Grid -->
@@ -941,8 +799,6 @@
                     <h2 id="modalTitle"></h2>
                     <span id="modalCategory" style="color: var(--muted-color); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600;"></span>
                 </div>
-                <div id="modalSynopsisContainer"></div>
-                <div id="modalFestivalsContainer"></div>
                 
                 <div class="modal-credits" id="modalCredits">
                     <!-- Credits populated dynamically -->
@@ -954,27 +810,13 @@
     <!-- FOOTER -->
     <footer>
         <div>&copy; <span id="year"></span> Mason Cline</div>
-        <button class="footer-contact-btn" onclick="document.querySelector('.directory-nav li:last-child button').click()">Contact</button>
+        <button class="footer-contact-btn" onclick="showInfo(document.querySelector('.directory-nav li:last-child button'))">Contact</button>
         <div>Toronto, ON</div>
     </footer>
 
     <!-- JAVASCRIPT FOR INTERACTIVITY -->
     <script>
         document.getElementById('year').textContent = new Date().getFullYear();
-
-        // Hamburger Menu Logic
-        function toggleMenu() {
-            const menu = document.querySelector('.side-menu');
-            const overlay = document.querySelector('.menu-overlay');
-            menu.classList.toggle('open');
-            overlay.classList.toggle('open');
-            
-            if (menu.classList.contains('open')) {
-                document.body.style.overflow = 'hidden';
-            } else {
-                document.body.style.overflow = 'auto';
-            }
-        }
 
         // Extracts video ID from ANY YouTube link
         function getYouTubeId(url) {
@@ -1023,10 +865,8 @@
                 const title = card.getAttribute('data-title');
                 const category = card.getAttribute('data-category-name');
                 const creditsRaw = card.getAttribute('data-credits');
-                const synopsis = card.getAttribute('data-synopsis');
-                const festivals = card.getAttribute('data-festivals');
                 
-                openModal(title, category, rawVideoUrl, creditsRaw, synopsis, festivals);
+                openModal(title, category, rawVideoUrl, creditsRaw);
             });
         });
 
@@ -1041,7 +881,7 @@
             dynamicTitle.className = 'header-gallery-display';
             
             document.getElementById('info-section').style.display = 'block';
-            document.body.style.overflow = 'auto'; // restore scroll for info
+            document.body.style.overflow = 'auto';
 
             const buttons = document.querySelectorAll('.nav-btn');
             buttons.forEach(btn => btn.classList.remove('active'));
@@ -1050,7 +890,7 @@
         }
 
         // Open modal detail view (Video)
-        function openModal(title, category, rawVideoUrl, creditsRaw, synopsis, festivals) {
+        function openModal(title, category, rawVideoUrl, creditsRaw) {
             document.getElementById('modalTitle').textContent = title;
             document.getElementById('modalCategory').textContent = category;
             
@@ -1071,38 +911,13 @@
                 iframe.src = '';
             }
 
-            // Synopsis handling
-            const synopsisContainer = document.getElementById('modalSynopsisContainer');
-            synopsisContainer.innerHTML = '';
-            if (synopsis) {
-                const p = document.createElement('div');
-                p.className = 'modal-synopsis';
-                p.textContent = synopsis;
-                synopsisContainer.appendChild(p);
-            }
-
-            // Festivals handling
-            const festivalsContainer = document.getElementById('modalFestivalsContainer');
-            festivalsContainer.innerHTML = '';
-            if (festivals) {
-                const fDiv = document.createElement('div');
-                fDiv.className = 'modal-festivals';
-                festivals.split(',').forEach(f => {
-                    const img = document.createElement('img');
-                    img.src = f.trim();
-                    img.alt = "Film Festival Laurel";
-                    fDiv.appendChild(img);
-                });
-                festivalsContainer.appendChild(fDiv);
-            }
-
             const creditsContainer = document.getElementById('modalCredits');
             creditsContainer.innerHTML = '';
 
             if (creditsRaw) {
                 const lines = creditsRaw.split('|');
                 lines.forEach(line => {
-                    const parts = line.split('~');
+                    const parts = line.split(':');
                     if (parts.length === 2) {
                         const item = document.createElement('div');
                         item.className = 'credit-item';
@@ -1238,7 +1053,6 @@
         ];
 
         // --- MASTER UNIFORM GRID ENGINE ---
-        
         function renderMasterGallery() {
             const masterView = document.getElementById('master-gallery-view');
             masterView.innerHTML = ''; 
@@ -1251,13 +1065,11 @@
                 });
             });
 
-            // Scramble the master array to mix up the folders naturally
             for (let i = allPhotos.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
                 [allPhotos[i], allPhotos[j]] = [allPhotos[j], allPhotos[i]];
             }
 
-            // Build out the uniform grid elements
             allPhotos.forEach(item => {
                 const wrapper = document.createElement('div');
                 wrapper.className = 'gallery-item';
@@ -1277,12 +1089,8 @@
             });
         }
 
-        // Initialize Master Grid
         renderMasterGallery();
 
-
-        // --- FOLDER VIEWS & TRAFFIC CONTROLLER ---
-        
         function openGallery(albumId) {
             const album = photoAlbums.find(a => a.id === albumId);
             if(!album) return;
@@ -1312,7 +1120,7 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        function filterDirectory(directoryType, button) {
+        function filterProjects(category, button) {
             document.getElementById('work-section').style.display = 'none';
             document.getElementById('info-section').style.display = 'none';
             document.getElementById('photography-section').style.display = 'none';
@@ -1320,12 +1128,12 @@
             const heroSection = document.querySelector('.hero-section');
             const dynamicTitle = document.getElementById('header-dynamic-title');
 
-            if(directoryType === 'home') {
+            if(category === 'all') {
                 heroSection.style.display = 'block';
                 dynamicTitle.textContent = 'Mason Cline';
                 dynamicTitle.className = 'header-name-display';
                 document.getElementById('work-section').style.display = 'block';
-            } else if (directoryType === 'photography') {
+            } else if (category === 'photography') {
                 heroSection.style.display = 'none';
                 dynamicTitle.textContent = 'Gallery';
                 dynamicTitle.className = 'header-gallery-display';
@@ -1342,43 +1150,11 @@
             buttons.forEach(btn => btn.classList.remove('active'));
             if(button) button.classList.add('active');
 
-            const allowedTitlesMap = {
-                'direction': [
-                    "INSYT. - 360°",
-                    "INSYT. - TOLL",
-                    "INSYT. — HEAL (FEAT. JAY VERSACE & MILEENA)",
-                    ".KAI BANKS — MAZE",
-                    "ZOE — ATTITUDE & MOTION",
-                    "INSYT. — PUPPET STRINGS",
-                    "PRETTYBXKAY — 4NICATE",
-                    "“Gangsta is Gorgeous” GBL Khaki Set campaign",
-                    "“DRAFT DAY” CÔTÉ Ibis New Era Fitted Campaign"
-                ],
-                'editing': [
-                    "INSYT. - 360°",
-                    "INSYT. - TOLL",
-                    "INSYT. — HEAL (FEAT. JAY VERSACE & MILEENA)",
-                    ".KAI BANKS — MAZE",
-                    "ZOE — ATTITUDE & MOTION",
-                    "INSYT. — PUPPET STRINGS",
-                    "PRETTYBXKAY — 4NICATE",
-                    "“Gangsta is Gorgeous” GBL Khaki Set campaign",
-                    "“DRAFT DAY” CÔTÉ Ibis New Era Fitted Campaign"
-                ],
-                'cinematography': [
-                    "ZOE — ATTITUDE & MOTION",
-                    "“Gangsta is Gorgeous” GBL Khaki Set campaign",
-                    "INSYT. — HEAL (FEAT. JAY VERSACE & MILEENA)",
-                    "INSYT. - TOLL",
-                    "Thiếu, Nữ"
-                ]
-            };
-
-            if(directoryType !== 'photography') {
+            if(category !== 'photography') {
                 const cards = document.querySelectorAll('#work-section .project-card');
                 cards.forEach(card => {
-                    const title = card.getAttribute('data-title');
-                    if (directoryType === 'home' || (allowedTitlesMap[directoryType] && allowedTitlesMap[directoryType].includes(title))) {
+                    const cardCategories = card.getAttribute('data-category');
+                    if (category === 'all' || (cardCategories && cardCategories.includes(category))) {
                         card.style.display = 'flex';
                         card.style.animation = 'none';
                         card.offsetHeight;
