@@ -208,7 +208,7 @@
             display: flex;
             flex-direction: column;
             align-items: flex-end;
-            gap: 2.5rem;
+            gap: 2rem;
             list-style: none;
             width: 100%;
         }
@@ -421,6 +421,28 @@
             font-weight: 700;
             letter-spacing: 0.05em;
             text-transform: uppercase;
+        }
+
+        .modal-synopsis {
+            font-size: 0.9rem;
+            font-style: italic;
+            color: var(--muted-color);
+            border-left: 2px solid var(--border-color);
+            padding-left: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .modal-festivals {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+
+        .modal-festivals img {
+            height: 40px;
+            width: auto;
+            object-fit: contain;
         }
 
         .modal-credits {
@@ -653,7 +675,7 @@
     <div class="header-wrapper">
         <!-- HEADER -->
         <header>
-            <div class="logo" onclick="document.querySelector('.nav-btn[onclick*=\'all\']').click()">
+            <div class="logo" onclick="filterDirectory('home', null)">
                 <img src="https://i.imgur.com/qDcDABi.png" alt="Mason Cline">
             </div>
             
@@ -676,11 +698,11 @@
     <nav class="side-menu">
         <button class="close-menu-btn" onclick="toggleMenu()">&times;</button>
         <ul class="directory-nav">
-            <li><button class="nav-btn active" onclick="filterProjects('all', this); toggleMenu()">Home</button></li>
-            <li><button class="nav-btn" onclick="filterProjects('commercial', this); toggleMenu()">Commercial</button></li>
-            <li><button class="nav-btn" onclick="filterProjects('music-video', this); toggleMenu()">Music Video</button></li>
-            <li><button class="nav-btn" onclick="filterProjects('short-film', this); toggleMenu()">Short Film</button></li>
-            <li><button class="nav-btn" onclick="filterProjects('photography', this); toggleMenu()">Photography</button></li>
+            <li><button class="nav-btn active" onclick="filterDirectory('home', this); toggleMenu()">Home</button></li>
+            <li><button class="nav-btn" onclick="filterDirectory('direction', this); toggleMenu()">Direction</button></li>
+            <li><button class="nav-btn" onclick="filterDirectory('cinematography', this); toggleMenu()">Cinematography</button></li>
+            <li><button class="nav-btn" onclick="filterDirectory('editing', this); toggleMenu()">Editing</button></li>
+            <li><button class="nav-btn" onclick="filterDirectory('photography', this); toggleMenu()">Photography</button></li>
             <li><button class="nav-btn" onclick="showInfo(this); toggleMenu()">Contact</button></li>
         </ul>
     </nav>
@@ -695,161 +717,163 @@
         <div class="portfolio-grid">
 
             <!-- 1. INSYT. - 360° -->
-            <div class="project-card" data-category="music-video" 
+            <div class="project-card" data-roles="direction|dp|edit" 
                  data-title="INSYT. - 360°"
                  data-category-name="Music Video"
                  data-poster="https://i.imgur.com/raeeKgr.jpg"
                  data-video="CKdqD851gQ0"
-                 data-credits="Directed By: Mason Cline|Produced By: Declan McKenna|Assistant Director: Maya Charlandy|Director of Photography: Dario Butera|Cinematographer: Jackson McMartin|Edited By: Mason Cline & Jackson McMartin|Production Designer: Jordan Wong|Art Director: Joel Capan|Gaffer: James Csatari|Graphics: Jackson McMartin|Location Support: Naim Realca">
+                 data-credits="Director ~ Mason Cline|Producer ~ Declan McKenna|Assistant Director ~ Maya Chariandy|DP ~ Dario Butera|1st AC ~ Jodi Gapan|Gaffer ~ Miles Lauterbach|Production Designer ~ Jordan Wong|Location Support ~ Raim Realce|Edited by ~ Mason Cline and Jackson McMurdo|Colourist ~ Jackson McMurdo">
                 <div class="thumbnail-box">
                     <img src="https://i.imgur.com/raeeKgr.jpg" alt="INSYT. - 360°">
                 </div>
                 <div class="project-meta">
                     <div class="project-title">INSYT. - 360°</div>
-                    <div class="project-credits-preview">Dir. Mason Cline | DP. Dario Butera</div>
+                    <div class="project-credits-preview">Mason Cline</div>
                 </div>
             </div>
 
             <!-- 2. INSYT. - TOLL -->
-            <div class="project-card" data-category="music-video" 
+            <div class="project-card" data-roles="direction|dp|edit" 
                  data-title="INSYT. - TOLL"
                  data-category-name="Music Video"
                  data-poster="https://i.imgur.com/H61nT5i.jpg"
                  data-video=""
-                 data-credits="Directed By: Mason Cline">
+                 data-credits="Director|Editor|super ~ Mason Cline|Producers ~ Evie Carrier & Declan McKenna|DP ~ Dario Butera|1st AC ~ Jodi Gapan|Gaffer ~ Daniel Fusco|Swings ~ Jevaughn Stewart-Hinds & Jackson McMurdo|Consultant ~ Aaron Murchison|Transportation ~ Daniel Fusco, Jevaughn Stewart-Hinds, & Aaron Murchison|Co editor| Colourist| DIT| Drone Op ~ Jackson McMurdo">
                 <div class="thumbnail-box">
                     <img src="https://i.imgur.com/H61nT5i.jpg" alt="INSYT. - TOLL">
                 </div>
                 <div class="project-meta">
                     <div class="project-title">INSYT. - TOLL</div>
-                    <div class="project-credits-preview">Dir. Mason Cline</div>
+                    <div class="project-credits-preview">Mason Cline</div>
                 </div>
             </div>
 
             <!-- 3. INSYT. — HEAL -->
-            <div class="project-card" data-category="music-video" 
-                 data-title="INSYT. — HEAL (feat. Jay Versace & Mileena)"
+            <div class="project-card" data-roles="direction|dp|edit" 
+                 data-title="INSYT. — HEAL (FEAT. JAY VERSACE & MILEENA)"
                  data-category-name="Music Video"
                  data-poster="https://i.imgur.com/5Z5JnBH.jpg"
                  data-video="https://youtu.be/2i1VwJyLIs0"
-                 data-credits="Performed By: insyt., Mileena, Jay Versace|Director: Mason Cline|Cinematography: Mason Cline">
+                 data-credits="Director|Super 8 ~ Mason Cline (Super 8 op and specialist on HEAL)|Co-director ~ Declan Mckenna|Producer ~ Christian Kinn|DP ~ Dario Butera|1st AC ~ Justin Gothreau|Gaffer ~ Miles Lauterbach|Key grip ~ Camille Sullivan|Editor ~ Alec Rudnitsky|Colourist ~ Christian Kinn|Titles ~ Jackson McMurdo">
                 <div class="thumbnail-box">
                     <img src="https://i.imgur.com/5Z5JnBH.jpg" alt="INSYT. — HEAL">
                 </div>
                 <div class="project-meta">
-                    <div class="project-title">INSYT. — HEAL (feat. Jay Versace & Mileena)</div>
-                    <div class="project-credits-preview">Dir. Mason Cline</div>
+                    <div class="project-title">INSYT. — HEAL (FEAT. JAY VERSACE & MILEENA)</div>
+                    <div class="project-credits-preview">Mason Cline</div>
                 </div>
             </div>
 
             <!-- 4. KAI BANKS — MAZE -->
-            <div class="project-card" data-category="music-video" 
-                 data-title="KAI BANKS — MAZE"
+            <div class="project-card" data-roles="direction|edit" 
+                 data-title=".KAI BANKS — MAZE"
                  data-category-name="Music Video"
                  data-poster="https://i.imgur.com/vB0edzz.jpg"
                  data-video="https://youtu.be/PFcnSxjB-KM?si=w2HrzcUGggr4wxon"
-                 data-credits="Directed By: Mason Cline|Cinematography: Dario Butera|Producer: Declan McKenna|1st AD: Maya Charlandy|Production Design: Hayley Naish|1st AC: Barbara Sanchez, Travis Wallace|Gaffer: Priyand Karunainathan|Swing: Adam Venckus|BTS / Location: Tafara Rwata|Casting / Stylist: @MoodyRevi">
+                 data-credits="Director|Edit ~ mason clinee|Producer ~ Declan Mckenna|DP ~ Dario Butera|Production Designer ~ Hayley Naish|1st AD ~ maya chariandy|1st AC ~ barbara sanchez + Travis Wallave|Gaffer ~ priyand|Swing ~ Adam venckus|Stylist/ Casting ~ Revi|BTS/Locations/ Rchive Set dresser ~ Tafara Gwata|Co - Edit/Colour ~ Christian Kinn|Sound/ Titles/ Edit assit ~ JAckson McMurdo|Projectionist ~ Jessica Binns">
                 <div class="thumbnail-box">
                     <img src="https://i.imgur.com/vB0edzz.jpg" alt="Kai Banks — Maze">
                 </div>
                 <div class="project-meta">
-                    <div class="project-title">KAI BANKS — MAZE</div>
-                    <div class="project-credits-preview">Dir. Mason Cline | DP. Dario Butera</div>
+                    <div class="project-title">.KAI BANKS — MAZE</div>
+                    <div class="project-credits-preview">Mason Cline</div>
                 </div>
             </div>
 
             <!-- 5. ZOE — ATTITUDE & MOTION -->
-            <div class="project-card" data-category="music-video" 
+            <div class="project-card" data-roles="direction|dp|edit" 
                  data-title="ZOE — ATTITUDE & MOTION"
                  data-category-name="Music Video"
                  data-video="https://youtu.be/EfRm28PLvKA"
-                 data-credits="Direction & Cinematography: Mason Cline & Maya Chariandy|Starring: Zoe Lewis, Candice Bonair, Janell Vacianna|Producers: Declan McKenna & Jevaughn Stewart-Hinds|1st AD: Jordan Wong|2nd AD: Justin Tan|Colour + Edit: Mason Cline|Gaffer: Daniel Fusco|1st AC: Dario Butera|2nd AC: Adam Venckus|Dolly Grip: Misan Edema|BTS: Christian Kin|Production Design: Aimal Jaward|Art Direction: Aneesa Shariff|Styling + HMUA: Tandie Tyrell|Projection Mapping: Jessica Binns">
+                 data-credits="Producer ~ Declan McKenna & Jevaughn Stewart-Hynes|DP|Director|Edit|Colour ~ Mason Cline|Co-Director ~ Maya Chariandy|1st Ad ~ Jordan Wong|2nd Ad ~ Justin Tan|1st ac ~ Dario Butera|2nd ac ~ Adam Venckus|Gaffer ~ Daniel Fusco|Dolly grip ~ Misan Edema|Production design ~ Aimal Jawaid|Art direction ~ Aneesa Sharifs|Projections mapping/ titling ~ Jessica Binns|Styling/ hmua ~ Tandie Tyrell|DIT/BTS photography ~ Christian Kinn">
                 <div class="thumbnail-box">
                     <!-- Blank div allows script to automatically pull YouTube thumbnail -->
                 </div>
                 <div class="project-meta">
                     <div class="project-title">ZOE — ATTITUDE & MOTION</div>
-                    <div class="project-credits-preview">Dir. Mason Cline & Maya Chariandy</div>
+                    <div class="project-credits-preview">Mason Cline|DP|Edit</div>
                 </div>
             </div>
 
             <!-- THIẾU, NỮ (SHORT FILM) -->
-            <div class="project-card" data-category="short-film" 
+            <div class="project-card" data-roles="cinematography" 
                  data-title="Thiếu, Nữ"
                  data-category-name="Short Film"
                  data-poster="2 THIEU NU/000046350017.jpeg"
                  data-video="https://youtu.be/66nTpR10RQQ"
-                 data-credits="Direction & choreography: Thuỵ Huỳnh Thái|Producer: Jordan Wong|Cinematography & Photo: Mason Cline|Gaffer: Daniel Fusco|Sound: Izzy Flores-Glasner|Make up & Hairstyling: E Mittens Raposo|Executive Producers: Thuỵ Huỳnh Thái, Mason Cline, Daniel Fusco, & Jordan Wong">
+                 data-synopsis="“A Trans Vietnamese woman’s letter to herself and her family before secretly starting Hormone Replacement Therapy”"
+                 data-festivals="festival1.png,festival2.png"
+                 data-credits="Direction & choreography ~ Thuỵ Huỳnh Thái|Producer ~ Jordan Wong|Cinematography & Photo ~ Mason Cline|Gaffer ~ Daniel Fusco|Sound ~ Izzy Flores-Glasner|Make up & Hairstyling ~ E Mittens Raposo|Executive Producers ~ Thuỵ Huỳnh Thái, Mason Cline, Daniel Fusco, & Jordan Wong">
                 <div class="thumbnail-box">
                     <img src="2 THIEU NU/000046350017.jpeg" alt="Thiếu, Nữ">
                 </div>
                 <div class="project-meta">
                     <div class="project-title">Thiếu, Nữ</div>
-                    <div class="project-credits-preview">Dir. Thuỵ Huỳnh Thái | DP. Mason Cline</div>
+                    <div class="project-credits-preview">Mason Cline</div>
                 </div>
             </div>
 
             <!-- 6. INSYT. — PUPPET STRINGS -->
-            <div class="project-card" data-category="music-video" 
+            <div class="project-card" data-roles="direction|edit" 
                  data-title="INSYT. — PUPPET STRINGS"
                  data-category-name="Music Video"
                  data-poster="https://i.imgur.com/8tk6QnM.jpg"
                  data-video="https://youtu.be/6GvYSWZT93s"
-                 data-credits="Directed By: Mason Cline|Produced By: Declan McKenna|Cinematography: Dario Butera|Gaffer: Daniel Fusco|BTS / Gradist: Christian Kinn|Titling / Swing: Jackson McMcMurdo|Edited By: Mason Cline|2nd Swing: James Tweedy">
+                 data-credits="Director|Editor ~ Mason Cline|Producer ~ Declan McKenna|DP ~ Dario Butera|Gaffer ~ Daniel Fusco|Colourist/ bts ~ Christian Kinn|Graphics/ swing ~ Jackson McMurdo|Analog bts ~ Tafara Gwata|Swing ~ James Tweedy">
                 <div class="thumbnail-box">
                     <img src="https://i.imgur.com/8tk6QnM.jpg" alt="insyt. — Puppet Strings">
                 </div>
                 <div class="project-meta">
                     <div class="project-title">INSYT. — PUPPET STRINGS</div>
-                    <div class="project-credits-preview">Dir. Mason Cline | DP. Dario Butera</div>
+                    <div class="project-credits-preview">Mason Cline</div>
                 </div>
             </div>
 
             <!-- 7. PRETTYBXKAY — 4NICATE -->
-            <div class="project-card" data-category="music-video" 
+            <div class="project-card" data-roles="direction|edit" 
                  data-title="PRETTYBXKAY — 4NICATE"
                  data-category-name="Music Video"
                  data-poster="https://i.imgur.com/Eh1h6kf.jpg"
                  data-video="https://www.youtube.com/watch?v=ZTq6Xg301Eg"
-                 data-credits="Directed By: Mason Cline|Executive Producers: Misan Edema, Daniel Abiodun|Producer: Misan Edema|Assistant Director: Maya Charlandy|Production Designer: Raim Realce|Director of Photography: Dario Butera|Gaffer: Daniel Fusco|Graphics: Jessica Binns|Sound Mixer: Izzy Flores|Transportation: Jevaughn Stewart-Hinds">
+                 data-credits="Executive producer ~ Misan Edema & @_.ddanielll|DP/Colourist ~ Dario Butera|Producer/stylist ~ Misan Edema|AD ~ Maya Chariandy|PD ~ Raim Realce|Gaffer ~ Daniel Fusco|Director|Edit|Super 8 ~ Mason Cline|graphics ~ Jessica Binns|sound mixer ~ Izzy Flores|Transportation ~ Jevaughn Stewart Hinds">
                 <div class="thumbnail-box">
                     <img src="https://i.imgur.com/Eh1h6kf.jpg" alt="Prettybxkay — 4nicate">
                 </div>
                 <div class="project-meta">
                     <div class="project-title">PRETTYBXKAY — 4NICATE</div>
-                    <div class="project-credits-preview">Dir. Mason Cline | DP. Dario Butera</div>
+                    <div class="project-credits-preview">Mason Cline</div>
                 </div>
             </div>
 
             <!-- 8. GANGSTA IS GORGEOUS (COMMERCIAL) -->
-            <div class="project-card" data-category="commercial" 
+            <div class="project-card" data-roles="direction|dp|edit" 
                  data-title="“Gangsta is Gorgeous” GBL Khaki Set campaign"
                  data-category-name="Commercial"
                  data-poster="https://i.imgur.com/kPeqMb7.jpg"
                  data-video="https://www.instagram.com/p/DP7EbUoEogg/"
-                 data-credits="Director: Mason Cline|Cinematographer: Mason Cline|Editor: Mason Cline">
+                 data-credits="Director|Editor|DP ~ Mason Cline|Creative Direction|Desinger ~ Tafara Gwata|1st AC ~ Dario Butera|Dolly Grip ~ Misan Edema">
                 <div class="thumbnail-box">
                     <img src="https://i.imgur.com/kPeqMb7.jpg" alt="Gangsta is Gorgeous">
                 </div>
                 <div class="project-meta">
-                    <div class="project-title">“Gangsta is Gorgeous” GBL Khaki Set</div>
-                    <div class="project-credits-preview">Dir. Mason Cline</div>
+                    <div class="project-title">“Gangsta is Gorgeous” GBL Khaki Set campaign</div>
+                    <div class="project-credits-preview">Mason Cline|DP|Edit</div>
                 </div>
             </div>
 
             <!-- 9. DRAFT DAY (COMMERCIAL) -->
-            <div class="project-card" data-category="commercial" 
+            <div class="project-card" data-roles="direction|edit" 
                  data-title="“DRAFT DAY” CÔTÉ Ibis New Era Fitted Campaign"
                  data-category-name="Commercial"
                  data-poster="https://i.imgur.com/aXJIkZV.png"
                  data-video="https://www.instagram.com/p/DQXlhpPidWF/"
-                 data-credits="Director: Mason Cline|Editor: Mason Cline">
+                 data-credits="Director|edit ~ Mason Cline|DOP ~ Christian Kinn|B cam ~ Dario Butera|Hi-8 ~ Tafara Gwata|Gaffer ~ Declan McKenna|Sound|colour ~ Jackson McMurdo|Production design ~ Tae Lee">
                 <div class="thumbnail-box">
                     <img src="https://i.imgur.com/aXJIkZV.png" alt="DRAFT DAY">
                 </div>
                 <div class="project-meta">
-                    <div class="project-title">“DRAFT DAY” CÔTÉ Ibis New Era</div>
-                    <div class="project-credits-preview">Dir. Mason Cline</div>
+                    <div class="project-title">“DRAFT DAY” CÔTÉ Ibis New Era Fitted Campaign</div>
+                    <div class="project-credits-preview">Mason Cline</div>
                 </div>
             </div>
 
@@ -917,6 +941,8 @@
                     <h2 id="modalTitle"></h2>
                     <span id="modalCategory" style="color: var(--muted-color); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600;"></span>
                 </div>
+                <div id="modalSynopsisContainer"></div>
+                <div id="modalFestivalsContainer"></div>
                 
                 <div class="modal-credits" id="modalCredits">
                     <!-- Credits populated dynamically -->
@@ -997,8 +1023,10 @@
                 const title = card.getAttribute('data-title');
                 const category = card.getAttribute('data-category-name');
                 const creditsRaw = card.getAttribute('data-credits');
+                const synopsis = card.getAttribute('data-synopsis');
+                const festivals = card.getAttribute('data-festivals');
                 
-                openModal(title, category, rawVideoUrl, creditsRaw);
+                openModal(title, category, rawVideoUrl, creditsRaw, synopsis, festivals);
             });
         });
 
@@ -1022,7 +1050,7 @@
         }
 
         // Open modal detail view (Video)
-        function openModal(title, category, rawVideoUrl, creditsRaw) {
+        function openModal(title, category, rawVideoUrl, creditsRaw, synopsis, festivals) {
             document.getElementById('modalTitle').textContent = title;
             document.getElementById('modalCategory').textContent = category;
             
@@ -1043,13 +1071,38 @@
                 iframe.src = '';
             }
 
+            // Synopsis handling
+            const synopsisContainer = document.getElementById('modalSynopsisContainer');
+            synopsisContainer.innerHTML = '';
+            if (synopsis) {
+                const p = document.createElement('div');
+                p.className = 'modal-synopsis';
+                p.textContent = synopsis;
+                synopsisContainer.appendChild(p);
+            }
+
+            // Festivals handling
+            const festivalsContainer = document.getElementById('modalFestivalsContainer');
+            festivalsContainer.innerHTML = '';
+            if (festivals) {
+                const fDiv = document.createElement('div');
+                fDiv.className = 'modal-festivals';
+                festivals.split(',').forEach(f => {
+                    const img = document.createElement('img');
+                    img.src = f.trim();
+                    img.alt = "Film Festival Laurel";
+                    fDiv.appendChild(img);
+                });
+                festivalsContainer.appendChild(fDiv);
+            }
+
             const creditsContainer = document.getElementById('modalCredits');
             creditsContainer.innerHTML = '';
 
             if (creditsRaw) {
                 const lines = creditsRaw.split('|');
                 lines.forEach(line => {
-                    const parts = line.split(':');
+                    const parts = line.split('~');
                     if (parts.length === 2) {
                         const item = document.createElement('div');
                         item.className = 'credit-item';
@@ -1259,7 +1312,7 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        function filterProjects(category, button) {
+        function filterDirectory(directoryType, button) {
             document.getElementById('work-section').style.display = 'none';
             document.getElementById('info-section').style.display = 'none';
             document.getElementById('photography-section').style.display = 'none';
@@ -1267,12 +1320,12 @@
             const heroSection = document.querySelector('.hero-section');
             const dynamicTitle = document.getElementById('header-dynamic-title');
 
-            if(category === 'all') {
+            if(directoryType === 'home') {
                 heroSection.style.display = 'block';
                 dynamicTitle.textContent = 'Mason Cline';
                 dynamicTitle.className = 'header-name-display';
                 document.getElementById('work-section').style.display = 'block';
-            } else if (category === 'photography') {
+            } else if (directoryType === 'photography') {
                 heroSection.style.display = 'none';
                 dynamicTitle.textContent = 'Gallery';
                 dynamicTitle.className = 'header-gallery-display';
@@ -1289,10 +1342,43 @@
             buttons.forEach(btn => btn.classList.remove('active'));
             if(button) button.classList.add('active');
 
-            if(category !== 'photography') {
+            const allowedTitlesMap = {
+                'direction': [
+                    "INSYT. - 360°",
+                    "INSYT. - TOLL",
+                    "INSYT. — HEAL (FEAT. JAY VERSACE & MILEENA)",
+                    ".KAI BANKS — MAZE",
+                    "ZOE — ATTITUDE & MOTION",
+                    "INSYT. — PUPPET STRINGS",
+                    "PRETTYBXKAY — 4NICATE",
+                    "“Gangsta is Gorgeous” GBL Khaki Set campaign",
+                    "“DRAFT DAY” CÔTÉ Ibis New Era Fitted Campaign"
+                ],
+                'editing': [
+                    "INSYT. - 360°",
+                    "INSYT. - TOLL",
+                    "INSYT. — HEAL (FEAT. JAY VERSACE & MILEENA)",
+                    ".KAI BANKS — MAZE",
+                    "ZOE — ATTITUDE & MOTION",
+                    "INSYT. — PUPPET STRINGS",
+                    "PRETTYBXKAY — 4NICATE",
+                    "“Gangsta is Gorgeous” GBL Khaki Set campaign",
+                    "“DRAFT DAY” CÔTÉ Ibis New Era Fitted Campaign"
+                ],
+                'cinematography': [
+                    "ZOE — ATTITUDE & MOTION",
+                    "“Gangsta is Gorgeous” GBL Khaki Set campaign",
+                    "INSYT. — HEAL (FEAT. JAY VERSACE & MILEENA)",
+                    "INSYT. - TOLL",
+                    "Thiếu, Nữ"
+                ]
+            };
+
+            if(directoryType !== 'photography') {
                 const cards = document.querySelectorAll('#work-section .project-card');
                 cards.forEach(card => {
-                    if (category === 'all' || card.getAttribute('data-category') === category) {
+                    const title = card.getAttribute('data-title');
+                    if (directoryType === 'home' || (allowedTitlesMap[directoryType] && allowedTitlesMap[directoryType].includes(title))) {
                         card.style.display = 'flex';
                         card.style.animation = 'none';
                         card.offsetHeight;
