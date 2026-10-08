@@ -21,6 +21,7 @@ Before pushing to production:
 2. Check that all referenced images exist in their designated folders.
 3. Check that external media links (YouTube embeds, Vimeo, Instagram) are valid and functional.
 4. Verify `CNAME` file exists with `masoncline.ca` so GitHub Pages maintains custom domain routing.
+5. **Archive Version:** Duplicate the updated `index.html` into `versions/indexV[X.X].html` and log the update in `versions/README.md`.
 
 ---
 
