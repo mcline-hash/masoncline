@@ -1,0 +1,1264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mason Cline — Portfolio</title>
+    
+    <!-- Meta tags for link sharing and browser tabs -->
+    <link rel="icon" href="https://i.imgur.com/qDcDABi.png" type="image/png">
+    <meta property="og:title" content="Mason Cline — Portfolio">
+    <meta property="og:description" content="Director, Editor, Cinematographer & Photographer">
+    <meta property="og:image" content="https://i.imgur.com/qDcDABi.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://i.imgur.com/qDcDABi.png">
+
+    <!-- Import Michroma & Loved by the King Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Loved+by+the+King&family=Michroma&display=swap" rel="stylesheet">
+
+    <style>
+        /* BASE STYLES & TYPOGRAPHY */
+        :root {
+            --bg-color: #E8E5DF;
+            --text-color: #111111;
+            --muted-color: #666666;
+            --border-color: #d1cfc9;
+            --accent-color: #000000;
+            --font-main: "Michroma", sans-serif;
+            --font-hero: "Loved by the King", cursive;
+            --container-width: 1000px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: var(--font-main);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+            overflow-y: scroll;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+            transition: opacity 0.3s ease;
+        }
+
+        a:hover {
+            opacity: 0.6;
+        }
+
+        /* HEADER & NAVIGATION */
+        .header-wrapper {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: var(--bg-color);
+            border-bottom: 1px solid var(--border-color);
+            z-index: 1000;
+        }
+
+        header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 0.5rem 3rem 0.4rem 3rem; /* Decreased padding to shrink top bar */
+            max-width: var(--container-width);
+            margin: 0 auto;
+            gap: 0.3rem; /* Decreased gap to pull directory nav closer */
+        }
+
+        .header-top-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            position: relative;
+        }
+
+        .logo {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            transition: opacity 0.3s ease;
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        
+        .logo:hover {
+            opacity: 0.7;
+        }
+
+        .logo img {
+            height: 48px; /* Increased icon size */
+            width: auto;
+            display: block;
+        }
+
+        /* DYNAMIC HEADER TITLE (CENTERED) */
+        .header-center {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .header-name-display {
+            font-family: var(--font-hero);
+            font-size: 2.2rem;
+            color: var(--text-color);
+            margin: 0;
+            line-height: 1;
+            letter-spacing: 0.02em;
+        }
+
+        .header-gallery-display {
+            font-family: var(--font-main);
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--muted-color);
+            margin: 0;
+            margin-bottom: 0.2rem;
+        }
+
+        .header-contact-btn {
+            background: none;
+            border: none;
+            color: var(--muted-color);
+            font-family: var(--font-main);
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: color 0.3s ease;
+            margin-top: 0.2rem;
+        }
+        
+        .header-contact-btn:hover, .header-contact-btn.active {
+            color: var(--accent-color);
+        }
+
+        /* DESKTOP DIRECTORY TABS (HORIZONTAL SPRAWL) */
+        .directory-nav {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            width: 100%;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .directory-nav button {
+            background: none;
+            border: none;
+            color: var(--muted-color);
+            font-family: inherit;
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: color 0.3s ease;
+            padding: 0;
+            text-align: center;
+        }
+
+        .directory-nav button:hover,
+        .directory-nav button.active {
+            color: var(--accent-color);
+        }
+
+        /* HERO SECTION */
+        .hero-section {
+            text-align: center;
+            padding: 8rem 3rem 1.5rem 3rem;
+            max-width: var(--container-width);
+            margin: 0 auto;
+        }
+
+        /* MAIN CONTENT LAYOUT */
+        main {
+            padding: 5.5rem 3rem 6rem; /* Adjusted slightly smaller to accommodate slimmer header */
+            max-width: var(--container-width);
+            margin: 0 auto;
+        }
+
+        .portfolio-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 6rem;
+        }
+
+        /* PROJECT CARDS */
+        .project-card {
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .thumbnail-box {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background-color: transparent;
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--muted-color);
+            font-size: 0.8rem;
+        }
+
+        .thumbnail-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1), filter 0.5s ease;
+            filter: brightness(0.95);
+        }
+
+        .project-card:hover .thumbnail-box img {
+            transform: scale(1.02);
+            filter: brightness(1);
+        }
+
+        .project-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 1rem;
+        }
+
+        .project-title {
+            font-size: 1rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .project-credits-preview {
+            font-size: 0.7rem;
+            color: var(--muted-color);
+            letter-spacing: 0.1em;
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+
+        /* MODAL (VIDEO & DETAILED CREDITS) */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(232, 229, 223, 0.98);
+            display: none;
+            justify-content: center;
+            align-items: flex-start;
+            z-index: 2500;
+            padding: 4rem 2rem;
+            overflow-y: auto;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-content {
+            width: 100%;
+            max-width: 1200px;
+            margin: auto;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .close-btn {
+            position: fixed;
+            top: 2rem;
+            right: 3rem;
+            background: none;
+            border: none;
+            color: var(--muted-color);
+            font-family: var(--font-main);
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+            z-index: 2501;
+            transition: color 0.3s ease;
+        }
+
+        .close-btn:hover {
+            color: var(--accent-color);
+        }
+
+        .video-container {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background-color: #000;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .video-container iframe.ig-embed {
+            background: white; 
+        }
+
+        .video-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .modal-info-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 1rem;
+        }
+
+        .modal-info-bar h2 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .modal-synopsis {
+            font-size: 0.9rem;
+            font-style: italic;
+            color: var(--muted-color);
+            border-left: 2px solid var(--border-color);
+            padding-left: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .modal-festivals {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+
+        .modal-festivals img {
+            height: 40px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .modal-credits {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem 1.5rem;
+            padding-top: 1rem;
+        }
+
+        .credit-item h4 {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            color: var(--muted-color);
+            margin-bottom: 0.4rem;
+            letter-spacing: 0.1em;
+            font-weight: 700;
+        }
+
+        .credit-item p {
+            font-size: 0.85rem;
+            font-weight: 400;
+        }
+
+        /* INFO & CONTACT SECTION */
+        #info-section {
+            display: none;
+            max-width: var(--container-width);
+            margin: 0 auto;
+            padding: 5.5rem 3rem 6rem;
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+
+        .info-block h3 {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--muted-color);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.5rem;
+        }
+
+        .info-block p, .info-block a {
+            font-size: 0.9rem;
+            font-weight: 400;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .link-desc {
+            color: var(--muted-color);
+            font-size: 0.75rem;
+            margin-left: 0.5rem;
+        }
+
+        /* PHOTOGRAPHY SECTION */
+        #photography-section {
+            display: none; 
+            max-width: 1200px;
+            margin: 0 auto; 
+            padding: 5.5rem 3rem 6rem;
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        .master-grid {
+            column-count: 4;
+            column-gap: 1.5rem;
+            width: 100%;
+        }
+
+        .gallery-item {
+            position: relative;
+            margin-bottom: 1.5rem;
+            cursor: pointer;
+            break-inside: avoid;
+            display: inline-block;
+            width: 100%;
+            overflow: hidden;
+            background-color: #d4d0c9;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            display: block;
+            transition: transform 0.4s ease, filter 0.4s ease;
+        }
+
+        .hover-label {
+            position: absolute;
+            top: 0; 
+            left: 0; 
+            right: 0; 
+            bottom: 0;
+            background: rgba(17, 17, 17, 0.6);
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            text-align: center;
+            padding: 1.5rem;
+            z-index: 10;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+            filter: blur(2px);
+        }
+
+        .gallery-item:hover .hover-label {
+            opacity: 1;
+        }
+
+        .masonry-grid {
+            column-count: 3;
+            column-gap: 1.5rem;
+        }
+
+        .masonry-grid img {
+            width: 100%;
+            margin-bottom: 1.5rem;
+            display: block;
+            background-color: transparent;
+            transition: filter 0.3s ease;
+        }
+
+        .masonry-grid img:hover {
+            filter: brightness(0.9);
+        }
+
+        .back-btn {
+            background: none;
+            border: none;
+            color: var(--muted-color);
+            font-family: var(--font-main);
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .back-btn:hover {
+            color: var(--accent-color);
+        }
+
+        /* FOOTER */
+        footer {
+            max-width: var(--container-width);
+            margin: 0 auto;
+            padding: 2rem 3rem 4rem;
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.7rem;
+            font-weight: 500;
+            color: var(--muted-color);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .footer-contact-btn {
+            background: none;
+            border: none;
+            color: var(--text-color);
+            font-family: var(--font-main);
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .footer-contact-btn:hover {
+            color: var(--muted-color);
+        }
+
+        @media (max-width: 1024px) {
+            .master-grid { column-count: 3; }
+        }
+
+        @media (max-width: 768px) {
+            header { padding: 1rem 1.5rem; gap: 0.5rem; }
+            .header-top-row { flex-direction: column; gap: 0.5rem; }
+            .logo { position: static; transform: none; }
+            .header-name-display { font-size: 2rem; }
+            .directory-nav { flex-wrap: wrap; justify-content: center; gap: 1rem; }
+            main { padding: 8rem 1.5rem 3rem; }
+            #info-section, #photography-section { padding: 8rem 1.5rem 3rem; }
+            footer { padding: 1rem 1.5rem 3rem; flex-direction: column; gap: 1rem; align-items: center; text-align: center; }
+            .project-meta { flex-direction: column; gap: 0.5rem; }
+            .info-grid { grid-template-columns: 1fr; gap: 2rem; }
+            .close-btn { top: 1rem; right: 1.5rem; }
+            .modal-overlay { padding: 4rem 1rem 2rem; }
+            
+            .master-grid { column-count: 2; column-gap: 1rem; }
+            .gallery-item { margin-bottom: 1rem; }
+            
+            .masonry-grid { column-count: 2; column-gap: 1rem; }
+            .masonry-grid img { margin-bottom: 1rem; }
+        }
+
+        @media (max-width: 480px) {
+            .master-grid, .masonry-grid { column-count: 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header-wrapper">
+        <!-- HEADER -->
+        <header>
+            <div class="header-top-row">
+                <div class="logo" onclick="filterProjects('all', null)" title="Home">
+                    <img src="https://i.imgur.com/qDcDABi.png" alt="Mason Cline">
+                </div>
+                
+                <div class="header-center">
+                    <h1 id="header-dynamic-title" class="header-name-display">Mason Cline</h1>
+                    <button class="header-contact-btn" id="main-contact-btn" onclick="showInfo(null)">Contact</button>
+                </div>
+            </div>
+            
+            <!-- DIRECTORY NAVIGATION TABS (HORIZONTAL SPRAWL) -->
+            <ul class="directory-nav">
+                <li><button class="nav-btn" onclick="filterProjects('direction', this)">Direction</button></li>
+                <li><button class="nav-btn" onclick="filterProjects('cinematography', this)">Cinematography</button></li>
+                <li><button class="nav-btn" onclick="filterProjects('editing', this)">Editing</button></li>
+                <li><button class="nav-btn" onclick="filterProjects('photography', this)">Photography</button></li>
+            </ul>
+        </header>
+    </div>
+
+    <!-- MAIN PORTFOLIO GRID -->
+    <main id="work-section">
+        <div class="portfolio-grid">
+
+            <!-- 1. INSYT. - 360° -->
+            <div class="project-card" data-category="direction editing" 
+                 data-title="INSYT. - 360°"
+                 data-category-name="Music Video"
+                 data-poster="https://i.imgur.com/raeeKgr.jpg"
+                 data-video="CKdqD851gQ0"
+                 data-credits="Director | Edit ~ Mason Cline||Producer ~ Declan McKenna||Assistant Director ~ Maya Chariandy||DP ~ Dario Butera||1st AC ~ Jodi Gapan||Gaffer ~ Miles Lauterbach||Production Designer ~ Jordan Wong||Location Support ~ Raim Realce||Co-editor ~ Jackson McMurdo||Colourist ~ Jackson McMurdo">
+                <div class="thumbnail-box">
+                    <img src="https://i.imgur.com/raeeKgr.jpg" alt="INSYT. - 360°">
+                </div>
+                <div class="project-meta">
+                    <div class="project-title">INSYT. - 360°</div>
+                    <div class="project-credits-preview">Director | edit</div>
+                </div>
+            </div>
+
+            <!-- 2. INSYT. - TOLL -->
+            <div class="project-card" data-category="direction editing cinematography" 
+                 data-title="INSYT. - TOLL"
+                 data-category-name="Music Video"
+                 data-poster="https://i.imgur.com/H61nT5i.jpg"
+                 data-video=""
+                 data-credits="Director/ Editor/ super 8 ~ Mason Cline||Producers ~ Evie Carrier & Declan McKenna||DP ~ Dario Butera||1st AC ~ Jodi Gapan||Gaffer ~ Daniel Fusco||Swings ~ Jevaughn Stewart-Hinds & Jackson McMurdo||Consultant ~ Aaron Murchison||Transportation ~ Daniel Fusco, Jevaughn Stewart-Hinds, & Aaron Murchison||Co editor| Colourist| DIT| Drone Op: Jackson McMurdo">
+                <div class="thumbnail-box">
+                    <img src="https://i.imgur.com/H61nT5i.jpg" alt="INSYT. - TOLL">
+                </div>
+                <div class="project-meta">
+                    <div class="project-title">INSYT. - TOLL</div>
+                    <div class="project-credits-preview">Director | edit | Super 8</div>
+                </div>
+            </div>
+
+            <!-- 3. INSYT. — HEAL -->
+            <div class="project-card" data-category="direction editing cinematography" 
+                 data-title="INSYT. — HEAL (FEAT. JAY VERSACE & MILEENA)"
+                 data-category-name="Music Video"
+                 data-poster="https://i.imgur.com/5Z5JnBH.jpg"
+                 data-video="https://youtu.be/2i1VwJyLIs0"
+                 data-credits="Director/ Super 8 ~ Mason Cline||Co-director: Declan Mckenna||Producer ~ Christian Kinn||DP ~ Dario Butera||1st AC ~ Justin Gothreau||Gaffer ~ Miles Lauterbach||Key grip ~ Camille Sullivan||Editor ~ Alec Rudnitsky||Colourist ~ Christian Kinn||Titles~ Jackson McMurdo">
+                <div class="thumbnail-box">
+                    <img src="https://i.imgur.com/5Z5JnBH.jpg" alt="INSYT. — HEAL">
+                </div>
+                <div class="project-meta">
+                    <div class="project-title">INSYT. — HEAL (FEAT. JAY VERSACE & MILEENA)</div>
+                    <div class="project-credits-preview">Director | super 8</div>
+                </div>
+            </div>
+
+            <!-- 4. KAI BANKS - MAZE -->
+            <div class="project-card" data-category="direction editing" 
+                 data-title="KAI BANKS - MAZE"
+                 data-category-name="Music Video"
+                 data-poster="https://i.imgur.com/vB0edzz.jpg"
+                 data-video="https://youtu.be/PFcnSxjB-KM?si=w2HrzcUGggr4wxon"
+                 data-credits="Director/ Editor: mason cline||Producer: Declan Mckenna||DP: Dario Butera||Production Designer: Hayley Naish||1st AD: maya chariandy||1st AC: barbara sanchez + Travis Wallave||Gaffer: priyand||Swing: Adam venckus||Stylist/ Casting : Revi||BTS/Locations/ Rchive Set dresser: Tafara Gwata||Co - Edit/Colour: Christian Kinn||Sound/ Titles/ Edit assit : JAckson McMurdo||Projectionist: Jessica Binns">
+                <div class="thumbnail-box">
+                    <img src="https://i.imgur.com/vB0edzz.jpg" alt="KAI BANKS - MAZE">
+                </div>
+                <div class="project-meta">
+                    <div class="project-title">KAI BANKS - MAZE</div>
+                    <div class="project-credits-preview">Director | edit</div>
+                </div>
+            </div>
+
+            <!-- 5. ZOE — ATTITUDE & MOTION -->
+            <div class="project-card" data-category="direction editing cinematography" 
+                 data-title="ZOE — ATTITUDE & MOTION"
+                 data-category-name="Music Video"
+                 data-video="https://youtu.be/EfRm28PLvKA"
+                 data-credits="DP/ Director/ Edit/ Colour : Mason Cline||Producer: Declan McKenna & Jevaughn Stewart-Hynes||Co-Director: Maya Chariandy||1st Ad: Jordan Wong||2nd Ad: Justin Tan||1st ac: Dario Butera||2nd ac: Adam Venckus||Gaffer: Daniel Fusco||Dolly grip: Misan Edema||Production design: Aimal Jawaid||Art direction: Aneesa Sharifs||Projections mapping/ titling: Jessica Binns||Styling/ hmua: Tandie Tyrell||DIT/BTS photography: Christian Kinn">
+                <div class="thumbnail-box">
+                    <!-- Blank div allows script to automatically pull YouTube thumbnail -->
+                </div>
+                <div class="project-meta">
+                    <div class="project-title">ZOE — ATTITUDE & MOTION</div>
+                    <div class="project-credits-preview">Director | DP | Edit | Colour</div>
+                </div>
+            </div>
+
+            <!-- THIẾU, NỮ (SHORT FILM) -->
+            <div class="project-card" data-category="cinematography" 
+                 data-title="Thiếu, Nữ"
+                 data-category-name="Short Film"
+                 data-poster="2 THIEU NU/000046350017.jpeg"
+                 data-video="https://youtu.be/66nTpR10RQQ"
+                 data-synopsis="“A Trans Vietnamese woman’s letter to herself and her family before secretly starting Hormone Replacement Therapy”"
+                 data-festivals="festival1.png,festival2.png"
+                 data-credits="Cinematography & Photo: Mason Cline||Direction & choreography: Thuỵ Huỳnh Thái||Producer: Jordan Wong||Gaffer: Daniel Fusco||Sound: Izzy Flores-Glasner||Make up & Hairstyling: E Mittens Raposo||Executive Producers: Thuỵ Huỳnh Thái, Mason Cline, Daniel Fusco, & Jordan Wong">
+                <div class="thumbnail-box">
+                    <img src="2 THIEU NU/000046350017.jpeg" alt="Thiếu, Nữ">
+                </div>
+                <div class="project-meta">
+                    <div class="project-title">Thiếu, Nữ</div>
+                    <div class="project-credits-preview">DP | Colour</div>
+                </div>
+            </div>
+
+            <!-- 6. INSYT. — PUPPET STRINGS -->
+            <div class="project-card" data-category="direction editing" 
+                 data-title="INSYT. — PUPPET STRINGS"
+                 data-category-name="Music Video"
+                 data-poster="https://i.imgur.com/8tk6QnM.jpg"
+                 data-video="https://youtu.be/6GvYSWZT93s"
+                 data-credits="Director/ Editor : Mason Cline||Producer: Declan McKenna||DP: Dario Butera||Gaffer: Daniel Fusco||Colourist/ bts: Christian Kinn||Graphics/ swing: Jackson McMurdo||Analog bts: Tafara Gwata||Swing: James Tweedy">
+                <div class="thumbnail-box">
+                    <img src="https://i.imgur.com/8tk6QnM.jpg" alt="insyt. — Puppet Strings">
+                </div>
+                <div class="project-meta">
+                    <div class="project-title">INSYT. — PUPPET STRINGS</div>
+                    <div class="project-credits-preview">Director | Edit</div>
+                </div>
+            </div>
+
+            <!-- 7. PRETTYBXKAY — 4NICATE -->
+            <div class="project-card" data-category="direction editing" 
+                 data-title="PRETTYBXKAY — 4NICATE"
+                 data-category-name="Music Video"
+                 data-poster="https://i.imgur.com/Eh1h6kf.jpg"
+                 data-video="https://www.youtube.com/watch?v=ZTq6Xg301Eg"
+                 data-credits="Director/ Edit/ Super 8: Mason Cline||Executive producer: Misan Edema & @_.ddanielll||DP/Colourist: Dario Butera||Producer/stylist: Misan Edema||AD: Maya Chariandy||PD: Raim Realce||Gaffer: Daniel Fusco||graphics: Jessica Binns||sound mixer: Izzy Flores||Transportation: Jevaughn Stewart Hinds">
+                <div class="thumbnail-box">
+                    <img src="https://i.imgur.com/Eh1h6kf.jpg" alt="Prettybxkay — 4nicate">
+                </div>
+                <div class="project-meta">
+                    <div class="project-title">PRETTYBXKAY — 4NICATE</div>
+                    <div class="project-credits-preview">Director | Edit | Super 8</div>
+                </div>
+            </div>
+
+            <!-- 8. GANGSTA IS GORGEOUS (COMMERCIAL) -->
+            <div class="project-card" data-category="direction editing cinematography" 
+                 data-title="“Gangsta is Gorgeous” KHAKI SET CAMPAIGN"
+                 data-category-name="Commercial"
+                 data-poster="https://i.imgur.com/kPeqMb7.jpg"
+                 data-video="https://www.instagram.com/p/DP7EbUoEogg/"
+                 data-synopsis="A creative campaign for the Brand GBL and their limited edition Khaki Set"
+                 data-credits="Director/ Editor/ DP: Mason Cline||Creative Direction/ Designer: Tafara Gwata||1st AC: Dario Butera||Dolly Grip: Misan Edema">
+                <div class="thumbnail-box">
+                    <img src="https://i.imgur.com/kPeqMb7.jpg" alt="Gangsta is Gorgeous">
+                </div>
+                <div class="project-meta">
+                    <div class="project-title">“Gangsta is Gorgeous” KHAKI SET CAMPAIGN</div>
+                    <div class="project-credits-preview">Director | Edit | DP | Colour</div>
+                </div>
+            </div>
+
+            <!-- 9. DRAFT DAY (COMMERCIAL) -->
+            <div class="project-card" data-category="direction editing" 
+                 data-title="“DRAFT DAY” CÔTÉ Ibis New Era Fitted Campaign"
+                 data-category-name="Commercial"
+                 data-poster="https://i.imgur.com/aXJIkZV.png"
+                 data-video="https://www.instagram.com/p/DQXlhpPidWF/"
+                 data-credits="Director/ edit: Mason Cline||DOP: Christian Kinn||B cam: Dario Butera||Hi-8: Tafara Gwata||Gaffer: Declan McKenna||Sound|colour: Jackson McMurdo||Production design: Tae Lee">
+                <div class="thumbnail-box">
+                    <img src="https://i.imgur.com/aXJIkZV.png" alt="DRAFT DAY">
+                </div>
+                <div class="project-meta">
+                    <div class="project-title">“DRAFT DAY” CÔTÉ Ibis New Era Fitted Campaign</div>
+                    <div class="project-credits-preview">Director | Edit</div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- PHOTOGRAPHY SECTION -->
+    <section id="photography-section">
+        
+        <!-- View 1: Master Uniform Gallery Grid -->
+        <div id="master-gallery-view" class="master-grid">
+            <!-- JavaScript populates images with hover overlays here -->
+        </div>
+
+        <!-- View 2: Traditional Masonry Gallery inside an Album -->
+        <div id="gallery-view" style="display: none;">
+            <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid var(--border-color); padding-bottom: 1rem; margin-bottom: 2rem;">
+                <button onclick="backToMasterGallery()" class="back-btn">&#8592; Back to All Photography</button>
+                <div id="current-album-title" style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-color); font-weight: 600;"></div>
+            </div>
+            <p id="current-album-desc" style="font-size: 0.8rem; color: var(--muted-color); margin-bottom: 3rem; max-width: 600px; text-transform: uppercase; letter-spacing: 0.05em;"></p>
+            
+            <div class="masonry-grid" id="masonry-container">
+                <!-- Specific folder photos populate here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section id="info-section">
+        <div class="info-grid">
+            <div class="info-block">
+                <h3>About</h3>
+                <p>Mason Cline is a director, cinematographer, and photographer specializing in music videos, campaigns, short films, and visual arts.</p>
+                <p style="margin-top: 1rem;">Owner and founder of Pylon Collective.</p>
+            </div>
+            
+            <div>
+                <div class="info-block">
+                    <h3>Contact</h3>
+                    <a href="mailto:mcline@bell.net">mcline@bell.net</a>
+                </div>
+                
+                <div class="info-block">
+                    <h3>Socials</h3>
+                    <a href="https://www.instagram.com/mason.clinee/" target="_blank">@mason.clinee <span class="link-desc">Dir / DP</span></a>
+                    <a href="https://www.instagram.com/planetbogus/" target="_blank">@planetbogus <span class="link-desc">Film / BTS</span></a>
+                    <a href="https://www.instagram.com/pyloncollective/" target="_blank">@pyloncollective <span class="link-desc">Collective</span></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MODAL FOR IN-WEBSITE PLAYBACK & CREDITS VIEW -->
+    <div class="modal-overlay" id="projectModal">
+        <button class="close-btn" onclick="closeModal()">Close &times;</button>
+        <div class="modal-content">
+            
+            <div class="video-container" id="modalPlayer">
+                <iframe id="videoIframe" src="" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
+            </div>
+
+            <div>
+                <div class="modal-info-bar">
+                    <h2 id="modalTitle"></h2>
+                    <span id="modalCategory" style="color: var(--muted-color); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600;"></span>
+                </div>
+                <div id="modalSynopsisContainer"></div>
+                <div id="modalFestivalsContainer"></div>
+                
+                <div class="modal-credits" id="modalCredits">
+                    <!-- Credits populated dynamically -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <div>&copy; <span id="year"></span> Mason Cline</div>
+        <button class="footer-contact-btn" onclick="showInfo(null)">Contact</button>
+        <div>Toronto, ON</div>
+    </footer>
+
+    <!-- JAVASCRIPT FOR INTERACTIVITY -->
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Extracts video ID from ANY YouTube link
+        function getYouTubeId(url) {
+            if (!url || url.includes('PASTE_') || url === 'UPDATE_YOUTUBE_UNLISTED_LINK') return null;
+            if (url.includes('youtu.be/')) {
+                return url.split('youtu.be/')[1].split('?')[0].split('&')[0];
+            } else if (url.includes('watch?v=')) {
+                return url.split('watch?v=')[1].split('&')[0];
+            } else if (url.includes('embed/')) {
+                return url.split('embed/')[1].split('?')[0];
+            } else if (url.length === 11) {
+                return url.trim(); 
+            }
+            return null;
+        }
+
+        function parseVideoUrl(url) {
+            if (!url || url === 'UPDATE_YOUTUBE_UNLISTED_LINK') return '';
+            if (url.includes('instagram.com')) {
+                let cleanUrl = url.split('?')[0]; 
+                if (!cleanUrl.endsWith('/')) {
+                    cleanUrl += '/';
+                }
+                return cleanUrl + 'embed/';
+            }
+            const id = getYouTubeId(url);
+            return id ? `https://www.youtube.com/embed/${id}?autoplay=1` : '';
+        }
+
+        // Auto-generate Thumbnail Images for Videos
+        document.querySelectorAll('.project-card').forEach(card => {
+            const rawVideoUrl = card.getAttribute('data-video');
+            const customPoster = card.getAttribute('data-poster');
+            const videoId = getYouTubeId(rawVideoUrl);
+            const thumbBox = card.querySelector('.thumbnail-box');
+            
+            if (!thumbBox.querySelector('img') && !thumbBox.querySelector('span')) {
+                if (customPoster && !customPoster.includes("PASTE_")) {
+                    thumbBox.innerHTML = `<img src="${customPoster}" alt="${card.getAttribute('data-title')}">`;
+                } else if (videoId) {
+                    thumbBox.innerHTML = `<img src="https://img.youtube.com/vi/${videoId}/maxresdefault.jpg" onerror="this.src='https://img.youtube.com/vi/${videoId}/hqdefault.jpg'" alt="${card.getAttribute('data-title')}">`;
+                }
+            }
+
+            card.addEventListener('click', () => {
+                const title = card.getAttribute('data-title');
+                const category = card.getAttribute('data-category-name');
+                const creditsRaw = card.getAttribute('data-credits');
+                const synopsis = card.getAttribute('data-synopsis');
+                const festivals = card.getAttribute('data-festivals');
+                
+                openModal(title, category, rawVideoUrl, creditsRaw, synopsis, festivals);
+            });
+        });
+
+        // Show Info / Contact view
+        function showInfo(button) {
+            document.getElementById('work-section').style.display = 'none';
+            document.getElementById('photography-section').style.display = 'none';
+            
+            const dynamicTitle = document.getElementById('header-dynamic-title');
+            dynamicTitle.textContent = 'Contact';
+            dynamicTitle.className = 'header-gallery-display';
+            
+            document.getElementById('info-section').style.display = 'block';
+            document.body.style.overflow = 'auto';
+
+            const buttons = document.querySelectorAll('.nav-btn, .header-contact-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            if(button) {
+                button.classList.add('active');
+            } else {
+                document.getElementById('main-contact-btn').classList.add('active');
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Open modal detail view (Video)
+        function openModal(title, category, rawVideoUrl, creditsRaw, synopsis, festivals) {
+            document.getElementById('modalTitle').textContent = title;
+            document.getElementById('modalCategory').textContent = category;
+            
+            const embedUrl = parseVideoUrl(rawVideoUrl);
+            const iframe = document.getElementById('videoIframe');
+            
+            if (rawVideoUrl && rawVideoUrl.includes('instagram.com')) {
+                iframe.classList.add('ig-embed');
+            } else {
+                iframe.classList.remove('ig-embed');
+            }
+            
+            if (embedUrl) {
+                iframe.parentElement.style.display = 'block';
+                iframe.src = embedUrl;
+            } else {
+                iframe.parentElement.style.display = 'none';
+                iframe.src = '';
+            }
+
+            // Synopsis handling
+            const synopsisContainer = document.getElementById('modalSynopsisContainer');
+            synopsisContainer.innerHTML = '';
+            if (synopsis) {
+                const p = document.createElement('div');
+                p.className = 'modal-synopsis';
+                p.textContent = synopsis;
+                synopsisContainer.appendChild(p);
+            }
+
+            // Festivals handling
+            const festivalsContainer = document.getElementById('modalFestivalsContainer');
+            festivalsContainer.innerHTML = '';
+            if (festivals) {
+                const fDiv = document.createElement('div');
+                fDiv.className = 'modal-festivals';
+                festivals.split(',').forEach(f => {
+                    const img = document.createElement('img');
+                    img.src = f.trim();
+                    img.alt = "Film Festival Laurel";
+                    fDiv.appendChild(img);
+                });
+                festivalsContainer.appendChild(fDiv);
+            }
+
+            const creditsContainer = document.getElementById('modalCredits');
+            creditsContainer.innerHTML = '';
+
+            if (creditsRaw) {
+                // Split by double pipe to handle complex lines
+                const lines = creditsRaw.split('||');
+                lines.forEach(line => {
+                    // Try splitting by tilde first, fallback to colon
+                    let parts = line.split('~');
+                    if (parts.length < 2) {
+                        parts = line.split(':');
+                    }
+                    if (parts.length >= 2) {
+                        const role = parts[0].trim();
+                        const names = parts.slice(1).join(':').trim(); 
+                        const item = document.createElement('div');
+                        item.className = 'credit-item';
+                        item.innerHTML = `<h4>${role}</h4><p>${names}</p>`;
+                        creditsContainer.appendChild(item);
+                    }
+                });
+            }
+
+            document.getElementById('projectModal').classList.add('active');
+            document.body.style.overflow = 'hidden'; 
+        }
+
+        function closeModal() {
+            document.getElementById('projectModal').classList.remove('active');
+            setTimeout(() => {
+                document.getElementById('videoIframe').src = '';
+            }, 300); 
+            document.body.style.overflow = 'auto';
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('projectModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+        
+        document.addEventListener('keydown', function(event) {
+            if (event.key === "Escape") {
+                closeModal();
+            }
+        });
+
+        // --- PHOTOGRAPHY DATA ---
+        const photoAlbums = [
+            {
+                id: "reach",
+                title: "REACH campaign",
+                desc: "Editorial Fashion Campaign for REACH COLLECTIVE, featuring Tandie Tyrell & Seunn, shot on 35mm",
+                photos: [
+                    "1 REACH/000036340004 Large.jpeg", "1 REACH/000036340007 Large.jpeg", "1 REACH/000036340011 Large.jpeg", "1 REACH/000036340012 Large.jpeg", "1 REACH/000036340013 Large.jpeg", "1 REACH/000036340015 Large.jpeg", "1 REACH/000036340017 Large.jpeg", "1 REACH/000036340018 Large.jpeg", "1 REACH/000036340019 Large.jpeg", "1 REACH/000036340021 Large.jpeg", "1 REACH/000036340022 Large.jpeg", "1 REACH/000036340024 Large.jpeg", "1 REACH/000070280038 Large.jpeg", "1 REACH/000070280041 Large.jpeg"
+                ]
+            },
+            {
+                id: "pathfinder",
+                title: "PATHFINDER",
+                desc: "Headshots & press photos from the Documentary PATHFINDER (2026) featuring Siby Dioms, Jamal Burger, Magdalena Grammenopoulos, Claire Senjule & Kait Nichols, shot on 35mm",
+                photos: [
+                    "10 PATHFINDER/000012250004 Large.jpeg", "10 PATHFINDER/000012250008 Large.jpeg", "10 PATHFINDER/000012250014 Large.jpeg", "10 PATHFINDER/000012250015 Large.jpeg", "10 PATHFINDER/000012250016 Large.jpeg", "10 PATHFINDER/000012250019 Large.jpeg", "10 PATHFINDER/000012250022 Large.jpeg", "10 PATHFINDER/000012250023 Large.jpeg", "10 PATHFINDER/000012260013 Large.jpeg", "10 PATHFINDER/000012260025 Large.jpeg", "10 PATHFINDER/000012260026 Large.jpeg", "10 PATHFINDER/000012260027 Large.jpeg", "10 PATHFINDER/000012260029 Large.jpeg", "10 PATHFINDER/000012260034 Large.jpeg", "10 PATHFINDER/000012260036 Large.jpeg"
+                ]
+            },
+            {
+                id: "zoe",
+                title: "ZOE",
+                desc: "Editorial and press photos featuring Zoe, shot on 35mm",
+                photos: [
+                    "11 ZOE/000029480033 Large.jpeg", "11 ZOE/000047690026 Large.jpeg", "11 ZOE/000047690031 Large.jpeg", "11 ZOE/000047690032 Large.jpeg", "11 ZOE/000047690033 Large.jpeg", "11 ZOE/ZOE LONG 2 Large.jpeg"
+                ]
+            },
+            {
+                id: "other",
+                title: "OTHER PHOTOS",
+                desc: "Miscellaneous photography.",
+                photos: [
+                    "12 OTHER PHOTOS/000024940007 Large.jpeg", "12 OTHER PHOTOS/000051540001 Large.jpeg"
+                ]
+            },
+            {
+                id: "thieu-nu",
+                title: "Thiếu, Nữ",
+                desc: "A photo series complimenting the documentary Thiếu, Nữ (2025), featuring Thuỵ Huỳnh Thái, shot on 35mm & 120mm",
+                photos: [
+                    "2 THIEU NU/000046350017.jpeg", "2 THIEU NU/000046350019.jpeg", "2 THIEU NU/000046350021.jpeg", "2 THIEU NU/005034680001.jpeg", "2 THIEU NU/005034680002.jpeg", "2 THIEU NU/005034680003.jpeg", "2 THIEU NU/005034680005.jpeg", "2 THIEU NU/005034680006.jpeg", "2 THIEU NU/IMG_9615.jpeg", "2 THIEU NU/IMG_9634.jpeg", "2 THIEU NU/IMG_9824.jpeg", "2 THIEU NU/IMG_9833.jpeg"
+                ]
+            },
+            {
+                id: "spike-bts",
+                title: "SP!KE shortfilm BTS",
+                desc: "BTS & HEADSHOTS from the shortfilm SP!KE, shot on 35mm",
+                photos: [
+                    "3 BTS/000022180007.jpeg", "3 BTS/000022180015.jpeg", "3 BTS/000022180035.jpeg", "3 BTS/000066330008.jpeg", "3 BTS/000066330013.jpeg", "3 BTS/000066330015.jpeg", "3 BTS/005014470005.jpeg", "3 BTS/005014470010.jpeg", "3 BTS/005014470019.jpeg", "3 BTS/005014470021.jpeg", "3 BTS/005014470022.jpeg", "3 BTS/005014470025.jpeg", "3 BTS/005014470033.jpeg", "3 BTS/IMG_1551.jpeg"
+                ]
+            },
+            {
+                id: "toll-bts",
+                title: "TOLL BTS",
+                desc: "BTS & press photos from the music video TOLL featuring Insyt. & Nardos Almaz, shot on 35mm",
+                photos: [
+                    "4 TOLL/000405190006 Large.jpeg", "4 TOLL/000405190007 Large.jpeg", "4 TOLL/000405190008 Large.jpeg", "4 TOLL/000405190013 Large.jpeg", "4 TOLL/000405190018 Large.jpeg", "4 TOLL/000405190021 Large.jpeg", "4 TOLL/000405190023 Large.jpeg", "4 TOLL/000405190027 Large.jpeg"
+                ]
+            },
+            {
+                id: "360-bts",
+                title: "360° BTS",
+                desc: "BTS & press photos from the music video 360° starring Insyt. Shot on 35mm",
+                photos: [
+                    "5 360/000004040004 Large.jpeg", "5 360/000004040006 Large.jpeg", "5 360/000004040008 Large.jpeg", "5 360/000004040009-2 Large.jpeg", "5 360/000004040010-2 Large.jpeg", "5 360/000004040015 Large.jpeg", "5 360/000004040016 Large.jpeg", "5 360/000004040017 Large.jpeg", "5 360/000004040024 Large.jpeg"
+                ]
+            },
+            {
+                id: "cellular-tones",
+                title: "Cellular Tones",
+                desc: "Editorial shoot featuring Jessica Binns, shot on 35mm",
+                photos: [
+                    "6 CELLULAR TONES/000073880018 Large.jpeg", "6 CELLULAR TONES/000073880019 Large.jpeg", "6 CELLULAR TONES/000073880027 Large.jpeg"
+                ]
+            },
+            {
+                id: "gbl-campaign",
+                title: "GBL campaign",
+                desc: "GBL fashion campaign featuring Deeds, Noah Ferguson & Tafara Gwata, shot on 35mm",
+                photos: [
+                    "7 GBL CAMPAIGN/000006640023 Large.jpeg", "7 GBL CAMPAIGN/000006640025 Large.jpeg", "7 GBL CAMPAIGN/IMG_2325 Large.jpeg", "7 GBL CAMPAIGN/IMG_8586 Large.jpeg"
+                ]
+            },
+            {
+                id: "heal-bts",
+                title: "HEAL BTS",
+                desc: "BTS from the music video HEAL featuring Insyt. & Declan Mckenna, shot on 35mm",
+                photos: [
+                    "8 HEAL BTS/000051540020 Large.jpeg", "8 HEAL BTS/000051540022 Large.jpeg", "8 HEAL BTS/000051540025 Large.jpeg", "8 HEAL BTS/000051540026 Large.jpeg"
+                ]
+            },
+            {
+                id: "kuay-lucia",
+                title: "KUAY & LUCIA",
+                desc: "Editorial shot featuring Kuay Madit & Lucia Castro Giron, shot on 35mm",
+                photos: [
+                    "9 KUAY & LUCIA/000047690005 Large.jpeg", "9 KUAY & LUCIA/000047690008 Large.jpeg", "9 KUAY & LUCIA/000047690009 Large.jpeg", "9 KUAY & LUCIA/000047690010 Large.jpeg"
+                ]
+            }
+        ];
+
+        // --- MASTER UNIFORM GRID ENGINE ---
+        function renderMasterGallery() {
+            const masterView = document.getElementById('master-gallery-view');
+            masterView.innerHTML = ''; 
+            
+            let allPhotos = [];
+            
+            photoAlbums.forEach(album => {
+                album.photos.forEach(photoSrc => {
+                    allPhotos.push({ src: photoSrc, albumId: album.id, albumTitle: album.title });
+                });
+            });
+
+            for (let i = allPhotos.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [allPhotos[i], allPhotos[j]] = [allPhotos[j], allPhotos[i]];
+            }
+
+            allPhotos.forEach(item => {
+                const wrapper = document.createElement('div');
+                wrapper.className = 'gallery-item';
+                wrapper.onclick = () => openGallery(item.albumId);
+
+                const img = document.createElement('img');
+                img.src = item.src;
+                img.loading = "lazy"; 
+                
+                const hoverLabel = document.createElement('div');
+                hoverLabel.className = 'hover-label';
+                hoverLabel.textContent = item.albumTitle;
+
+                wrapper.appendChild(img);
+                wrapper.appendChild(hoverLabel);
+                masterView.appendChild(wrapper);
+            });
+        }
+
+        renderMasterGallery();
+
+        function openGallery(albumId) {
+            const album = photoAlbums.find(a => a.id === albumId);
+            if(!album) return;
+
+            document.getElementById('master-gallery-view').style.display = 'none';
+            document.getElementById('gallery-view').style.display = 'block';
+            
+            document.getElementById('current-album-title').textContent = album.title;
+            document.getElementById('current-album-desc').textContent = album.desc;
+
+            const masonry = document.getElementById('masonry-container');
+            masonry.innerHTML = '';
+
+            album.photos.forEach(photoSrc => {
+                const img = document.createElement('img');
+                img.src = photoSrc;
+                img.loading = "lazy"; 
+                masonry.appendChild(img);
+            });
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function backToMasterGallery() {
+            document.getElementById('gallery-view').style.display = 'none';
+            document.getElementById('master-gallery-view').style.display = 'block';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function filterProjects(category, button) {
+            document.getElementById('work-section').style.display = 'none';
+            document.getElementById('info-section').style.display = 'none';
+            document.getElementById('photography-section').style.display = 'none';
+            
+            const dynamicTitle = document.getElementById('header-dynamic-title');
+
+            if(category === 'all') {
+                dynamicTitle.textContent = 'Mason Cline';
+                dynamicTitle.className = 'header-name-display';
+                document.getElementById('work-section').style.display = 'block';
+            } else if (category === 'photography') {
+                dynamicTitle.textContent = 'Gallery';
+                dynamicTitle.className = 'header-gallery-display';
+                document.getElementById('photography-section').style.display = 'block';
+                backToMasterGallery(); 
+            } else {
+                dynamicTitle.textContent = 'Mason Cline';
+                dynamicTitle.className = 'header-name-display';
+                document.getElementById('work-section').style.display = 'block';
+            }
+
+            const buttons = document.querySelectorAll('.nav-btn, .header-contact-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            if(button) button.classList.add('active');
+
+            if(category !== 'photography') {
+                const cards = document.querySelectorAll('#work-section .project-card');
+                cards.forEach(card => {
+                    const cardCategories = card.getAttribute('data-category');
+                    if (category === 'all' || (cardCategories && cardCategories.includes(category))) {
+                        card.style.display = 'flex';
+                        card.style.animation = 'none';
+                        card.offsetHeight;
+                        card.style.animation = 'fadeIn 0.5s ease forwards';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            }
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
